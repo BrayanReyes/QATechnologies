@@ -1,0 +1,2 @@
+# QATechnologies
+Maven, TestNQ, Selenium
