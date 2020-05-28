@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="example test suite" verbose="1">
+	<test name="example run">
+		<classes>
+<!--			<class name="com.automation.web.tests.ExampleLocators"/>-->
+			<class name="com.automation.web.tests.TestPagePaul"/>
+		</classes>
+	</test>
+</suite>
