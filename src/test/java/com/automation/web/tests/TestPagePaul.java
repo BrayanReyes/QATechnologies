@@ -58,12 +58,14 @@ public class TestPagePaul {
         //Print all CSS required to get homework points
         listCss.forEach(tmp_css -> {
             WebElement tempWebElement = driver.getDriver().findElement(By.cssSelector(tmp_css));
-            log.info("*** CSS: \"" + tmp_css + "\"" + " *** TagName:"+ tempWebElement.getTagName() + "   *** Value: " + tempWebElement.getText().replace("\n", ""));
+            log.info("*** CSS: \"" + tmp_css + "\"" + " *** TagName:"+ tempWebElement.getTagName() + "   *** Value: "
+                    + tempWebElement.getText().replace("\n", ""));
         });
 
 //        for(String tmp_css:listCss) {
 //            WebElement tempWebElement = driver.getDriver().findElement(By.cssSelector(tmp_css));
-//            log.info("*** CSS: \"" + tmp_css + "\"" + " *** TagName:"+ tempWebElement.getTagName() + "   *** Value: " + tempWebElement.getText().replace("\n", ""));
+//            log.info("*** CSS: \"" + tmp_css + "\"" + " *** TagName:"+ tempWebElement.getTagName() + "   *** Value: "
+//            + tempWebElement.getText().replace("\n", ""));
 //        }
     }
 
