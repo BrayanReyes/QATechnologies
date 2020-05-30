@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Test IFrame" verbose="1">
+    <listeners>
+        <listener class-name="org.suiteTest.web.iframes.listeners.Listener"></listener>
+    </listeners>
+    <parameter name="browser" value="chrome"></parameter>
+    <parameter name="url" value="https://mdbootstrap.com/plugins/jquery/iframe/"></parameter>
+    <test name="IFrame YoutubePlay and PlayVideo">
+        <classes>
+            <class name="org.suiteTest.web.iframes.tests.TestSuite"></class>
+        </classes>
+    </test>
+</suite>
