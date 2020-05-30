@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
@@ -30,6 +31,8 @@ public class BasePage {
         PageFactory.initElements(
                 new AjaxElementLocatorFactory(this.driver,30)
                 ,this);
+
+        sleep(5);
     }
 
     /**
@@ -66,7 +69,7 @@ public class BasePage {
 
     /**
      * Wait for element to be clickable
-     * @param webElement
+     * @param  {@link WebElement}
      */
     public boolean waitElementToBeClickable(WebElement webElement){
         try {
@@ -83,22 +86,38 @@ public class BasePage {
         }
     }
 
-
+    /**
+     * Switch to iFrame inside the web page
+     * @param iFrame WebElement
+     * @return  {@link WebDriver}
+     */
     public WebDriver switchToIFrame(WebElement iFrame){
         waitElementVisibility(iFrame);
         //return wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iFrame));
         return getDriver().switchTo().frame(iFrame);
     }
 
+    /**
+     * Switch to iFrame inside the web page
+     * @param iFrame
+     * @return {@link WebDriver}
+     */
     public WebDriver switchToIFrame(int iFrame){
        return getDriver().switchTo().frame(iFrame);
     }
 
-    public void switchToDefaultContent(){
-        getDriver().switchTo().defaultContent();
+    /**
+     * Switch from iFrame to the main page
+     * @return {@link WebDriver}
+     */
+    public WebDriver switchToDefaultContent(){
+        return getDriver().switchTo().defaultContent();
     }
 
-    // Delete this method
+    /**
+     * Another implicit Wait by n secodns
+     * @param seconds
+     */
     protected void sleep (int seconds){
         try {
             log.info("Sleeping "+seconds+" seconds.");
@@ -106,5 +125,15 @@ public class BasePage {
         }catch (Exception e){
             log.info("Error: Could not sleep.");
         }
+    }
+
+    /**
+     * Scroll inside the web page until the web element
+     * @param webElement
+     */
+    protected void moveToWebElement(WebElement webElement){
+        Actions action = new Actions(getDriver());
+        action.clickAndHold(webElement).moveToElement(webElement)
+                .release(webElement).build().perform();
     }
 }

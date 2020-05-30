@@ -27,13 +27,18 @@ public class HomePage extends BasePage{
         getDriver().get(url);
     }
 
+    /**
+     * Switch to youtube iFrame
+     * @return {@link YoutubeIFrame}
+     */
     public YoutubeIFrame switchToIFrameYoutube(){
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(youtubeIFrame);
-        actions.perform();
         return new YoutubeIFrame(switchToIFrame(youtubeIFrame));
     }
 
+    /**
+     * Switch to Vimeo iFrame
+     * @return {@link VimeoIFrame}
+     */
     public VimeoIFrame switchToIFrameVimeo(){
         return new VimeoIFrame(switchToIFrame(vimeoIFrame));
     }

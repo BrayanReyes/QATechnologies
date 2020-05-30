@@ -17,7 +17,7 @@ public class TestSuite extends BaseTest{
         driver.getDriver().get(url);
     }
 
-    @Test(description = "Youtube IFrame Test", enabled = false)
+    @Test(description = "Youtube IFrame Test, Play and Pause")
     public void youtubeTest(){
         log.info("Starting Youtube Test");
         HomePage homePage = getHomePage();
@@ -26,7 +26,7 @@ public class TestSuite extends BaseTest{
         youtubeIFrame.pauseVideo();
     }
 
-    @Test(description = "Vimeo IFrame Test")
+    @Test(description = "Vimeo IFrame Test, Play and Pause")
     public void vimeoTest(){
         log.info("Starting Vimeo Test");
         HomePage homePage = getHomePage();

@@ -3,6 +3,7 @@ package org.suiteTest.web.iframes.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import javax.lang.model.element.Element;
@@ -24,27 +25,24 @@ public class VimeoIFrame extends BasePage{
         super(driver);
     }
 
+    /**
+     * Play Vimeo video by 10 seconds
+     */
     public void playVideo(){
-        //getDriver().findElement(By.cssSelector("div.vp-controls.tiny button.play.rounded-box.state-paused")).click();
         log.info("Playing Vimeo Video");
-        List<WebElement> list = getDriver().findElements(By.cssSelector("button.play.rounded-box.state-paused *"));
-
-        list.forEach(element -> log.info( "Element  "+ element.getText() +" -- "
-                + element.getTagName() + " -- Clickable: "
-                +waitElementToBeClickable(element)));
-
-        //waitElementVisibility(playButton);
-        //waitElementToBeClickable(playButton);
+        moveToWebElement(playButton);
+        waitElementVisibility(playButton);
+        waitElementToBeClickable(playButton);
         playButton.click();
         sleep(10);
     }
 
+    /**
+     * Pause Vimeo video
+     */
     public void pauseVideo(){
         log.info("Pausing Vimeo Video");
-
-        //waitElementVisibility(pauseButton);
-        //waitElementToBeClickable(pauseButton);
         pauseButton.click();
-        sleep(10);
+        sleep(2);
     }
 }
