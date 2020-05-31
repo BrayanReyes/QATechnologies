@@ -6,12 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="QATechnologies" />
+        <module name="QATechnologies_IFrames" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="iframes" target="1.5" />
-      <module name="QATechnologies" target="1.8" />
+      <module name="QATechnologies_IFrames" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -26,14 +26,10 @@ public class YoutubeIFrame extends BasePage {
      */
     public void playVideo(){
         log.info("Playing Youtube Video");
-        //moveToWebElement(playButton);
-        //moveToWebElement(getDriver().findElement(By.cssSelector("div[class*='ytp-large-widt']")));
-        //waitElementVisibility(playButton);
-        //waitElementToBeClickable(playButton);
-        playButton.click();
-        sleep(5);
+        waitElementVisibility(playButton);
+        clickElement(playButton);
+        sleep(10);
     }
-
 
     /**
      * Pause Youtube video

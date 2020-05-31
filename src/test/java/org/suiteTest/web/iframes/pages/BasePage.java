@@ -31,8 +31,6 @@ public class BasePage {
         PageFactory.initElements(
                 new AjaxElementLocatorFactory(this.driver,30)
                 ,this);
-
-        sleep(5);
     }
 
     /**
@@ -68,8 +66,10 @@ public class BasePage {
     }
 
     /**
+     *
      * Wait for element to be clickable
-     * @param  {@link WebElement}
+     * @param webElement {@link WebElement}
+     * @return boolean
      */
     public boolean waitElementToBeClickable(WebElement webElement){
         try {
@@ -77,7 +77,7 @@ public class BasePage {
             return true;
         }
         catch (TimeoutException eTimeOut){
-            log.info("TimeOut exception");
+            log.info("TimeOut exception with Web element");
             return false;
         }
         catch (Exception e){
@@ -93,7 +93,6 @@ public class BasePage {
      */
     public WebDriver switchToIFrame(WebElement iFrame){
         waitElementVisibility(iFrame);
-        //return wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iFrame));
         return getDriver().switchTo().frame(iFrame);
     }
 
@@ -103,7 +102,7 @@ public class BasePage {
      * @return {@link WebDriver}
      */
     public WebDriver switchToIFrame(int iFrame){
-       return getDriver().switchTo().frame(iFrame);
+        return getDriver().switchTo().frame(iFrame);
     }
 
     /**
@@ -128,12 +127,25 @@ public class BasePage {
     }
 
     /**
+     * Scroll inside the web page until the web element and click it
+     * @param webElement
+     */
+    protected void clickElement(WebElement webElement){
+        if(waitElementToBeClickable(webElement)) {
+            Actions action = new Actions(getDriver());
+            action.moveToElement(webElement).click().build().perform();
+            log.info("Moving and clicking.");
+        }
+    }
+
+    /**
      * Scroll inside the web page until the web element
      * @param webElement
      */
     protected void moveToWebElement(WebElement webElement){
         Actions action = new Actions(getDriver());
-        action.clickAndHold(webElement).moveToElement(webElement)
-                .release(webElement).build().perform();
+        action.moveToElement(webElement).build().perform();
     }
+
+
 }

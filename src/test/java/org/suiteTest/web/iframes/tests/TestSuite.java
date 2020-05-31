@@ -26,7 +26,7 @@ public class TestSuite extends BaseTest{
         youtubeIFrame.pauseVideo();
     }
 
-    @Test(description = "Vimeo IFrame Test, Play and Pause")
+    @Test(description = "Vimeo IFrame Test, Play and Pause", enabled=true)
     public void vimeoTest(){
         log.info("Starting Vimeo Test");
         HomePage homePage = getHomePage();

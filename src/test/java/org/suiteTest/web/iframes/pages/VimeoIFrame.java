@@ -12,11 +12,12 @@ import java.util.List;
 public class VimeoIFrame extends BasePage{
 
 
-    @FindBy(css = ".play-icon .fill")
+    @FindBy(css =".play-icon .fill")
     private WebElement playButton;
 
     @FindBy(css = ".pause-icon > svg")
     private WebElement pauseButton;
+
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
      * @param driver
@@ -30,10 +31,8 @@ public class VimeoIFrame extends BasePage{
      */
     public void playVideo(){
         log.info("Playing Vimeo Video");
-        moveToWebElement(playButton);
         waitElementVisibility(playButton);
-        waitElementToBeClickable(playButton);
-        playButton.click();
+        clickElement(playButton);
         sleep(10);
     }
 

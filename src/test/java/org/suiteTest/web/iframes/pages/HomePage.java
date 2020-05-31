@@ -15,9 +15,14 @@ public class HomePage extends BasePage{
     @FindBy(css = "#youtube section.p-1 .embed-responsive-item")
     private WebElement youtubeIFrame;
 
+    @FindBy(css = "a[href='#youtube']")
+    private WebElement youtubeIFrameSection;
+
     @FindBy(css = "#vimeo section.p-1 .embed-responsive-item")
     private WebElement vimeoIFrame;
 
+    @FindBy(css = "a[href='#vimeo']")
+    private WebElement vimeoIFrameSection;
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
      * @param driver
@@ -32,6 +37,7 @@ public class HomePage extends BasePage{
      * @return {@link YoutubeIFrame}
      */
     public YoutubeIFrame switchToIFrameYoutube(){
+        clickElement(youtubeIFrameSection);
         return new YoutubeIFrame(switchToIFrame(youtubeIFrame));
     }
 
@@ -40,6 +46,7 @@ public class HomePage extends BasePage{
      * @return {@link VimeoIFrame}
      */
     public VimeoIFrame switchToIFrameVimeo(){
+        clickElement(vimeoIFrameSection);
         return new VimeoIFrame(switchToIFrame(vimeoIFrame));
     }
 
