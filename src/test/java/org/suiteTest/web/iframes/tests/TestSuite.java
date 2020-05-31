@@ -1,6 +1,7 @@
 package org.suiteTest.web.iframes.tests;
 
 import org.suiteTest.web.iframes.pages.HomePage;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestSuite extends BaseTest{
+
+    private final String alertMessage = "We are only able to book between 1 and 6 travellers. Please adjust the number of travellers for your search.";
 
     @Test(description = "Check Fly")
     public void checkFly() {
@@ -24,7 +27,9 @@ public class TestSuite extends BaseTest{
 //        String[] a = {"0","10","1","2","3"};
 //        home.setChildrenAge(a);
         home.setChildrenAge("0","10","1","2","3");
-        //Assert.assert
+        home.searchFly();
+        Assert.assertEquals(home.getAlertMessage(),alertMessage,
+                "Error Alert is not the same: "+ home.getAlertMessage());
     }
 
 

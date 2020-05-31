@@ -42,6 +42,12 @@ public class HomePage extends BasePage{
     private WebElement childrenWebElement;
     private Select children ;
 
+    @FindBy(css = ".btn-primary.btn-action.gcw-submit[data-gcw-change-submit-text='Search']")
+    private WebElement searchButton;
+
+    @FindBy(css = ".alert.alert-error.validation-alert[aria-hidden='false'] a")
+    private WebElement alertMessage;
+
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
      * @param driver
@@ -150,6 +156,20 @@ public class HomePage extends BasePage{
                 log.info("ERROR --> Adults value not allowed "+childrenAge[i]);
             }
         }
-        sleep(10); // Delete it
+    }
+
+    /**
+     * Click on Search Button
+     */
+    public void searchFly(){
+        log.info("Date d "+departingDate.getText());
+        log.info("Date r"+returningDate.getText());
+        clickElement(searchButton);
+        sleep(5);
+    }
+
+    public String getAlertMessage(){
+        waitElementVisibility(alertMessage);
+        return alertMessage.getText();
     }
 }
