@@ -2,13 +2,12 @@
 Maven, TestNQ, Selenium
 
 This project will solve:
-
-Go to the following web page:
-https://mdbootstrap.com/plugins/jquery/iframe/
-Create a new suite that includes the following test cases:
-1. Create a test that plays the video from the YouTube
-iFrame.
-2. Create a test that plays the video from the Vimeo
-iFrame.
-Use Page Object Model pattern
-Use Assertions to validate that videos played as expected
+Go to the following webpage:
+https://www.travelocity.com/
+1. Select flights option.
+2. Flying from: LAS
+3. Flying to: LAX
+4. Departing: 4 days after today
+5. Returning: 10 days after today
+6. Adults: 4
+7. Children: 5

@@ -11,6 +11,8 @@ import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.LocalDate;
+
 /**
  * Class with all common methods between web pages.
  * @author Pinguin
@@ -131,9 +133,10 @@ public class BasePage {
      * Scroll inside the web page until the web element
      * @param webElement
      */
-    protected void moveToWebElement(WebElement webElement){
+    protected void clickElement(WebElement webElement){
+        waitElementToBeClickable(webElement);
         Actions action = new Actions(getDriver());
-        action.clickAndHold(webElement).moveToElement(webElement)
-                .release(webElement).build().perform();
+        action.moveToElement(webElement).click().build().perform();
     }
+
 }

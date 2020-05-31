@@ -5,7 +5,7 @@
         <listener class-name="org.suiteTest.web.iframes.listeners.Listener"></listener>
     </listeners>
     <parameter name="browser" value="chrome"></parameter>
-    <parameter name="url" value="https://mdbootstrap.com/plugins/jquery/iframe/"></parameter>
+    <parameter name="url" value="https://www.travelocity.com/"></parameter>
     <test name="IFrame YoutubePlay and PlayVideo">
         <classes>
             <class name="org.suiteTest.web.iframes.tests.TestSuite"></class>

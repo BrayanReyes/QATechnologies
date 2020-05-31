@@ -1,11 +1,12 @@
 package org.suiteTest.web.iframes.tests;
 
 import org.suiteTest.web.iframes.pages.HomePage;
-import org.suiteTest.web.iframes.pages.VimeoIFrame;
-import org.suiteTest.web.iframes.pages.YoutubeIFrame;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestSuite extends BaseTest{
 
@@ -17,21 +18,18 @@ public class TestSuite extends BaseTest{
         driver.getDriver().get(url);
     }
 
-    @Test(description = "Youtube IFrame Test, Play and Pause")
-    public void youtubeTest(){
-        log.info("Starting Youtube Test");
-        HomePage homePage = getHomePage();
-        YoutubeIFrame youtubeIFrame = homePage.switchToIFrameYoutube();
-        youtubeIFrame.playVideo();
-        youtubeIFrame.pauseVideo();
-    }
-
-    @Test(description = "Vimeo IFrame Test, Play and Pause")
-    public void vimeoTest(){
-        log.info("Starting Vimeo Test");
-        HomePage homePage = getHomePage();
-        VimeoIFrame vimeoIFrame = homePage.switchToIFrameVimeo();
-        vimeoIFrame.playVideo();
-        vimeoIFrame.pauseVideo();
+    @Test(description = "Check Fly")
+    public void checkFly() {
+        HomePage home = getHomePage();
+        home.flySection();
+        home.setFlyKind();
+        home.setFlyingFrom("LAS");
+        home.setFlyingTo("LAX");
+        home.setAdults("3");
+        home.setChildren("2");
+        home.setDepartingDate();
+        home.setReturningDate();
+        String[] a = {"0","10"};
+        home.setChildrenAge(a);
     }
 }
