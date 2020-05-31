@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="3Suite Deactivated Account" verbose="1">
+
+    <listeners>
+        <listener class-name="com.espn.test.listeners.Listener"/>
+    </listeners>
+
+    <test name="DeactivatedAccountESPN">
+        <!--        <groups></groups>-->
+        <classes>
+            <class name="com.espn.test.TestDeactivatedAccountESPN"></class>
+        </classes>
+    </test>
+</suite>

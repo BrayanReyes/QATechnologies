@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="4Suite Regression" verbose="1">
+
+    <listeners>
+        <listener class-name="com.espn.test.listeners.Listener"/>
+    </listeners>
+
+    <test name="Regression">
+        <!--        <groups></groups>-->
+        <classes>
+            <class name="com.espn.test.TestLoginESPN"></class>
+            <class name="com.espn.test.TestLogOutESPN"></class>
+            <class name="com.espn.test.TestDeactivatedAccountESPN"></class>
+        </classes>
+    </test>
+</suite>
