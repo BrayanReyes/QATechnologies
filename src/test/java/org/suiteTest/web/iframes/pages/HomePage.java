@@ -162,14 +162,19 @@ public class HomePage extends BasePage{
      * Click on Search Button
      */
     public void searchFly(){
-        log.info("Date d "+departingDate.getText());
-        log.info("Date r"+returningDate.getText());
         clickElement(searchButton);
-        sleep(5);
     }
 
     public String getAlertMessage(){
         waitElementVisibility(alertMessage);
         return alertMessage.getText();
+    }
+
+    public boolean checkDepartureDate(String dateDeparture) {
+        return (dateDeparture.equals(departingDate.getAttribute("value")));
+    }
+
+    public boolean checkReturnDate(String dateReturn) {
+        return (dateReturn.equals(returningDate.getAttribute("value")));
     }
 }
