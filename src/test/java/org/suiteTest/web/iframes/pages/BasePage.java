@@ -33,8 +33,6 @@ public class BasePage {
         PageFactory.initElements(
                 new AjaxElementLocatorFactory(this.driver,30)
                 ,this);
-
-        sleep(5);
     }
 
     /**
@@ -70,8 +68,10 @@ public class BasePage {
     }
 
     /**
+     *
      * Wait for element to be clickable
-     * @param  {@link WebElement}
+     * @param webElement {@link WebElement}
+     * @return boolean
      */
     public boolean waitElementToBeClickable(WebElement webElement){
         try {
@@ -79,7 +79,7 @@ public class BasePage {
             return true;
         }
         catch (TimeoutException eTimeOut){
-            log.info("TimeOut exception");
+            log.info("TimeOut exception with Web element");
             return false;
         }
         catch (Exception e){
@@ -95,7 +95,6 @@ public class BasePage {
      */
     public WebDriver switchToIFrame(WebElement iFrame){
         waitElementVisibility(iFrame);
-        //return wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iFrame));
         return getDriver().switchTo().frame(iFrame);
     }
 
@@ -130,13 +129,27 @@ public class BasePage {
     }
 
     /**
-     * Scroll inside the web page until the web element
+     * Scroll inside the web page until the web element and click it
      * @param webElement
      */
     protected void clickElement(WebElement webElement){
-        waitElementToBeClickable(webElement);
-        Actions action = new Actions(getDriver());
-        action.moveToElement(webElement).click().build().perform();
+        if(waitElementToBeClickable(webElement)) {
+            Actions action = new Actions(getDriver());
+            action.moveToElement(webElement).click().build().perform();
+        }
     }
 
+    /**
+     * Return a CSS with a specific format increasing the current date by the days
+     * CSS -Format -> button[data-year='2020'][data-month='5'][data-day='3']
+     * Note: Minus one month because in web page months start at 0 and end at 11
+     * @param days
+     * @return {@link String}
+     */
+    protected String todayDateIncreasedBy(int days) {
+        LocalDate increasedDate= LocalDate.now().plusDays(days).minusMonths(1);
+        return "button[data-year='"+increasedDate.getYear()+"']" +
+                "[data-month='"+increasedDate.getMonthValue()+"']" +
+                "[data-day='"+increasedDate.getDayOfMonth()+"']";
+    }
 }

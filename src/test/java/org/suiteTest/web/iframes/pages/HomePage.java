@@ -53,42 +53,64 @@ public class HomePage extends BasePage{
         children = new Select (this.childrenWebElement);
     }
 
+    /**
+     * Click in Fly Button
+     */
     public void flySection(){
         waitElementVisibility(buttonFlights);
         clickElement(buttonFlights);
     }
 
-    // Use enum
+    /**
+     * Click on RoundTrip
+     */
     public void setFlyKind(){
         waitElementVisibility(roundTrip);
         clickElement(roundTrip);
     }
 
+    /**
+     * Set the place from where you are going to depart
+     * @param flyingFrom
+     */
     public void setFlyingFrom(String flyingFrom){
         waitElementVisibility(this.flyingFrom);
-        this.flyingFrom.sendKeys(flyingFrom+Keys.TAB);
+        this.flyingFrom.sendKeys(flyingFrom );
     }
 
+    /**
+     * Set the place Where do you want to fly
+     * @param flyingTo
+     */
     public void setFlyingTo(String flyingTo){
         waitElementVisibility(this.flyingTo);
-        this.flyingTo.sendKeys(flyingTo+Keys.TAB);
+        this.flyingTo.sendKeys(flyingTo );
     }
 
+    /**
+     * Set date when trip starts four days after today
+     */
     public void setDepartingDate(){
-        this.departingDate.click();
+        clickElement(this.departingDate);
         String tmpCSS = todayDateIncreasedBy(4);
-        log.info(tmpCSS);
         WebElement startDate = getDriver().findElement(By.cssSelector(tmpCSS));
         clickElement(startDate);
     }
 
+    /**
+     * Set date when the trip ends ten days after today
+     */
     public void setReturningDate(){
-        this.returningDate.click();
+        clickElement(this.returningDate);
         String tmpCSS = todayDateIncreasedBy(10);
         WebElement endDate = getDriver().findElement(By.cssSelector(tmpCSS));
         clickElement(endDate);
     }
 
+    /**
+     * Set the quantity of adults in the fly
+     * @param adults
+     */
     public void setAdults(String adults){
         try {
             this.adults.selectByValue(adults);
@@ -98,6 +120,10 @@ public class HomePage extends BasePage{
         }
     }
 
+    /**
+     * Set the quantity of children in the fly
+     * @param children
+     */
     public void setChildren(String children){
         try {
             this.children.selectByValue(children);
@@ -107,8 +133,13 @@ public class HomePage extends BasePage{
         }
     }
 
+    /**
+     * Set the age of all childrens
+     * @param childrenAge
+     */
     public void setChildrenAge(String... childrenAge){
         for (int i =0; i<childrenAge.length;i++){
+            // ID of CSS Selector generate by Children
             String tmpCSS = "#flight-age-select-"+(i+1)+"-hp-flight";
             WebElement childAgeWE = getDriver().findElement(By.cssSelector(tmpCSS));
             Select childAgeS = new Select(childAgeWE);
@@ -119,14 +150,6 @@ public class HomePage extends BasePage{
                 log.info("ERROR --> Adults value not allowed "+childrenAge[i]);
             }
         }
-        sleep(10);
-    }
-
-    private String todayDateIncreasedBy(int days) {
-        LocalDate increasedDate= LocalDate.now().plusDays(days).minusMonths(1);
-        String tmpCSS= "button[data-year='"+increasedDate.getYear()+"']" +
-                "[data-month='"+increasedDate.getMonthValue()+"']" +
-                "[data-day='"+increasedDate.getDayOfMonth()+"']";
-        return tmpCSS;
+        sleep(10); // Delete it
     }
 }
