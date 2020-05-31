@@ -3,7 +3,6 @@ package org.suiteTest.web.iframes.pages;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
@@ -69,11 +68,7 @@ public class HomePage extends BasePage{
             log.info("Cookies accepted");
         }
         catch (NoSuchElementException e){
-            log.info("Cookies alarm not present");
+            log.info("Cookies pop up not present");
         }
     }
-
-
-
-
 }

@@ -12,15 +12,15 @@ public class VimeoIFrame extends BasePage{
     private WebElement playButton;
 
     @FindBy(className = "focus-target")
-    private WebElement slider;
+    private WebElement sliderVimeo;
 
     /**
-     * Contructor, a factory for producing {@link ElementLocator}s.
+     * Constructor, a factory for producing {@link ElementLocator}s.
      * @param driver
      */
     public VimeoIFrame(WebDriver driver) {
         super(driver);
-        setSlider(this.slider);
+        setSlider(sliderVimeo);
     }
 
     /**

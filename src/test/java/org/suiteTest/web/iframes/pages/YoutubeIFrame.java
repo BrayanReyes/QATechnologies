@@ -1,6 +1,5 @@
 package org.suiteTest.web.iframes.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,7 +23,7 @@ public class YoutubeIFrame extends BasePage {
      */
     public YoutubeIFrame(WebDriver driver) {
         super(driver);
-        this.slider=sliderYoutube;
+        setSlider(sliderYoutube);
     }
 
     /**

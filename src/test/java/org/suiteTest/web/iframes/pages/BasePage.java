@@ -157,30 +157,6 @@ public class BasePage {
         action.moveToElement(webElement).build().perform();
     }
 
-
-    /**--------------------------Specific--------------------------------**/
-
-    /**
-     * Set the value for slider
-     * @param webElement
-     */
-    protected void setSlider(WebElement webElement){
-        this.slider=webElement;
-    }
-
-    /**
-     * Check if the slider has some progress
-     * @return
-     */
-    public boolean sliderHasProgress(){
-        int videoLength = getAttributeInt(slider,"aria-valuemax");
-        int videoNow = getAttributeInt(slider,"aria-valuenow");
-        log.info("Video has a length of "+videoLength
-                +" seconds and it reproduces until "+videoNow+" seconds.");
-        return (videoNow>0);
-    }
-
-
     /**
      * Get the attribute of a web element and transform to int, only for natural numbers.
      * In other cases use String getAttribute
@@ -217,5 +193,28 @@ public class BasePage {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    /**--------------------------Specific--------------------------------**/
+
+    /**
+     * Set the value for slider
+     * @param webElement
+     */
+    protected void setSlider(WebElement webElement){
+        this.slider=webElement;
+    }
+
+    /**
+     * Check if the slider has some progress
+     * @return
+     */
+    public boolean sliderHasProgress(){
+        int videoLength = getAttributeInt(slider,"aria-valuemax");
+        int videoNow = getAttributeInt(slider,"aria-valuenow");
+        log.info("Video has a length of "+videoLength
+                +" seconds and it reproduces until "+videoNow+" seconds.");
+        return (videoNow>0);
     }
 }
