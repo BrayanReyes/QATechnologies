@@ -19,6 +19,8 @@ public class BasePage {
 
     private WebDriver driver;
     private WebDriverWait wait;
+    protected WebElement slider;
+    protected int videoPlayDuration = 10;
     protected Logger log = Logger.getLogger(BasePage.class);
 
     /**
@@ -27,9 +29,9 @@ public class BasePage {
      */
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(this.driver,30);
-        PageFactory.initElements(
-                new AjaxElementLocatorFactory(this.driver,30)
+        wait = new WebDriverWait(this.driver,20);
+        PageFactory.initElements(getDriver()
+                //new AjaxElementLocatorFactory(this.driver,20)
                 ,this);
     }
 
@@ -55,6 +57,14 @@ public class BasePage {
     public void dispose(){
         if (getDriver()!=null)
             getDriver().quit();
+    }
+
+    /**
+     * Get the value of duration of the play
+     * @return int
+     */
+    public int getVideoPlayDuration(){
+        return this.videoPlayDuration;
     }
 
     /**
@@ -148,4 +158,64 @@ public class BasePage {
     }
 
 
+    /**--------------------------Specific--------------------------------**/
+
+    /**
+     * Set the value for slider
+     * @param webElement
+     */
+    protected void setSlider(WebElement webElement){
+        this.slider=webElement;
+    }
+
+    /**
+     * Check if the slider has some progress
+     * @return
+     */
+    public boolean sliderHasProgress(){
+        int videoLength = getAttributeInt(slider,"aria-valuemax");
+        int videoNow = getAttributeInt(slider,"aria-valuenow");
+        log.info("Video has a length of "+videoLength
+                +" seconds and it reproduces until "+videoNow+" seconds.");
+        return (videoNow>0);
+    }
+
+
+    /**
+     * Get the attribute of a web element and transform to int, only for natural numbers.
+     * In other cases use String getAttribute
+     * @param webElement
+     * @param attribute
+     * @return -1 is error.
+     */
+    protected int getAttributeInt(WebElement webElement, String attribute){
+        try {
+            return Integer.parseInt(webElement.getAttribute(attribute));
+        }catch (NumberFormatException e){
+            log.info("Error - converting values from String to int.");
+        }catch (Exception e){
+            log.info("Error - please check logs");
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    /**
+     * Get the attribute of a web element and handle exceptions
+     * @param webElement
+     * @param attribute
+     * @return NULL when error
+     */
+    protected String getAttributeString(WebElement webElement, String attribute){
+        try {
+            return webElement.getAttribute(attribute);
+        }
+        catch (NullPointerException e){
+            log.info("Error - Video length is not present");
+        }catch (Exception e){
+            log.info("Error - please check logs");
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

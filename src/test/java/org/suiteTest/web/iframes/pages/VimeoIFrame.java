@@ -1,22 +1,18 @@
 package org.suiteTest.web.iframes.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-
-import javax.lang.model.element.Element;
-import java.util.List;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 public class VimeoIFrame extends BasePage{
 
 
-    @FindBy(css =".play-icon .fill")
+    @FindBy(css ="#player")
     private WebElement playButton;
 
-    @FindBy(css = ".pause-icon > svg")
-    private WebElement pauseButton;
+    @FindBy(className = "focus-target")
+    private WebElement slider;
 
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
@@ -24,6 +20,7 @@ public class VimeoIFrame extends BasePage{
      */
     public VimeoIFrame(WebDriver driver) {
         super(driver);
+        setSlider(this.slider);
     }
 
     /**
@@ -31,9 +28,8 @@ public class VimeoIFrame extends BasePage{
      */
     public void playVideo(){
         log.info("Playing Vimeo Video");
-        waitElementVisibility(playButton);
         clickElement(playButton);
-        sleep(10);
+        sleep(getVideoPlayDuration());
     }
 
     /**
@@ -41,7 +37,6 @@ public class VimeoIFrame extends BasePage{
      */
     public void pauseVideo(){
         log.info("Pausing Vimeo Video");
-        pauseButton.click();
-        sleep(2);
+        playButton.click();
     }
 }

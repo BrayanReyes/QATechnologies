@@ -1,5 +1,6 @@
 package org.suiteTest.web.iframes.pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -23,6 +24,12 @@ public class HomePage extends BasePage{
 
     @FindBy(css = "a[href='#vimeo']")
     private WebElement vimeoIFrameSection;
+
+    @FindBy(id = "gdpr_basic")
+    private WebElement cookieSection;
+
+    @FindBy(id = "gdpr_btn_full_agree")
+    private WebElement cookieButton;
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
      * @param driver
@@ -30,6 +37,7 @@ public class HomePage extends BasePage{
     public HomePage(WebDriver driver,String url) {
         super(driver);
         getDriver().get(url);
+        checkCookies();
     }
 
     /**
@@ -49,5 +57,23 @@ public class HomePage extends BasePage{
         clickElement(vimeoIFrameSection);
         return new VimeoIFrame(switchToIFrame(vimeoIFrame));
     }
+
+    /**
+     * Validates if pop up of cookies is present and accept it
+     */
+    public void checkCookies(){
+        try {
+            if (cookieSection.getAttribute("aria-hidden") == null)
+                clickElement(cookieButton);
+            ;
+            log.info("Cookies accepted");
+        }
+        catch (NoSuchElementException e){
+            log.info("Cookies alarm not present");
+        }
+    }
+
+
+
 
 }

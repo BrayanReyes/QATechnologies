@@ -13,12 +13,18 @@ public class YoutubeIFrame extends BasePage {
 
     @FindBy(css = "button.ytp-play-button.ytp-button")
     private WebElement pauseButton;
+
+
+    @FindBy(css = ".ytp-progress-bar")
+    private WebElement sliderYoutube;
+
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
      * @param driver
      */
     public YoutubeIFrame(WebDriver driver) {
         super(driver);
+        this.slider=sliderYoutube;
     }
 
     /**
@@ -28,7 +34,7 @@ public class YoutubeIFrame extends BasePage {
         log.info("Playing Youtube Video");
         waitElementVisibility(playButton);
         clickElement(playButton);
-        sleep(10);
+        sleep(getVideoPlayDuration());
     }
 
     /**
@@ -37,7 +43,6 @@ public class YoutubeIFrame extends BasePage {
     public void pauseVideo(){
         log.info("Pausing Youtube Video");
         pauseButton.click();
-        sleep(2);
     }
 
 }
