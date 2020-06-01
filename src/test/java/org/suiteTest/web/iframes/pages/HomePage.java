@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.security.Key;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class of Main Page
@@ -45,8 +47,9 @@ public class HomePage extends BasePage{
     @FindBy(css = ".btn-primary.btn-action.gcw-submit[data-gcw-change-submit-text='Search']")
     private WebElement searchButton;
 
+
     @FindBy(css = ".alert.alert-error.validation-alert[aria-hidden='false'] a")
-    private WebElement alertMessage;
+    private List<WebElement> alertMessages;
 
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
@@ -165,14 +168,18 @@ public class HomePage extends BasePage{
         clickElement(searchButton);
     }
 
-    public String getAlertMessage(){
-        try {
-            waitElementVisibility(alertMessage);
-            return alertMessage.getText();
-        }catch (TimeoutException e){
-            log.info("Time out waiting for alert message");
-            return null;
+    public List<String> getAlertMessages(){
+        List<String> alertMessagesRaised = new ArrayList<>();
+        alertMessages.forEach(alertMessage -> {
+            try {
+                waitElementVisibility(alertMessage);
+                alertMessagesRaised.add(alertMessage.getText());
+            } catch (TimeoutException e) {
+                log.info("Time out waiting for alert message");
+            }
         }
+        );
+        return alertMessagesRaised;
     }
 
     /**

@@ -16,6 +16,7 @@ public class BaseTest {
     protected Driver driver;
     private HomePage homePage;
     protected Logger log = Logger.getLogger(BaseTest.class);
+    protected String title;
 
     @BeforeTest(alwaysRun = true)
     @Parameters({"browser","url"})
@@ -23,6 +24,7 @@ public class BaseTest {
         driver = new Driver(browser);
         driver.getDriver().manage().window().maximize();
         homePage = new HomePage(driver.getDriver(),url);
+        title = driver.getDriver().getTitle();
     }
 
     @AfterTest(alwaysRun = true)

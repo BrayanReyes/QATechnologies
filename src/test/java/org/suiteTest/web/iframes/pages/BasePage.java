@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Class with all common methods between web pages.
@@ -65,6 +66,11 @@ public class BasePage {
      */
     public void waitElementVisibility(WebElement... webElement){
         getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
+    }
+
+
+    public void waitElementVisibility(List<WebElement> webElements){
+        getWait().until(ExpectedConditions.visibilityOfAllElements(webElements));
     }
 
     /**

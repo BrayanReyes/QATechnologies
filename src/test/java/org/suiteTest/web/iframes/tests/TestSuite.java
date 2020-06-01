@@ -15,7 +15,8 @@ import java.util.List;
 
 public class TestSuite extends BaseTest{
 
-    private final String alertMessage = "We are only able to book between 1 and 6 travellers. Please adjust the number of travellers for your search.";
+    private final String alertMessage6 = "We are only able to book between 1 and 6 travellers. Please adjust the number of travellers for your search.";
+    private final String alertMessageDeparture="Tell us where you're flying to.";
     private final String dateDepature = LocalDate.now().plusDays(4).format(
             DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     private final String dateReturn = LocalDate.now().plusDays(10).format(
@@ -34,8 +35,11 @@ public class TestSuite extends BaseTest{
         home.setChildren(flyDetail.getChilds());
         home.setChildrenAge(flyDetail.getChildsAge());
         home.searchFly();
-        Assert.assertEquals(home.getAlertMessage(),alertMessage,
+        Assert.assertTrue(home.getAlertMessages().contains(alertMessage6),
                 "Error alert is not present.");
+        if (flyDetail.getDestination().equals(""))
+            Assert.assertTrue(home.getAlertMessages().contains(alertMessageDeparture),
+                    "Error alert is not present when destination is empty.");
 
         // The next assert could be not necessary due to dates are set by program
         Assert.assertTrue(home.checkDepartureDate(dateDepature),
@@ -50,5 +54,6 @@ public class TestSuite extends BaseTest{
         log.info("Launch HomePage");
         getHomePage().switchToDefaultContent();
         driver.getDriver().get(url);
+
     }
 }
