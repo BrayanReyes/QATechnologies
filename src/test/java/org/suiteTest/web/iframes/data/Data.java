@@ -15,9 +15,12 @@ public class Data {
     @DataProvider(name = "FlyReservation")
     public Object[][] inputNames(){
          return new Object[][] {
-                 {"LAS","LAX","2","1","0"}
-                 ,
-                 {"BOG","MED","6","1","0"}
+                 {new FlyDetail("LAS","LAX",
+                         "4","5", new String[] {"1", "2", "0","10","15"})},
+                 {new FlyDetail("BOG","MED",
+                         "6","2", new String[] {"1", "0"})},
+                 {new FlyDetail("BOG","LAX",
+                         "2","3", new String[] {"1", "2", "0"})},
          };
      }
 

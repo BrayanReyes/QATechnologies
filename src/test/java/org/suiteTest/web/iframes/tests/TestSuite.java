@@ -1,5 +1,6 @@
 package org.suiteTest.web.iframes.tests;
 
+import org.suiteTest.web.iframes.data.FlyDetail;
 import org.suiteTest.web.iframes.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -21,22 +22,20 @@ public class TestSuite extends BaseTest{
             DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 
     @Test(description = "Check Fly", dataProvider = "FlyReservation",dataProviderClass = org.suiteTest.web.iframes.data.Data.class)
-    public void checkFly(String p1, String p2, String p3, String p4, String p5) {
+    public void checkFly(FlyDetail flyDetail) {
         HomePage home = getHomePage();
         home.flySection();
         home.setFlyKind();
-        home.setFlyingFrom(p1);
-        home.setFlyingTo(p2);
+        home.setFlyingFrom(flyDetail.getOrigin());
+        home.setFlyingTo(flyDetail.getDestination());
         home.setDepartingDate();
         home.setReturningDate();
-        home.setAdults(p3);
-        home.setChildren(p4);
-//        String[] a = {"0","10","1","2","3"};
-//        home.setChildrenAge(a);
-        home.setChildrenAge(p5);
+        home.setAdults(flyDetail.getAdults());
+        home.setChildren(flyDetail.getChilds());
+        home.setChildrenAge(flyDetail.getChildsAge());
         home.searchFly();
         Assert.assertEquals(home.getAlertMessage(),alertMessage,
-                "Error alert is not "+alertMessage);
+                "Error alert is not present.");
 
         // The next assert could be not necessary due to dates are set by program
         Assert.assertTrue(home.checkDepartureDate(dateDepature),
