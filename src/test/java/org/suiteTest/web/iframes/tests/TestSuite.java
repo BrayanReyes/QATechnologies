@@ -20,25 +20,23 @@ public class TestSuite extends BaseTest{
     private final String dateReturn = LocalDate.now().plusDays(10).format(
             DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 
-    @Test(description = "Check Fly")
-    public void checkFly() {
+    @Test(description = "Check Fly", dataProvider = "FlyReservation",dataProviderClass = org.suiteTest.web.iframes.data.Data.class)
+    public void checkFly(String p1, String p2, String p3, String p4, String p5) {
         HomePage home = getHomePage();
         home.flySection();
         home.setFlyKind();
-        home.setFlyingFrom("LAS");
-        home.setFlyingTo("LAX");
+        home.setFlyingFrom(p1);
+        home.setFlyingTo(p2);
         home.setDepartingDate();
         home.setReturningDate();
-        home.setAdults("4");
-        home.setChildren("5");
+        home.setAdults(p3);
+        home.setChildren(p4);
 //        String[] a = {"0","10","1","2","3"};
 //        home.setChildrenAge(a);
-        home.setChildrenAge("0","10","1","2","3");
+        home.setChildrenAge(p5);
         home.searchFly();
-        log.info(dateDepature);
-        log.info(dateReturn);
         Assert.assertEquals(home.getAlertMessage(),alertMessage,
-                "Error Alert is not the same: "+ home.getAlertMessage());
+                "Error alert is not "+alertMessage);
 
         // The next assert could be not necessary due to dates are set by program
         Assert.assertTrue(home.checkDepartureDate(dateDepature),
@@ -46,7 +44,6 @@ public class TestSuite extends BaseTest{
         Assert.assertTrue(home.checkReturnDate(dateReturn),
                 "Error Return Date is wrong");
     }
-
 
     @AfterMethod(alwaysRun = true)
     @Parameters({"url"})

@@ -32,7 +32,7 @@ public class BaseTest {
 
     /**
      * Get the home page
-     * @return
+     * @return homePage
      */
     public HomePage getHomePage() {
         return homePage;

@@ -25,13 +25,13 @@ public class BasePage {
 
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
-     * @param driver
+     * @param driver Webdriver of the page
      */
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(this.driver,30);
+        wait = new WebDriverWait(this.driver,20);
         PageFactory.initElements(
-                new AjaxElementLocatorFactory(this.driver,30)
+                new AjaxElementLocatorFactory(this.driver,20)
                 ,this);
     }
 
@@ -61,7 +61,7 @@ public class BasePage {
 
     /**
      * Wait for elements visibility
-     * @param webElement
+     * @param webElement to wait until it is visible
      */
     public void waitElementVisibility(WebElement... webElement){
         getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
@@ -70,7 +70,7 @@ public class BasePage {
     /**
      *
      * Wait for element to be clickable
-     * @param webElement {@link WebElement}
+     * @param webElement Web element
      * @return boolean
      */
     public boolean waitElementToBeClickable(WebElement webElement){
@@ -90,7 +90,7 @@ public class BasePage {
 
     /**
      * Switch to iFrame inside the web page
-     * @param iFrame WebElement
+     * @param iFrame to switch
      * @return  {@link WebDriver}
      */
     public WebDriver switchToIFrame(WebElement iFrame){
@@ -100,7 +100,7 @@ public class BasePage {
 
     /**
      * Switch to iFrame inside the web page
-     * @param iFrame
+     * @param iFrame  int switch to
      * @return {@link WebDriver}
      */
     public WebDriver switchToIFrame(int iFrame){
@@ -117,7 +117,7 @@ public class BasePage {
 
     /**
      * Another implicit Wait by n secodns
-     * @param seconds
+     * @param seconds to wait
      */
     protected void sleep (int seconds){
         try {
@@ -130,7 +130,7 @@ public class BasePage {
 
     /**
      * Scroll inside the web page until the web element and click it
-     * @param webElement
+     * @param webElement to locate and click
      */
     protected void clickElement(WebElement webElement){
         if(waitElementToBeClickable(webElement)) {
@@ -143,7 +143,7 @@ public class BasePage {
      * Return a CSS with a specific format increasing the current date by the days
      * CSS -Format -> button[data-year='2020'][data-month='5'][data-day='3']
      * Note: Minus one month because in web page months start at 0 and end at 11
-     * @param days
+     * @param days to increase date
      * @return {@link String}
      */
     protected String todayDateIncreasedBy(int days) {

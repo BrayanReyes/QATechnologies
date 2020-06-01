@@ -12,9 +12,13 @@ public class Data {
      *  Provides the list of names
      * @return data[][]
      */
-    @DataProvider(name = "Names")
+    @DataProvider(name = "FlyReservation")
     public Object[][] inputNames(){
-         return new Object[][] {{"Brian"},{"Pinguin"}};
+         return new Object[][] {
+                 {"LAS","LAX","2","1","0"}
+                 ,
+                 {"BOG","MED","6","1","0"}
+         };
      }
 
 }

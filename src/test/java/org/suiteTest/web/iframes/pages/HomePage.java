@@ -50,7 +50,7 @@ public class HomePage extends BasePage{
 
     /**
      * Contructor, a factory for producing {@link ElementLocator}s.
-     * @param driver
+     * @param driver and url from
      */
     public HomePage(WebDriver driver,String url) {
         super(driver);
@@ -77,7 +77,7 @@ public class HomePage extends BasePage{
 
     /**
      * Set the place from where you are going to depart
-     * @param flyingFrom
+     * @param flyingFrom origin place
      */
     public void setFlyingFrom(String flyingFrom){
         waitElementVisibility(this.flyingFrom);
@@ -86,7 +86,7 @@ public class HomePage extends BasePage{
 
     /**
      * Set the place Where do you want to fly
-     * @param flyingTo
+     * @param flyingTo destination place
      */
     public void setFlyingTo(String flyingTo){
         waitElementVisibility(this.flyingTo);
@@ -115,7 +115,7 @@ public class HomePage extends BasePage{
 
     /**
      * Set the quantity of adults in the fly
-     * @param adults
+     * @param adults quantity
      */
     public void setAdults(String adults){
         try {
@@ -128,7 +128,7 @@ public class HomePage extends BasePage{
 
     /**
      * Set the quantity of children in the fly
-     * @param children
+     * @param children quantity
      */
     public void setChildren(String children){
         try {
@@ -141,7 +141,7 @@ public class HomePage extends BasePage{
 
     /**
      * Set the age of all childrens
-     * @param childrenAge
+     * @param childrenAge can be an array or single variable
      */
     public void setChildrenAge(String... childrenAge){
         for (int i =0; i<childrenAge.length;i++){
@@ -166,14 +166,30 @@ public class HomePage extends BasePage{
     }
 
     public String getAlertMessage(){
-        waitElementVisibility(alertMessage);
-        return alertMessage.getText();
+        try {
+            waitElementVisibility(alertMessage);
+            return alertMessage.getText();
+        }catch (TimeoutException e){
+            log.info("Time out waiting for alert message");
+            return null;
+        }
     }
 
+    /**
+     * Check if the param is the same date selected
+     * @param dateDeparture to be compared
+     * @return boolean
+     */
     public boolean checkDepartureDate(String dateDeparture) {
         return (dateDeparture.equals(departingDate.getAttribute("value")));
     }
 
+
+    /**
+     * Check if the param is the same date selected
+     * @param dateReturn to be compared
+     * @return boolean
+     */
     public boolean checkReturnDate(String dateReturn) {
         return (dateReturn.equals(returningDate.getAttribute("value")));
     }
