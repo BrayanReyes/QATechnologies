@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="suite Vimeo iFrame" verbose="1">
+	<listeners>
+		<listener class-name="com.automation.web.listeners.Listener"/>
+	</listeners>
+
+	<parameter name="browser" value="chrome" />
+	<parameter name="url" value="https://mdbootstrap.com/plugins/jquery/iframe/" />
+
+	<test name="iFrame tests">
+		<classes>
+			<class name="com.automation.web.tests.TestSuiteVimeo"/>
+		</classes>
+	</test>
+</suite>
