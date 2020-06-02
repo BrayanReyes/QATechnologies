@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Travelocity Dropdown" verbose="1">
+	<listeners>
+		<listener class-name="com.automation.web.listeners.Listener"/>
+	</listeners>
+    <parameter name="browser" value="chrome"></parameter>
+    <parameter name="url" value="https://www.travelocity.com/"></parameter>
+     <parameter name="alertMessage" value="We are only able to book between 1 and 6 travellers. Please adjust the number of travellers for your search."></parameter>
+    <test name="Dropdown Travelocity Web Page">
+		<classes>
+			<class name="com.automation.web.tests.TestSuite"/>
+		</classes>
+	</test>
+</suite>
