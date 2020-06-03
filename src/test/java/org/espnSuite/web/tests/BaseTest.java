@@ -4,14 +4,13 @@ import org.espnSuite.web.drivers.Driver;
 import org.espnSuite.web.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
-import org.testng.log4testng.Logger;
+import org.apache.log4j.Logger;
 
 public class BaseTest {
 
-    private Driver driver;
+    protected Driver driver;
     private HomePage homePage;
     protected Logger log = Logger.getLogger(BaseTest.class);
 

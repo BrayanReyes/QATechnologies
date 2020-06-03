@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Test ESPN" verbose="1">
+    <listeners>
+        <listener class-name="org.espnSuite.web.listeners.Listener"></listener>
+    </listeners>
+    
+    <parameter name="browser" value="chrome"></parameter>
+    <parameter name="url" value="https://www.espn.com/?src=com&amp;_adblock=true"></parameter>
+    <parameter name="title" value="ESPN: Serving sports fans. Anytime. Anywhere."></parameter>
+
+    <test name="Test ESPN Web Page Interaction">
+        <classes>
+            <class name="org.espnSuite.web.tests.ESPNTest"></class>
+        </classes>
+    </test>
+</suite>
