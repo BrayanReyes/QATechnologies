@@ -3,8 +3,7 @@ package org.espnSuite.web.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import javax.xml.ws.WebEndpoint;
+import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 public class HomePage extends BasePage{
 
@@ -20,8 +19,7 @@ public class HomePage extends BasePage{
     @FindBy(css = "#global-header li.display-user span")
     private WebElement welcomeName;
 
-    //@FindBy(css = "#global-header li.display-user")
-    @FindBy(css = ".tools ul.account-management li:nth-child(1)")
+    @FindBy(css = "#global-header .display-user")
     private WebElement welcomeMessage;
 
     @FindBy(css = "ul.account-management li:nth-child(5) a")
@@ -29,9 +27,6 @@ public class HomePage extends BasePage{
 
     @FindBy(css = "#disneyid-iframe")
     private WebElement singInUpIFrame;
-
-    @FindBy(css = "#disneyid-wrapper")
-    private WebElement deleteAccountIFrame;
 
     /**
      * Constructor, a factory for producing {@link ElementLocator}s.
@@ -42,11 +37,13 @@ public class HomePage extends BasePage{
         getDriver().get(url);
     }
 
-    public SingInUpIFrame goToSingIn(){
+    public ESPNIFrame goToSingInUp(){
+        waitElementVisibility(iconUser);
         clickElement(iconUser);
         clickElement(singInButton);
-        return new SingInUpIFrame(switchToIFrame(singInUpIFrame));
+        return new ESPNIFrame(switchToIFrame(singInUpIFrame));
     }
+
 
     public boolean validateUserLogged(String userName) {
         waitElementVisibility(iconUser);
@@ -60,16 +57,22 @@ public class HomePage extends BasePage{
     public void logOut() {
         waitElementVisibility(iconUser);
         clickElement(iconUser);
-        waitElementVisibility(logOutButton);
         clickElement(logOutButton);
     }
 
-    public boolean validateUserLoggOut() {
+    public boolean validateUserLogOut() {  // Log out validation is failing due to user icon is too fast
         waitElementVisibility(iconUser);
         clickElement(iconUser);
-        waitElementVisibility(welcomeMessage);
-        log.info("Validar 2");
+        waitElementVisibility(logOutButton);
         log.info(welcomeMessage.getText());
         return (welcomeMessage.getText().equals("Welcome!"));
+    }
+
+    public ESPNIFrame goToDeleteAccount() {
+        waitElementVisibility(iconUser);
+        clickElement(iconUser);
+        waitElementVisibility(espnProfileButton);
+        clickElement(espnProfileButton);
+        return new ESPNIFrame(switchToIFrame(singInUpIFrame));
     }
 }

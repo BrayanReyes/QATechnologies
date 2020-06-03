@@ -25,9 +25,9 @@ public class BasePage {
      */
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(this.driver,20);
+        wait = new WebDriverWait(this.driver,10);
         PageFactory.initElements(
-                new AjaxElementLocatorFactory(this.driver,20),
+                new AjaxElementLocatorFactory(this.driver,10),
                 this);
     }
 
@@ -65,7 +65,7 @@ public class BasePage {
 
     /**
      * Wait for elements visibility
-     * @param List<WebElement> list to wait until it is visible
+     * @param webElements list to wait until it is visible
      */
     public void waitElementVisibility(List<WebElement> webElements){
         getWait().until(ExpectedConditions.visibilityOfAllElements(webElements));
@@ -127,6 +127,24 @@ public class BasePage {
         if(waitElementToBeClickable(webElement)) {
             Actions action = new Actions(getDriver());
             action.moveToElement(webElement).click().build().perform();
+        }
+    }
+
+    protected void moveToElement(WebElement webElement){
+        Actions action = new Actions(getDriver());
+        action.moveToElement(webElement).perform();
+    }
+
+    /**
+     * Another implicit Wait by n secodns
+     * @param seconds to wait
+     */
+    protected void sleep (int seconds){
+        try {
+            log.info("Sleeping "+seconds+" seconds.");
+            Thread.sleep(seconds*1000);
+        }catch (Exception e){
+            log.info("Error: Could not sleep.");
         }
     }
 }
