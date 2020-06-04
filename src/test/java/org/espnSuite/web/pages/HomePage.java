@@ -11,23 +11,27 @@ public class HomePage extends BasePage{
     private WebElement iconUser;
 
     @FindBy(css = "ul.account-management li:nth-child(5) a")
-    private WebElement singInButton;
+    private WebElement singInButton; //loginOption
 
     @FindBy(css = "ul.account-management li:nth-child(9) a")
-    private WebElement logOutButton;
+    private WebElement logOutButton;  //logoutOption
 
+    @FindBy(css = "ul.account-management li:nth-child(5) a")
+    private WebElement espnProfileButton; //espnProfileOption
+    
     @FindBy(css = "#global-header li.display-user span")
     private WebElement welcomeName;
 
     @FindBy(css = "#global-header .display-user")
     private WebElement welcomeMessage;
 
-    @FindBy(css = "ul.account-management li:nth-child(5) a")
-    private WebElement espnProfileButton;
-
     @FindBy(css = "#disneyid-iframe")
     private WebElement singInUpIFrame;
 
+    //**July estuvo aqui**//
+    @FindBy(css = "head.at-element-marker:nth-child(1) title") // #global-header h1 a
+    private WebElement homePageTitle;
+    
     /**
      * Constructor, a factory for producing {@link ElementLocator}s.
      * @param driver Web driver of the page
@@ -36,7 +40,43 @@ public class HomePage extends BasePage{
         super(driver);
         getDriver().get(url);
     }
+    
+    //**July estuvo aqui**//
 
+	/**
+	 * Get ESPN Page title
+	 * 
+	 * @return String text title
+	 */
+	public String getTitle() {
+		log.info("Get ESPN Home Page title");
+		waitElementVisibility(homePageTitle);
+		return homePageTitle.getText();
+	}
+	
+	/**
+	 * Get ESPN Profile Option title
+	 * 
+	 * @return String text title
+	 */
+	public String getESPNprofileTitle() {
+		log.info("Get ESPN Profile Option title");
+		waitElementVisibility(espnProfileButton);
+		return espnProfileButton.getText();
+	}
+	
+	/**
+	 * Get Log In Option title
+	 * 
+	 * @return String text title
+	 */
+	public String getLoginTitle() {
+		log.info("Get Log In Option title");
+		waitElementVisibility(singInButton);
+		return singInButton.getText();
+	}
+	
+	
     public ESPNIFrame goToSingInUp(){
         waitElementVisibility(iconUser);
         clickElement(iconUser);

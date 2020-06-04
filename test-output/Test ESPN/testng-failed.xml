@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Test ESPN]">
+  <parameter name="browser" value="chrome"/>
+  <parameter name="title" value="ESPN: Serving sports fans. Anytime. Anywhere."/>
+  <parameter name="url" value="https://www.espn.com/?src=com&amp;_adblock=true"/>
+  <listeners>
+    <listener class-name="org.espnSuite.web.listeners.Listener"/>
+  </listeners>
+  <test thread-count="5" name="Test ESPN Web Page Interaction(failed)">
+    <classes>
+      <class name="org.espnSuite.web.tests.ESPNTest">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="afterTest"/>
+          <include name="logInTest"/>
+          <include name="logOutTest"/>
+          <include name="beforeTest"/>
+        </methods>
+      </class> <!-- org.espnSuite.web.tests.ESPNTest -->
+    </classes>
+  </test> <!-- Test ESPN Web Page Interaction(failed) -->
+</suite> <!-- Failed suite [Test ESPN] -->
