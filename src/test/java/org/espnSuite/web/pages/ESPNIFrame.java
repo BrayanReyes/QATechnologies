@@ -72,6 +72,7 @@ public class ESPNIFrame extends BasePage{
     }
 
     public void singUpESPN(UserDataESPN user){
+        log.info("ingreso a singUpESPN");
         waitElementVisibility(singUpButton);
         clickElement(singUpButton);
         waitElementVisibility(firstNameInput,lastNameInput,emailInput,
