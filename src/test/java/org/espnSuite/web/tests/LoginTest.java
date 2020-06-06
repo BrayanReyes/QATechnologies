@@ -1,16 +1,12 @@
 package org.espnSuite.web.tests;
 
 import org.espnSuite.web.data.UserDataESPN;
-import org.espnSuite.web.pages.HomePage;
 import org.espnSuite.web.pages.ESPNIFrame;
+import org.espnSuite.web.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertTrue;
-
-import java.util.Collections;
 
 public class LoginTest extends BaseTest {
 
@@ -21,8 +17,8 @@ public class LoginTest extends BaseTest {
 		HomePage homePage = getHomePage();
 		Assert.assertEquals(homePage.getHomePageTitle(), homePageTitle, "HOME PAGE TITLE IS NO AS EXPECTED");
 		homePage.goToUserMenu();
-		Assert.assertEquals(homePage.getUserMenuTitle(), userMenuTitle, "USER MENU TITLE IS NO AS EXPECTED");	
-		ESPNIFrame espnIFrame = homePage.goToLoginSingupIFrame();
+		Assert.assertEquals(homePage.getUserMenuTitle(), userMenuTitle, "USER MENU TITLE IS NO AS EXPECTED");
+		ESPNIFrame espnIFrame = homePage.goToESPNIFrame();
 		Assert.assertEquals(espnIFrame.getLoginbutonText(), loginValidation, "LOG IN BUTTON NOT FOUND");
 		espnIFrame.singUpESPN();
 		Assert.assertEquals(espnIFrame.getSignUpTitle(), signupTitle, "SIGN UP TITLE IS NO AS EXPECTED");
@@ -41,7 +37,7 @@ public class LoginTest extends BaseTest {
 		HomePage homePage = getHomePage();
 		homePage.goToUserMenu();
 		Assert.assertEquals(homePage.getUserMenuTitle(), userMenuTitle, "USER MENU TITLE IS NO AS EXPECTED");	
-		ESPNIFrame espnIFrame = homePage.goToLoginSingupIFrame();
+		ESPNIFrame espnIFrame = homePage.goToESPNIFrame();
 		Assert.assertEquals(espnIFrame.getLoginbutonText(), loginValidation, "LOG IN BUTTON NOT FOUND");
 		espnIFrame.loginESPN(username, password);
 		Assert.assertEquals(homePage.getHomePageTitle(), homePageTitle, "HOME PAGE TITLE IS NO AS EXPECTED");

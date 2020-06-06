@@ -1,5 +1,6 @@
 package org.espnSuite.web.pages;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,6 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -58,17 +58,39 @@ public class BasePage {
     /**
      * Wait for elements visibility
      * @param webElement to wait until it is visible
+     * @return boolean
      */
-    public void waitElementVisibility(WebElement... webElement){
-        getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
-    }
+    public boolean waitElementVisibility(WebElement... webElement){
+            try {
+                getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
+                return true;
+            }
+            catch (TimeoutException eTimeOut){
+                log.info("TimeOut exception with Web element");
+                return false;
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }
 
     /**
      * Wait for elements visibility
      * @param webElements list to wait until it is visible
+     * @return boolean
      */
-    public void waitElementVisibility(List<WebElement> webElements){
-        getWait().until(ExpectedConditions.visibilityOfAllElements(webElements));
+    public boolean waitElementVisibility(List<WebElement> webElements) {
+        try {
+            getWait().until(ExpectedConditions.visibilityOfAllElements(webElements));
+            return true;
+        } catch (TimeoutException eTimeOut) {
+            log.info("TimeOut exception with Web element");
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -147,4 +169,5 @@ public class BasePage {
             log.info("Error: Could not sleep.");
         }
     }
+
 }

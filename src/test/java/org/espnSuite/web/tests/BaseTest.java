@@ -21,7 +21,7 @@ public class BaseTest {
         driver.getDriver().manage().deleteAllCookies();
         driver.getDriver().manage().window().maximize();
         homePage = new HomePage(driver.getDriver(),url);
-        log.info("Open Browser");
+        log.info("Open Browser "+driver.getDriver().getTitle());
         Assert.assertEquals(title,driver.getDriver().getTitle());
 
     }

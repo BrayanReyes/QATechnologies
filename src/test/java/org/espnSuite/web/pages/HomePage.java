@@ -27,7 +27,7 @@ public class HomePage extends BasePage {
 	private WebElement welcomeMessage;
 
 	@FindBy(css = "#global-header li.display-user span")
-	private WebElement welcomeName;
+	private WebElement nameUserLogged;
 
 	@FindBy(css = "#disneyid-iframe")
 	private WebElement espnIFrame; // singInUpIFrame
@@ -97,6 +97,7 @@ public class HomePage extends BasePage {
 	public void logOut() {
 		waitElementVisibility(iconUser);
 		clickElement(iconUser);
+		waitElementVisibility(loginOption);
 		clickElement(logoutOption);
 		log.info("Entrar a la opción LOG OUT");
 	}
@@ -108,8 +109,8 @@ public class HomePage extends BasePage {
 	 */
 	public String getLogedinUserMenuTitle() {
 		log.info("Obtener el titulo del Menu de Usuario despues de loguearse");
-		waitElementVisibility(welcomeName);
-		return welcomeName.getText();
+		waitElementVisibility(nameUserLogged);
+		return nameUserLogged.getText();
 	}
 
 	/**
@@ -140,7 +141,7 @@ public class HomePage extends BasePage {
 	 * 
 	 * @return ESPNIFrame
 	 */
-	public ESPNIFrame goToLoginSingupIFrame() {
+	public ESPNIFrame goToESPNIFrame() {
 		log.info("Cambiandose al iFrame de Log In / Sign Up");
 		waitElementVisibility(iconUser);
 		clickElement(iconUser);
@@ -165,21 +166,30 @@ public class HomePage extends BasePage {
 
 	// Validaciones de Pinguin que no se bien como utilizar
 	public boolean validateUserLogged(String userName) {
+		String tmpUserName="";
 		waitElementVisibility(iconUser);
 		clickElement(iconUser);
-		waitElementVisibility(welcomeName);
-		log.info("Validar 1");
-		log.info(welcomeName.getText());
-		return (welcomeName.getText().equals(userName + "!"));
+		if (waitElementVisibility(nameUserLogged)) {
+			 tmpUserName = nameUserLogged.getText();
+			log.info("Welcome " + tmpUserName);
+		}
+		waitElementVisibility(iconUser);
+		clickElement(iconUser);
+		return (tmpUserName.equals(userName + "!"));
 	}
 
 	// Validaciones de Pinguin que no se bien como utilizar
 	public boolean validateUserLogOut() { // Log out validation is failing due to user icon is too fast
+		String tmpUserName="";
 		waitElementVisibility(iconUser);
 		clickElement(iconUser);
-		waitElementVisibility(logoutOption);
-		log.info(welcomeMessage.getText());
-		return (welcomeMessage.getText().equals("Welcome!"));
+		if (waitElementVisibility(logoutOption)) {
+			tmpUserName = welcomeMessage.getText();
+			log.info(tmpUserName);
+		}
+		waitElementVisibility(iconUser);
+		clickElement(iconUser);
+		return (tmpUserName.equals("Welcome!"));
 	}
 
 }

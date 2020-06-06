@@ -1,11 +1,9 @@
 package org.espnSuite.web.tests;
 
 import org.espnSuite.web.data.UserDataESPN;
-import org.espnSuite.web.pages.HomePage;
 import org.espnSuite.web.pages.ESPNIFrame;
+import org.espnSuite.web.pages.HomePage;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Collections;
@@ -30,26 +28,39 @@ public class ESPNTest extends BaseTest {
 //		// USER NOT PRESENT");
 //	}
 //
-	@Test(description = "Create user account", dataProviderClass = org.espnSuite.web.data.DataProviders.class, dataProvider = "Users", enabled = true)
+	@Test(description = "Create user account", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
+			dataProvider = "Users", enabled = false)
 	public void createAccount(UserDataESPN user) {
 		HomePage homePage = getHomePage();
-		ESPNIFrame espnIFrame = homePage.goToLoginSingupIFrame();
-		log.info("Validar el texto \"Sign Up\"");
+		ESPNIFrame espnIFrame = homePage.goToESPNIFrame();
+		log.info("Validar el texto 'Sign Up'");
 		espnIFrame.singUpESPN(user);
-//		Assert.assertTrue(Collections.disjoint(espnIFrame.alertMessagesRaised(), espnIFrame.getErrorSingUP()));
-//	 Assert.assertTrue(homePage.validateUserLogged(user.getFirstName()),"ERROR
-//	 USER NOT PRESENT");
+		Assert.assertTrue(Collections.disjoint(espnIFrame.alertMessagesRaised(), espnIFrame.getErrorSingUP()));
+		Assert.assertTrue(homePage.validateUserLogged(user.getFirstName()),"ERROR USER NOT PRESENT");
 	}
-//
-//	@Test(description = "Test Log In", dataProviderClass = org.espnSuite.web.data.DataProviders.class, dataProvider = "Users", enabled = false)
-//	public void logInTest(UserDataESPN user) {
-//		HomePage homePage = getHomePage();
-//		ESPNIFrame espnIFrame = homePage.goToSingInUp();
-//		// JM -> Assert: Validar el texto del botón "Log In" en el iFrame
-//		espnIFrame.singInESPN(user.getEmail(), user.getPassword());
-//		// JM -> Assert: Validar el título en la página de ESPN - "ESPN"
-//		Assert.assertTrue(homePage.validateUserLogged(user.getFirstName()), "ERROR USER NAME IS NOT PRESENT");
-//	}
+
+	@Test(description = "Test Log In", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
+			dataProvider = "Users", enabled = true)
+	public void logInTest(UserDataESPN user) {
+		HomePage homePage = getHomePage();
+		ESPNIFrame espnIFrame = homePage.goToESPNIFrame();
+		// JM -> Assert: Validar el texto del botón "Log In" en el iFrame
+		espnIFrame.loginESPN(user.getEmail(), user.getPassword());
+		// JM -> Assert: Validar el título en la página de ESPN - "ESPN"
+		Assert.assertTrue(homePage.validateUserLogged(user.getFirstName()), "ERROR USER NAME IS NOT PRESENT");
+	}
+
+		@Test(description = "Test Log Out", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
+				dataProvider = "Users", enabled = true)
+	public void zlogOutTest(UserDataESPN user) {
+		HomePage homePage = getHomePage();
+		homePage.logOut();
+		Assert.assertTrue(homePage.validateUserLogOut(), "USER COULD NOT LOG OUT");
+		//Assert.assertEquals(homePage.getTitle(), homePagetitle, "TITLE IS NO AS EXPECTED");
+		//JM-> Assert: Validar el título en la página de ESPN - "ESPN"
+	}
+
+
 //
 //	// **July paso por aqui**//
 //	@AfterMethod(description = "After LogIn",alwaysRun = false)
@@ -67,14 +78,6 @@ public class ESPNTest extends BaseTest {
 //		// JM-> Assert: Validar el texto "ESPN Profile" en el Menu de Usuario
 //	}
 //
-//	@Test(description = "Test Log Out", dataProviderClass = org.espnSuite.web.data.DataProviders.class, dataProvider = "Users", enabled = false)
-//	public void zlogOutTest(UserDataESPN user) {
-//		HomePage homePage = getHomePage();
-//		homePage.logOut();
-//		Assert.assertTrue(homePage.validateUserLogOut(), "USER COULD NOT LOG OUT");
-//		//Assert.assertEquals(homePage.getTitle(), homePagetitle, "TITLE IS NO AS EXPECTED");
-//		//JM-> Assert: Validar el título en la página de ESPN - "ESPN"
-//	}
 //
 //	// **July paso por aqui**//
 //	@AfterMethod(description = "Despues de Log Out",alwaysRun = false)

@@ -1,10 +1,10 @@
 package org.espnSuite.web.pages;
 
 import org.espnSuite.web.data.UserDataESPN;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,9 +52,12 @@ public class ESPNIFrame extends BasePage {
 	@FindBy(css = "button.[did-translate='deactivate.confirmation.buttons.confirm']")
 	private WebElement confirmDeleteAccountButton;
 
-	// JM: Preguntar a Brayan si esto lo podemos hacer
+	// JM: Preguntar a Brayan si esto lo podemos hacer   // la verdad no creo que funcione, pero podemos probar
 	@FindBy(css = "#")
 	private WebElement confirmDeleteAccountMessage;
+
+	@FindBy(css = ".message-error.message.ng-isolate-scope.state-active")
+	private List<WebElement> alertMessages;
 
 	private List<String> errorSingUP;
 
@@ -104,6 +107,8 @@ public class ESPNIFrame extends BasePage {
 	 */
 
 	public void singUpESPN(UserDataESPN user) {
+		waitElementVisibility(singUpButton);
+		clickElement(singUpButton);
 		log.info("Creando una nueva cuenta de ESPN");
 		waitElementVisibility(firstNameInput, lastNameInput, emailInput, newPasswordInput, confirmSingUpButton);
 		firstNameInput.sendKeys(user.getFirstName());
@@ -111,7 +116,6 @@ public class ESPNIFrame extends BasePage {
 		emailInput.sendKeys((user.getEmail()));
 		newPasswordInput.sendKeys(user.getPassword());
 		clickElement(confirmSingUpButton);
-		sleep(5);
 	}
 
 	/**
@@ -198,16 +202,15 @@ public class ESPNIFrame extends BasePage {
 		return errorSingUP;
 	}
 
-	//JM Validar con Brayan para que sirve esto
-	public List<String> alertMessagesRaised() { // Check why it is not able to find the list of web elements alerts
+	//JM Validar con Brayan para que sirve esto -> Para ver los errores en el sign up
+	public List<String> alertMessagesRaised() {
 		List<String> alertMessagesRaised = new ArrayList<>();
-		getDriver().findElements(By.cssSelector(".message-error.message.ng-isolate-scope.state-active"))// "div[ng-repeat='item
-																										// in
-																										// parsedItems']"))
-				.forEach(e -> {
-					alertMessagesRaised.add(e.getText());
-					log.info(e.getText());
-				});
+		if (waitElementVisibility(alertMessages)) {
+			alertMessages.forEach(e -> {
+						alertMessagesRaised.add(e.getText());
+						log.info(e.getText());
+					});
+		}
 		return alertMessagesRaised;
 	}
 

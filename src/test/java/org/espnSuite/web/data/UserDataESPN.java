@@ -2,8 +2,6 @@ package org.espnSuite.web.data;
 
 import org.espnSuite.web.utils.AccountStatus;
 
-import java.util.List;
-
 public class UserDataESPN {
 
     private String firstName;
