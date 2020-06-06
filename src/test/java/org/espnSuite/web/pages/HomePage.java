@@ -7,45 +7,54 @@ import org.openqa.selenium.support.pagefactory.ElementLocator;
 
 public class HomePage extends BasePage {
 
-	// **July estuvo aqui**//
-	@FindBy(css = "#global-header h1 a") // head.at-element-marker:nth-child(1) title
+	@FindBy(css = "#global-header h1 a")
 	private WebElement homePageTitle;
 
 	@FindBy(css = "a#global-user-trigger")
-	private WebElement iconUser;
+	private WebElement globalUserIcon;
 
 	@FindBy(css = "ul.account-management li:nth-child(5) a")
-	private WebElement loginOption; // loginOption //singInButton
+	private WebElement loginOption;
 
 	@FindBy(css = "ul.account-management li:nth-child(9) a")
-	private WebElement logoutOption; // logoutOption //logOutButton
+	private WebElement logoutOption;
 
 	@FindBy(css = "ul.account-management li:nth-child(5) a")
-	private WebElement espnProfileOption; // espnProfileOption //espnProfileButton
+	private WebElement espnProfileOption;
 
 	@FindBy(css = "#global-header .display-user")
-	private WebElement welcomeMessage;
+	private WebElement displayWelcomeMessage;
 
 	@FindBy(css = "#global-header li.display-user span")
-	private WebElement nameUserLogged;
+	private WebElement displayLoggedUser;
 
 	@FindBy(css = "#disneyid-iframe")
-	private WebElement espnIFrame; // singInUpIFrame
+	private WebElement espnIFrame;
+
+	/**
+	 * Variables used for Assertions
+	 * 
+	 */
+
+	public String assertHomePageTitle = "ESPN: Serving sports fans. Anytime. Anywhere.";
+	public String assertLogInOption = "Log In";
+	public String assertLogOutOption = "Log Out";
+	public String assertEspnProfileOption = "ESPN Profile";
+
 
 	/**
 	 * Constructor, a factory for producing {@link ElementLocator}s.
 	 * 
 	 * @param driver Web driver of the page
 	 */
+
 	public HomePage(WebDriver driver, String url) {
 		super(driver);
 		getDriver().get(url);
 	}
 
-	// **July estuvo aqui**//
-
 	/**
-	 * Get ESPN Page title
+	 * Get ESPN Home Page title
 	 * 
 	 * @return String text title
 	 */
@@ -61,20 +70,9 @@ public class HomePage extends BasePage {
 	 */
 
 	public void goToUserMenu() {
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
 		log.info("Entrar al menu de Usuario");
-	}
-
-	/**
-	 * Get Menu User Welcome label
-	 * 
-	 * @return String text welcome label
-	 */
-	public String getUserMenuTitle() {
-		log.info("Obtener el titulo del Menu de Usuario antes de loguearse");
-		waitElementVisibility(welcomeMessage);
-		return welcomeMessage.getText();
 	}
 
 	/**
@@ -82,9 +80,9 @@ public class HomePage extends BasePage {
 	 * 
 	 */
 
-	public void logIn() {
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
+	public void goToLogIn() {
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
 		clickElement(loginOption);
 		log.info("Entrar a la opción LOG IN");
 	}
@@ -94,58 +92,49 @@ public class HomePage extends BasePage {
 	 * 
 	 */
 
-	public void logOut() {
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
+	public void goToLogOut() {
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
 		waitElementVisibility(logoutOption);
 		clickElement(logoutOption);
 		log.info("Entrar a la opción LOG OUT");
 	}
 
 	/**
-	 * Get Menu User Welcome Name label
+	 * Go to Log Out Option
 	 * 
-	 * @return String text welcome label
 	 */
-	public String getLogedinUserMenuTitle() {
-		log.info("Obtener el titulo del Menu de Usuario despues de loguearse");
-		waitElementVisibility(nameUserLogged);
-		return nameUserLogged.getText();
+
+	public void goToEspnProfile() {
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
+		waitElementVisibility(espnProfileOption);
+		clickElement(espnProfileOption);
+		log.info("Entrar a la opción ESPN PROFILE");
 	}
 
 	/**
-	 * Go to ESPN Profile Option
+	 * Go to ESPN Profile Option and switch to espnIFrame
 	 * 
 	 */
 
-	public ESPNIFrame espnProfile() {
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
+	public ESPNIFrame goToUpdateAccountIFrame() {
+		log.info("Entrar a la opción ESPN Profile y hacer switch al iframe");
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
 		clickElement(espnProfileOption);
-		log.info("Entrar a la opción ESPN PROFILE");
 		return new ESPNIFrame(switchToIFrame(espnIFrame));
 	}
 
 	/**
-	 * Get ESPN Profile Option title
-	 * 
-	 * @return String text title
-	 */
-	public String getESPNprofileLabel() {
-		log.info("Obtener el texto de la opción ESPN Profile");
-		waitElementVisibility(espnProfileOption);
-		return espnProfileOption.getText();
-	}
-
-	/**
-	 * Switch to Log In / Sign Up iFrame
+	 * Go to Log In Option and switch to espnIFrame
 	 * 
 	 * @return ESPNIFrame
 	 */
-	public ESPNIFrame goToESPNIFrame() {
-		log.info("Cambiandose al iFrame de Log In / Sign Up");
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
+	public ESPNIFrame goToSignInUpIFrame() {
+		log.info("Entrar a la opción LOG IN y hacer switch al iframe");
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
 		clickElement(loginOption);
 		return new ESPNIFrame(switchToIFrame(espnIFrame));
 
@@ -158,42 +147,55 @@ public class HomePage extends BasePage {
 	 */
 	public ESPNIFrame goToESPNProfileIFrame() {
 		log.info("Cambiandose al iFrame de ESPN Profile");
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
 		waitElementVisibility(espnProfileOption);
 		clickElement(espnProfileOption);
 		return new ESPNIFrame(switchToIFrame(espnIFrame));
 	}
 
-	// Validaciones de Pinguin que no se bien como utilizar
-	public boolean validateUserLogged(String userName) {
-		String tmpUserName="";
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
-		if (waitElementVisibility(nameUserLogged)) {
-			 tmpUserName = nameUserLogged.getText();
+	/**
+	 * Validate if an user is logged in
+	 * 
+	 * @return
+	 */
+
+	public boolean validateUserLoggedIn(String userName) {
+		String tmpUserName = "";
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
+		if (waitElementVisibility(displayLoggedUser)) {
+			tmpUserName = displayLoggedUser.getText();
 			log.info("Welcome " + tmpUserName);
-			waitElementVisibility(iconUser);
-			clickElement(iconUser);
-			waitElementInvisibility(nameUserLogged);
+			waitElementVisibility(globalUserIcon);
+			clickElement(globalUserIcon);
+			waitElementInvisibility(displayLoggedUser);
+			log.info("Obtener el Usuario Logeadoe despues de loguearse");
 		}
 		return (tmpUserName.equals(userName + "!"));
 	}
 
-	// Validaciones de Pinguin que no se bien como utilizar
-	public boolean validateUserLogOut() {
-		String tmpUserName="";
+	/**
+	 * Validate if an user is logged out
+	 * 
+	 * @return
+	 */
+
+	public boolean validateUserLoggedOut() {
+		String tmpMessage = "";
 		// need to find a better solution - it is like a sleep of 30 seconds
-		waitElementInvisibility(iconUser); // Log out validation is failing due to user icon is too fast
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
-		if (waitElementVisibility(welcomeMessage)) {
-			tmpUserName = welcomeMessage.getText();
-			log.info(tmpUserName);
+		waitElementInvisibility(globalUserIcon); // Log out validation is failing due to user icon is too fast
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
+		if (waitElementVisibility(displayWelcomeMessage)) {
+			tmpMessage = displayWelcomeMessage.getText();
+			log.info(tmpMessage);
 		}
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
-		return (tmpUserName.equals("Welcome!"));
+		log.info("Obtener el Welcome Message despues de desloguearse");
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
+		return (tmpMessage.equals("Welcome!"));
+
 	}
 
 }
