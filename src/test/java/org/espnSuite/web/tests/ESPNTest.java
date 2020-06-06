@@ -40,8 +40,8 @@ public class ESPNTest extends BaseTest {
 	}
 
 	@Test(description = "Test Log In", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
-			dataProvider = "Users", enabled = true)
-	public void logInTest(UserDataESPN user) {
+			dataProvider = "Users")
+	public void slogInTest(UserDataESPN user) {
 		HomePage homePage = getHomePage();
 		ESPNIFrame espnIFrame = homePage.goToESPNIFrame();
 		// JM -> Assert: Validar el texto del botón "Log In" en el iFrame
@@ -51,8 +51,8 @@ public class ESPNTest extends BaseTest {
 	}
 
 		@Test(description = "Test Log Out", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
-				dataProvider = "Users", enabled = true)
-	public void zlogOutTest(UserDataESPN user) {
+				dataProvider = "Users")
+	public void ologOutTest(UserDataESPN user) {
 		HomePage homePage = getHomePage();
 		homePage.logOut();
 		Assert.assertTrue(homePage.validateUserLogOut(), "USER COULD NOT LOG OUT");
@@ -94,16 +94,19 @@ public class ESPNTest extends BaseTest {
 ////		-> Assert:  Validar el texto "Update Your Account" en el iFrame
 //	}
 //
-//	@Test(description = "Delete account", dataProviderClass = org.espnSuite.web.data.DataProviders.class, dataProvider = "Users", enabled = false)
-//	public void wdeleteAccount(String homePagetitle) {
-//		HomePage homePage = getHomePage();
-//		ESPNIFrame espnIFrame = homePage.goToDeleteAccount();
-//		//JM -> Assert:  Validar el texto "Yes, delete this account" en el iframe "Are you sure?"
-//		espnIFrame.deleteAccountSubmit();
-//		//JM -> Assert:  Validar el texto "Your account has been deleted." en el titulo del iframe
-//		//JM -> Assert: Validar el título en la página de ESPN - "ESPN"
-//		//Assert.assertEquals(homePage.getTitle(), homePagetitle, "TITLE IS NO AS EXPECTED");
-//	}
+	@Test(description = "Delete account", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
+			dataProvider = "Users", enabled = false)
+	public void wdeleteAccount(UserDataESPN user) {
+		HomePage homePage = getHomePage();
+		ESPNIFrame espnIFrame = homePage.espnProfile();
+		//JM -> Assert:  Validar el texto "Yes, delete this account" en el iframe "Are you sure?"
+		espnIFrame.deleteAccount();
+		espnIFrame.deleteAccountSubmit();
+		Assert.assertTrue(homePage.validateUserLogOut(), "USER COULD NOT LOG OUT");
+		//JM -> Assert:  Validar el texto "Your account has been deleted." en el titulo del iframe
+		//JM -> Assert: Validar el título en la página de ESPN - "ESPN"
+		//Assert.assertEquals(homePage.getTitle(), homePagetitle, "TITLE IS NO AS EXPECTED");
+	}
 //
 //	@AfterMethod(alwaysRun = true)
 //	public void afterMethod() {

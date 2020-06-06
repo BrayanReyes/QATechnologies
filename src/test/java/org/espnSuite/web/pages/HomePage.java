@@ -97,7 +97,7 @@ public class HomePage extends BasePage {
 	public void logOut() {
 		waitElementVisibility(iconUser);
 		clickElement(iconUser);
-		waitElementVisibility(loginOption);
+		waitElementVisibility(logoutOption);
 		clickElement(logoutOption);
 		log.info("Entrar a la opción LOG OUT");
 	}
@@ -118,11 +118,12 @@ public class HomePage extends BasePage {
 	 * 
 	 */
 
-	public void espnProfile() {
+	public ESPNIFrame espnProfile() {
 		waitElementVisibility(iconUser);
 		clickElement(iconUser);
 		clickElement(espnProfileOption);
 		log.info("Entrar a la opción ESPN PROFILE");
+		return new ESPNIFrame(switchToIFrame(espnIFrame));
 	}
 
 	/**
@@ -172,18 +173,21 @@ public class HomePage extends BasePage {
 		if (waitElementVisibility(nameUserLogged)) {
 			 tmpUserName = nameUserLogged.getText();
 			log.info("Welcome " + tmpUserName);
+			waitElementVisibility(iconUser);
+			clickElement(iconUser);
+			waitElementInvisibility(nameUserLogged);
 		}
-		waitElementVisibility(iconUser);
-		clickElement(iconUser);
 		return (tmpUserName.equals(userName + "!"));
 	}
 
 	// Validaciones de Pinguin que no se bien como utilizar
-	public boolean validateUserLogOut() { // Log out validation is failing due to user icon is too fast
+	public boolean validateUserLogOut() {
 		String tmpUserName="";
+		// need to find a better solution - it is like a sleep of 30 seconds
+		waitElementInvisibility(iconUser); // Log out validation is failing due to user icon is too fast
 		waitElementVisibility(iconUser);
 		clickElement(iconUser);
-		if (waitElementVisibility(logoutOption)) {
+		if (waitElementVisibility(welcomeMessage)) {
 			tmpUserName = welcomeMessage.getText();
 			log.info(tmpUserName);
 		}

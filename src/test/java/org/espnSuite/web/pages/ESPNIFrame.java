@@ -47,9 +47,7 @@ public class ESPNIFrame extends BasePage {
 	@FindBy(css = "#cancel-account")
 	private WebElement deleteAccountLink;
 
-	// @FindBy(css = "section.workflow.workflow-deactivate button.btn.btn-primary
-	// ng-isolate-scope")
-	@FindBy(css = "button.[did-translate='deactivate.confirmation.buttons.confirm']")
+	@FindBy(css = "section.workflow.workflow-deactivate button.btn.btn-primary.ng-isolate-scope")
 	private WebElement confirmDeleteAccountButton;
 
 	// JM: Preguntar a Brayan si esto lo podemos hacer   // la verdad no creo que funcione, pero podemos probar
@@ -62,10 +60,17 @@ public class ESPNIFrame extends BasePage {
 	private List<String> errorSingUP;
 
 	/**
-	 * Constructor, a factory for producing {@link ElementLocators}.
-	 * 
+	 * Constructor, a factory for producing  ElementLocators.
 	 * @param driver Web driver of the page
 	 */
+
+	public ESPNIFrame(WebDriver driver) {
+		super(driver);
+		errorSingUP = new ArrayList<>();
+		errorSingUP.add("Please enter a password.");
+		errorSingUP.add("It looks like that email has already been used to create an account at Disney, ESPN, Marvel, "
+				+ "or ABC. If this is your email address, just log in to your account.");
+	}
 
 	/**
 	 * Get "Sign Up" button text from ESPN iFrame
@@ -181,21 +186,10 @@ public class ESPNIFrame extends BasePage {
 
 	public void deleteAccountSubmit() {
 		waitElementVisibility(confirmDeleteAccountButton);
-		// clickElement(confirmDeleteAccountButton); //JM: Preguntar a Brayan porque
-		// esto esta comentariado
+		//JM: Preguntar a Brayan porque esto esta comentariado
+		// BR: Para no borrar las cuentas tan rapido
+		//clickElement(confirmDeleteAccountButton);
 		log.info("Aceptar Desactivar la Cuenta");
-	}
-
-	/**
-	 * Login error management
-	 */
-
-	public ESPNIFrame(WebDriver driver) {
-		super(driver);
-		errorSingUP = new ArrayList<>();
-		errorSingUP.add("Please enter a password.");
-		errorSingUP.add("It looks like that email has already been used to create an account at Disney, ESPN, Marvel, "
-				+ "or ABC. If this is your email address, just log in to your account.");
 	}
 
 	public List<String> getErrorSingUP() {

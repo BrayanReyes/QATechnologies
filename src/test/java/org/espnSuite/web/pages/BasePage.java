@@ -105,7 +105,7 @@ public class BasePage {
             return true;
         }
         catch (TimeoutException eTimeOut){
-            log.info("TimeOut exception with Web element");
+            log.info("TimeOut exception to Click Web element");
             return false;
         }
         catch (Exception e){
@@ -156,6 +156,28 @@ public class BasePage {
         Actions action = new Actions(getDriver());
         action.moveToElement(webElement).perform();
     }
+
+
+    /**
+     * Wait for elements visibility
+     * @param webElement to wait until it is visible
+     * @return boolean
+     */
+    public boolean waitElementInvisibility(WebElement... webElement){
+        try {
+            getWait().until(ExpectedConditions.invisibilityOfAllElements(webElement));
+            return true;
+        }
+        catch (TimeoutException eTimeOut){
+            log.info("TimeOut exception invisibility with Web element");
+            return false;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     /**
      * Another implicit Wait by n secodns
