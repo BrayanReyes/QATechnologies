@@ -33,7 +33,7 @@ public class ESPNTest extends BaseTest {
 	@Test(description = "Create user account", dataProviderClass = org.espnSuite.web.data.DataProviders.class, dataProvider = "Users", enabled = true)
 	public void createAccount(UserDataESPN user) {
 		HomePage homePage = getHomePage();
-		ESPNIFrame espnIFrame = homePage.goToSingInUp();
+		ESPNIFrame espnIFrame = homePage.goToLoginSingupIFrame();
 		log.info("Validar el texto \"Sign Up\"");
 		espnIFrame.singUpESPN(user);
 //		Assert.assertTrue(Collections.disjoint(espnIFrame.alertMessagesRaised(), espnIFrame.getErrorSingUP()));
@@ -108,5 +108,5 @@ public class ESPNTest extends BaseTest {
 ////		getHomePage().switchToDefaultContent();
 //		//JM -> Assert:  Validar el texto "Log In" en el Menu de Usuario
 //	}
-
+	
 }
