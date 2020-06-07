@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -32,8 +31,8 @@ public class BasePage {
 	 */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
-		wait = new WebDriverWait(this.driver, 5);
-		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 5), this);
+		wait = new WebDriverWait(this.driver, 8);
+		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 8), this);
 	}
 
 	/**

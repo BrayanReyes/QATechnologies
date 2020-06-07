@@ -58,12 +58,10 @@ public class ESPNIFrame extends BasePage {
 	@FindBy(css = ".message-error.message.ng-isolate-scope.state-active")
 	private List<WebElement> alertMessages;
 
+	@FindBy(css = "button[ng-click*='vm.close']")
+	private WebElement okNotificationDeleteAccount;
+
 	private List<String> signUpErrors;
-//	public String assertLogInButton = "Log In";
-//	public String assertEspnProfileHeader = "Update Your Account";
-//	public String assertDeleteAccountHeader = "Are you sure?";
-//	public String assertDeleteAccountButton = "Yes, delete this account";
-//	public String assertAccountDeletedHeader = "Your account has been deleted";
 
 	/**
 	 * Constructor, a factory for producing ElementLocators.
@@ -77,39 +75,6 @@ public class ESPNIFrame extends BasePage {
 		signUpErrors.add("Please enter a password.");
 		signUpErrors.add("It looks like that email has already been used to create an account at Disney, ESPN, Marvel, "
 				+ "or ABC. If this is your email address, just log in to your account.");
-	}
-
-	/**
-	 * Get "Log In" button text from ESPN iFrame
-	 * 
-	 * @return String button text
-	 */
-	public String getLogInButtonText() {
-		log.info("Capturando el texto del boton LOG IN para saber que estoy en el iFrame correcto");
-		waitElementVisibility(logInButton);
-		return logInButton.getText();
-	}
-
-	/**
-	 * Go to Sign Up option
-	 * 
-	 */
-
-	public void goToSignUp() {
-		log.info("Ingresando a la opción SIGN UP");
-		waitElementVisibility(singUpButton);
-		clickElement(singUpButton);
-	}
-
-	/**
-	 * Get Sign Up header
-	 * 
-	 * @return String "Create Account"
-	 */
-	public String getSignUpHeader() {
-		log.info("Capturando el titulo del IFrame SIGN UP para saber que estoy en el iFrame correcto");
-		waitElementVisibility(signUpHeader);
-		return signUpHeader.getText();
 	}
 
 	/**
@@ -166,23 +131,11 @@ public class ESPNIFrame extends BasePage {
 	 */
 
 	public void logIn(String username, String password) {
-		waitElementVisibility(usernameInput, passwordInput);
+		waitElementVisibility(usernameInput, passwordInput,logInButton);
 		usernameInput.sendKeys(username);
 		passwordInput.sendKeys(password);
 		clickElement(logInButton);
-		switchToDefaultContent();
 		log.info("Loguedo en ESPN");
-	}
-
-	/**
-	 * Get IFrame Header for ESPN Profile Option 
-	 * 
-	 * @return String "Update Account"
-	 */
-	public String getEspnProfileHeader() {
-		log.info("Capturando el texto del iFrame para saber que entre UPDATE ACCOUNT para desactivar la cuenta");
-		waitElementVisibility(espnProfileHeader);
-		return espnProfileHeader.getText();
 	}
 
 	/**
@@ -196,26 +149,26 @@ public class ESPNIFrame extends BasePage {
 		log.info("Solicito desactivar la cuenta");
 	}
 
-	/**
-	 * Get Delete Account Button Text
-	 * 
-	 * @return String "Yes, delete this account"
-	 */
-	public String getDeleteAccountButtonText() {
-		log.info("Capturando el texto boton de Delete para confirmar que voy a borrar la cuenta");
-		waitElementVisibility(deleteAccountButton);
-		return deleteAccountButton.getText();
-	}
 
 	/**
 	 * Confirm ESPN deactivate Account
 	 */
-
 	public void deleteAccountSubmit() {
 		waitElementVisibility(deleteAccountButton);
 		clickElement(deleteAccountButton);
+		waitElementVisibility(okNotificationDeleteAccount);
+		clickElement(okNotificationDeleteAccount);
+		waitElementInvisibility(okNotificationDeleteAccount);
 		switchToDefaultContent();
 		log.info("Aceptar Desactivar la Cuenta");
 	}
 
+	/**
+	 * Checks if tittle Account Deactivated appears after log in
+	 * @return
+	 */
+	public boolean checkAccountDeactivated(){
+		waitElementVisibility(espnProfileHeader);
+		return (espnProfileHeader.getText().toString().equals("Account Deactivated"));
+	}
 }

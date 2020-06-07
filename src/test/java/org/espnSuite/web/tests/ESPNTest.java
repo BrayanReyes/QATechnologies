@@ -22,6 +22,7 @@ import java.util.Collections;
 
 public class ESPNTest extends BaseTest {
 
+	private UserDataESPN user;
 
 	/**
 	 * Log In to an active ESPN account using an username and password and validate the Log In
@@ -36,7 +37,7 @@ public class ESPNTest extends BaseTest {
 		HomePage homePage = getHomePage();
 		ESPNIFrame espnIFrame = homePage.goToSignInUpIFrame();
 		espnIFrame.logIn(user.getEmail(), user.getPassword());
-//		Assert.assertEquals(homePage.getHomePageTitle(), homePage.assertHomePageTitle, "HOME PAGE TITLE IS NO AS EXPECTED");
+		getHomePage().switchToDefaultContent();
 		Assert.assertTrue(homePage.validateUserLoggedIn(user.getFirstName()), "USER NAME IS NOT PRESENT");
 	}
 
@@ -58,17 +59,16 @@ public class ESPNTest extends BaseTest {
 	 * The new user account will be saved in UserDataESPN.dat
 	 */
 	
-	@BeforeMethod (groups = "LogOutGroup")
-	public void createAccountBeforeLogOutTest() {
+	@BeforeMethod (groups =  {"LogOutGroup", "DeleteAccountGroup"})
+	public void beforeCreateAccount() {
 		HomePage homePage = getHomePage();
 		ESPNIFrame espnIFrame = homePage.goToSignInUpIFrame();
-		UserDataESPN user = Init.createDataUser();
+		user = Init.createDataUser();
 		log.info(user);
 		espnIFrame.signUp(user);
 		log.info("Validar errores en 'Sign Up'");
 		Assert.assertTrue(Collections.disjoint(espnIFrame.alertMessagesRaised(), espnIFrame.getErrorSingUP()));
 		Assert.assertTrue(homePage.validateUserLoggedIn(user.getFirstName()),"ERROR USER NOT PRESENT");
-		Init.saveUserLogOut(user);
 	}
 
 	/**
@@ -77,28 +77,10 @@ public class ESPNTest extends BaseTest {
 	
 	@Test(description = "Log Out Test", groups = "LogOutGroup")
 	public void logOutTest() {
+		Init.saveUserLogOut(user);
 		HomePage homePage = getHomePage();
 		homePage.goToLogOut();
 		Assert.assertTrue(homePage.validateUserLoggedOut(), "USER COULD NOT LOG OUT");
-		//Assert.assertEquals(homePage.getTitle(), homePagetitle, "TITLE IS NO AS EXPECTED");
-	}
-
-	/**
-	 * Create a new ESPN Account in order to run Log Out Test
-	 * The new user account will be saved in UserDataESPN.dat
-	 */
-
-	@BeforeMethod(groups = "DeleteAccountGroup")
-	public void createAccountBeforeDeleteAccountTest(){
-		HomePage homePage = getHomePage();
-		ESPNIFrame espnIFrame = homePage.goToSignInUpIFrame();
-		UserDataESPN user = Init.createDataUser();
-		log.info(user);
-		espnIFrame.signUp(user);
-		log.info("Validar errores en 'Sign Up'");
-		Assert.assertTrue(Collections.disjoint(espnIFrame.alertMessagesRaised(), espnIFrame.getErrorSingUP()));
-		Assert.assertTrue(homePage.validateUserLoggedIn(user.getFirstName()),"ERROR USER NOT PRESENT");
-		Init.saveUserDeleteAccount(user);
 	}
 
 	/**
@@ -111,9 +93,15 @@ public class ESPNTest extends BaseTest {
 		ESPNIFrame espnIFrame = homePage.goToUpdateAccountIFrame();
 		espnIFrame.deleteAccount();
 		espnIFrame.deleteAccountSubmit();
-		//JM -> Assert:  Validar el texto "Your account has been deleted." en el titulo del iframe
-		//Assert.assertEquals(homePage.getTitle(), homePagetitle, "TITLE IS NO AS EXPECTED");
-		//JM -> Assert: Validar el título en la página de ESPN - "ESPN"
-		Assert.assertTrue(homePage.validateUserLoggedOut(), "USER COULD NOT LOG OUT");
+		homePage = getHomePage();
+		espnIFrame = homePage.goToSignInUpIFrame();
+		espnIFrame.logIn(user.getEmail(), user.getPassword());
+		Assert.assertTrue(espnIFrame.checkAccountDeactivated(), "USER COULD NOT DEACTIVATED");
+		Init.saveUserDeleteAccount(user);
+	}
+
+	@AfterMethod(groups = "DeleteAccountGroup")
+	public void afterMethod(){
+		getHomePage().switchToDefaultContent();
 	}
 }

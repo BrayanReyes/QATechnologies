@@ -38,17 +38,6 @@ public class HomePage extends BasePage {
 	@FindBy(css = "#disneyid-iframe")
 	private WebElement espnIFrame;
 
-//	/**
-//	 * Variables used for Assertions
-//	 * 
-//	 */
-//
-//	public String assertHomePageTitle = "ESPN";
-//	public String assertLogInOption = "Log In";
-//	public String assertLogOutOption = "Log Out";
-//	public String assertEspnProfileOption = "ESPN Profile";
-
-
 	/**
 	 * Constructor, a factory for producing {@link ElementLocator}s.
 	 * 
@@ -58,40 +47,6 @@ public class HomePage extends BasePage {
 	public HomePage(WebDriver driver, String url) {
 		super(driver);
 		getDriver().get(url);
-	}
-
-	/**
-	 * Get ESPN Home Page title
-	 * 
-	 * @return String "ESPN"
-	 */
-	public String getHomePageTitle() {
-		log.info("Obtener el titulo de la Home Page de ESPN para saber que voy a probar la pagina correcta");
-		waitElementVisibility(homePageTitle);
-		return homePageTitle.getText();
-	}
-
-	/**
-	 * Go to User Menu
-	 * 
-	 */
-
-	public void goToUserMenu() {
-		log.info("Click Usuario");
-		waitElementVisibility(globalUserIcon);
-		clickElement(globalUserIcon);
-		log.info("Entrar al menu de Usuario");
-	}
-
-	/**
-	 * Go to Log In Option
-	 * 
-	 */
-
-	public void goToLogIn() {
-		waitElementVisibility(loginOption);
-		clickElement(loginOption);
-		log.info("Entrar a la opción LOG IN");
 	}
 
 	/**
@@ -108,26 +63,12 @@ public class HomePage extends BasePage {
 	}
 
 	/**
-	 * Go to ESPN Profile Option
-	 * 
-	 */
-
-	public void goToEspnProfile() {
-		waitElementVisibility(globalUserIcon);
-		clickElement(globalUserIcon);
-		waitElementVisibility(espnProfileOption);
-		clickElement(espnProfileOption);
-		log.info("Entrar a la opción ESPN PROFILE");
-	}
-
-	/**
 	 * Go to ESPN Profile Option and switch to espnIFrame
 	 * 
 	 */
 
 	public ESPNIFrame goToUpdateAccountIFrame() {
 		log.info("Entrar a la opción ESPN PROFILE y hacer switch al iframe");
-		//waitElementInvisibility(globalUserIcon);
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		waitElementVisibility(espnProfileOption);
@@ -144,25 +85,11 @@ public class HomePage extends BasePage {
 		log.info("entra a la opcion LOG IN y hace switch al iframe");
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
-		waitElementVisibility(loginOption);
-		clickElement(loginOption);
+		if (waitElementVisibility(loginOption))
+			clickElement(loginOption);
 		return new ESPNIFrame(switchToIFrame(espnIFrame));
 
 	}
-
-//	/**
-//	 * Switch to ESPN Profile iFrame
-//	 * 
-//	 * @return ESPNIFrame
-//	 */
-//	public ESPNIFrame goToESPNProfileIFrame() {
-//		log.info("Cambiandose al iFrame de ESPN Profile");
-//		waitElementVisibility(globalUserIcon);
-//		clickElement(globalUserIcon);
-//		waitElementVisibility(espnProfileOption);
-//		clickElement(espnProfileOption);
-//		return new ESPNIFrame(switchToIFrame(espnIFrame));
-//	}
 
 	/**
 	 * Validate if an user is logged in
@@ -182,7 +109,8 @@ public class HomePage extends BasePage {
 			clickElement(globalUserIcon);
 			waitElementInvisibility(displayLoggedUser);
 			log.info("Obtener el Usuario Logeadoe despues de loguearse");
-		}
+		}else
+			log.info("Not able to check log in.");
 		return (tmpUserName.equals(userName + "!"));
 	}
 

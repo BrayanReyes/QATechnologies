@@ -17,10 +17,15 @@ public class DataProviders {
         return Init.initUserDataESPNs("ACTIVE");
     }
     
-//    @DataProvider(name = "newUsers")
-//    public static Object[][] newUsersESPN(){
-//        return Init.initUserDataESPNs("NEW");
-//    }
-//
+    @DataProvider(name = "newUsers")
+    public static Object[][] newUsersESPN(){
+        return Init.initUserDataESPNs("NEW");
+    }
+
+    @DataProvider(name = "inactiveUsers")
+    public static Object[][] inactiveUsersESPN(){
+        return Init.initUserDataESPNs("INACTIVE");
+    }
+
 
 }

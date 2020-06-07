@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class Init {
 
     /**
-     * Define the structure of the file UserDataESPN.dat in which the User Accounts info will be save
+     * Read the  file UserDataESPN.dat in which the User Accounts info
      * @param status
      * @return arrayUserDataESPNs
      */
@@ -95,7 +95,7 @@ public class Init {
     }
 
     /**
-     * Save the status of the ESPN Account after Log Out
+     * Set the status ACTIVE of the ESPN Account and save it
      * @param user
      */
     public static void saveUserLogOut(UserDataESPN user){
@@ -104,7 +104,7 @@ public class Init {
     }
 
     /**
-     * Save the status of the ESPN Account after Deactivate
+     * Set the status Deactivate of the ESPN Account and save it
      * @param user
      */
     public static void saveUserDeleteAccount(UserDataESPN user){
@@ -113,7 +113,7 @@ public class Init {
     }
 
     /**
-     * Save a new User Account Data after run createAccount @BeforeMethods
+     * Save a new User Account Data into file
      * @param user
      */
     private static void saveUser(UserDataESPN user) {
