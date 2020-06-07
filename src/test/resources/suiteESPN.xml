@@ -4,7 +4,7 @@
 	<listeners>
 		<listener class-name="org.espnSuite.web.listeners.Listener"></listener>
 	</listeners>
-
+	
 	<parameter name="browser" value="chrome"></parameter>
 	<parameter name="url"	value="https://www.espn.com/?src=com&amp;_adblock=true"></parameter>
 	<parameter name="homePageTitle" value="ESPN: Serving sports fans. Anytime. Anywhere."></parameter>
@@ -19,6 +19,7 @@
 			<class name="org.espnSuite.web.tests.ESPNTest"></class>
 		</classes>
 	</test>
+	
 	<test name="Log Out Test ESPN Web Page">
 		<groups>
 			<run>
@@ -29,6 +30,7 @@
 			<class name="org.espnSuite.web.tests.ESPNTest"></class>
 		</classes>
 	</test>
+
 	<test name="Delete Account Test ESPN Web Page">
 		<groups>
 			<run>
@@ -39,4 +41,5 @@
 			<class name="org.espnSuite.web.tests.ESPNTest"></class>
 		</classes>
 	</test>
+	
 </suite>

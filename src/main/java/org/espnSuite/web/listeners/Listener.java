@@ -6,9 +6,11 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 /**
- * Class Listener
- * @author july.moreno
+ * Listener class
+ * @author: july.moreno
+ * @version: 07/06/2020
  */
+
 
 public class Listener implements ITestListener {
 
@@ -21,12 +23,12 @@ public class Listener implements ITestListener {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        log.info("THE TEST PASSED");
+        log.info("THE TEST PASSED\n");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        log.info("THE TEST FAILED");
+        log.info("THE TEST FAILED\n");
     }
 
     @Override
@@ -41,11 +43,11 @@ public class Listener implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        log.info("THE SUITE STARTED");
+        log.info("THE TEST GROUP STARTED\n");
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        log.info("THE SUITE FINISHED");
+        log.info("THE TEST GROUP FINISHED\n");
     }
 }

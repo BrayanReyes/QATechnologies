@@ -16,7 +16,7 @@ import java.util.Collections;
  * Sign Up is not a test method itself, but is a precondition to the other tests
  * Groups were used to structure the order in which is desired to run the test
  * @author: july.moreno
- * @version: 06/07/2020
+ * @version: 07/06/2020
  */
 
 
@@ -42,7 +42,7 @@ public class ESPNTest extends BaseTest {
 	}
 
 	/**
-	 * Due to Log In Test could be executed for more than one account, I need to Log Out
+	 * Due to Log In Test could be executed for more than one account. is needed to Log Out
 	 * from one account to Log In to the following one 
 	 */
 	
@@ -66,7 +66,7 @@ public class ESPNTest extends BaseTest {
 		user = Init.createDataUser();
 		log.info(user);
 		espnIFrame.signUp(user);
-		log.info("Validar errores en 'Sign Up'");
+		log.info("Log Info: Validating errors in Sign Up process");
 		Assert.assertTrue(Collections.disjoint(espnIFrame.alertMessagesRaised(), espnIFrame.getErrorSingUP()));
 		Assert.assertTrue(homePage.validateUserLoggedIn(user.getFirstName()),"ERROR USER NOT PRESENT");
 	}
@@ -96,12 +96,17 @@ public class ESPNTest extends BaseTest {
 		homePage = getHomePage();
 		espnIFrame = homePage.goToSignInUpIFrame();
 		espnIFrame.logIn(user.getEmail(), user.getPassword());
-		Assert.assertTrue(espnIFrame.checkAccountDeactivated(), "USER COULD NOT DEACTIVATED");
+		Assert.assertTrue(espnIFrame.checkAccountDeactivated(), "USER COULD NOT BE DEACTIVATED");
 		Init.saveUserDeleteAccount(user);
 	}
+	
+	/**
+	 * Return to Home Page after Delete Account Test
+	 */
+	
 
 	@AfterMethod(groups = "DeleteAccountGroup")
-	public void afterMethod(){
+	public void afterDeleteAccountTest(){
 		getHomePage().switchToDefaultContent();
 	}
 }

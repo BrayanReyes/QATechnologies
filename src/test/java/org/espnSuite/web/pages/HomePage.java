@@ -8,7 +8,7 @@ import org.openqa.selenium.support.pagefactory.ElementLocator;
 /**
  * This class defines the methods to interact with the Home Page
  * @author: july.moreno
- * @version: 06/07/2020
+ * @version: 07/06/2020
  */
 
 
@@ -59,7 +59,7 @@ public class HomePage extends BasePage {
 		clickElement(globalUserIcon);
 		waitElementVisibility(logoutOption);
 		clickElement(logoutOption);
-		log.info("Entrar a la opción LOG OUT");
+		log.info("Log Info: Log Out Option clicked");
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class HomePage extends BasePage {
 	 */
 
 	public ESPNIFrame goToUpdateAccountIFrame() {
-		log.info("Entrar a la opción ESPN PROFILE y hacer switch al iframe");
+		log.info("Log Info:  ESPN Profile Option clicked - Switch to the iframe");
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		waitElementVisibility(espnProfileOption);
@@ -82,7 +82,7 @@ public class HomePage extends BasePage {
 	 * @return ESPNIFrame
 	 */
 	public ESPNIFrame goToSignInUpIFrame() {
-		log.info("entra a la opcion LOG IN y hace switch al iframe");
+		log.info("Log Info:  Log In Option clicked - Switch to the iframe");
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		if (waitElementVisibility(loginOption))
@@ -94,7 +94,7 @@ public class HomePage extends BasePage {
 	/**
 	 * Validate if an user is logged in
 	 * 
-	 * @return true if user is logged in
+	 * @return true
 	 */
 
 	public boolean validateUserLoggedIn(String userName) {
@@ -104,20 +104,19 @@ public class HomePage extends BasePage {
 		clickElement(globalUserIcon);
 		if (waitElementVisibility(displayLoggedUser)) {
 			tmpUserName = displayLoggedUser.getText();
-			log.info("Welcome " + tmpUserName);
 			waitElementVisibility(globalUserIcon);
 			clickElement(globalUserIcon);
 			waitElementInvisibility(displayLoggedUser);
-			log.info("Obtener el Usuario Logeadoe despues de loguearse");
+			log.info("Log info: Validating the label Welcome " + tmpUserName);
 		}else
-			log.info("Not able to check log in.");
+			log.info("Log Info: Not able to check log In.");
 		return (tmpUserName.equals(userName + "!"));
 	}
 
 	/**
 	 * Validate if an user is logged out
 	 * 
-	 * @return true if user is logged out
+	 * @return true
 	 */
 
 	public boolean validateUserLoggedOut() {
@@ -127,9 +126,8 @@ public class HomePage extends BasePage {
 		clickElement(globalUserIcon);
 		if (waitElementVisibility(displayWelcomeMessage)) {
 			tmpMessage = displayWelcomeMessage.getText();
-			log.info(tmpMessage);
+			log.info("Log Info: Validating de label " + tmpMessage);
 		}
-		log.info("Obtener el Welcome Message despues de desloguearse");
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		return (tmpMessage.equals("Welcome!"));

@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 /**
  * This class defines the Data Providers that will be used for the test
  * @author: july.moreno
- * @version: 06/07/2020
+ * @version: 07/06/2020
  */
 
 public class DataProviders {

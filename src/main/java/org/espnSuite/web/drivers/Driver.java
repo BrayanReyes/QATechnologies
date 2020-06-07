@@ -6,8 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
- * Class of listeners
- * @author july.moreno
+ * Drivers class
+ * @author: july.moreno
+ * @version: 07/06/2020
  */
 
 public class Driver {

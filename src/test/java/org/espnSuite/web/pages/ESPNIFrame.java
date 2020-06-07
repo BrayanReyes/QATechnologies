@@ -1,5 +1,6 @@
 package org.espnSuite.web.pages;
 
+import org.apache.commons.logging.Log;
 import org.espnSuite.web.data.UserDataESPN;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * This class defines the methods to interact with the IFrame
  * @author: july.moreno
- * @version: 06/07/2020
+ * @version: 07/06/2020
  */
 
 public class ESPNIFrame extends BasePage {
@@ -59,7 +60,7 @@ public class ESPNIFrame extends BasePage {
 	private List<WebElement> alertMessages;
 
 	@FindBy(css = "button[ng-click*='vm.close']")
-	private WebElement okNotificationDeleteAccount;
+	private WebElement deleteAccountNotificationButton;
 
 	private List<String> signUpErrors;
 
@@ -85,7 +86,7 @@ public class ESPNIFrame extends BasePage {
 	public void signUp(UserDataESPN user) {
 		waitElementVisibility(singUpButton);
 		clickElement(singUpButton);
-		log.info("Creando una nueva cuenta de ESPN");
+		log.info("Log Info: Creating an ESPN Account");
 		waitElementVisibility(firstNameInput, lastNameInput, emailAddressInput, newPasswordInput, confirmSingUpButton);
 		firstNameInput.sendKeys(user.getFirstName());
 		lastNameInput.sendKeys(user.getLastName());
@@ -93,7 +94,7 @@ public class ESPNIFrame extends BasePage {
 		newPasswordInput.sendKeys(user.getPassword());
 		clickElement(confirmSingUpButton);
 		switchToDefaultContent();
-		log.info("Se creó una nueva cuenta en ESPN");
+		log.info("Log Info: ESPN Account created");
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class ESPNIFrame extends BasePage {
 		usernameInput.sendKeys(username);
 		passwordInput.sendKeys(password);
 		clickElement(logInButton);
-		log.info("Loguedo en ESPN");
+		log.info("Log Info: User Request to Log In");
 	}
 
 	/**
@@ -144,9 +145,8 @@ public class ESPNIFrame extends BasePage {
 
 	public void deleteAccount() {
 		moveToElement(deleteAccountLink);
-		waitElementVisibility(deleteAccountLink);
 		clickElement(deleteAccountLink);
-		log.info("Solicito desactivar la cuenta");
+		log.info("Log Info: User request to delete the Account");
 	}
 
 
@@ -156,18 +156,19 @@ public class ESPNIFrame extends BasePage {
 	public void deleteAccountSubmit() {
 		waitElementVisibility(deleteAccountButton);
 		clickElement(deleteAccountButton);
-		waitElementVisibility(okNotificationDeleteAccount);
-		clickElement(okNotificationDeleteAccount);
-		waitElementInvisibility(okNotificationDeleteAccount);
+		waitElementVisibility(deleteAccountNotificationButton);
+		clickElement(deleteAccountNotificationButton);
+		waitElementInvisibility(deleteAccountNotificationButton);
 		switchToDefaultContent();
-		log.info("Aceptar Desactivar la Cuenta");
+		log.info("Log Info: User accept to delete the account");
 	}
 
 	/**
-	 * Checks if tittle Account Deactivated appears after log in
-	 * @return
+	 * Checks if title Account Deactivated appears after log in
+	 * @return yes
 	 */
 	public boolean checkAccountDeactivated(){
+		log.info("Log Info: Checking if the account was deactivated");
 		waitElementVisibility(espnProfileHeader);
 		return (espnProfileHeader.getText().toString().equals("Account Deactivated"));
 	}

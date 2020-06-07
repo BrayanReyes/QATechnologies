@@ -2,6 +2,13 @@ package org.espnSuite.web.data;
 
 import org.espnSuite.web.utils.AccountStatus;
 
+/**
+ * This class defines the parameters needed to handle user data 
+ * @author: july.moreno
+ * @version: 07/06/2020
+ */
+
+
 public class UserDataESPN {
 
     private String firstName;
@@ -28,47 +35,47 @@ public class UserDataESPN {
     }
 
     /**
-     *
-     * @return
+     * Get the status of an account
+     * @return statusAccount
      */
     public AccountStatus getStatusAccount() {
         return statusAccount;
     }
 
     /**
-     *
-     * @return
+     * Get user first name
+     * @return firstName
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     *
-     * @return
+     * Get user last name
+     * @return lastName
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     *
-     * @return
+     * Get user email address
+     * @return email
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     *
-     * @return
+     * Get user password
+     * @return password
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     *
+     * Set the status of an account
      * @param statusAccount
      */
     public void setStatusAccount(AccountStatus statusAccount) {
@@ -94,7 +101,7 @@ public class UserDataESPN {
      */
     @Override
     public String toString() {
-        return "UserDataESPN{" +
+        return "UserDataESPN: {" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

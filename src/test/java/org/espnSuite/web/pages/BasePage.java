@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * This class defines common methods to interact with the web page under test
  * @author: july.moreno
- * @version: 06/07/2020
+ * @version: 07/06/2020
  */
 
 public class BasePage {
@@ -31,8 +31,8 @@ public class BasePage {
 	 */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
-		wait = new WebDriverWait(this.driver, 8);
-		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 8), this);
+		wait = new WebDriverWait(this.driver, 10);
+		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 10), this);
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class BasePage {
 			getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			log.info("TimeOut exception with Web element");
+//			log.info("TimeOut exception with Web element");
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +92,7 @@ public class BasePage {
 			getWait().until(ExpectedConditions.visibilityOfAllElements(webElements));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			log.info("TimeOut exception with Web element");
+//			log.info("TimeOut exception with Web element");
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,7 +112,7 @@ public class BasePage {
 			getWait().until(ExpectedConditions.elementToBeClickable(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			log.info("TimeOut exception to Click Web element");
+//			log.info("TimeOut exception to Click Web element");
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,15 +131,15 @@ public class BasePage {
 		return getDriver().switchTo().frame(iFrame);
 	}
 
-//	/**
-//	 * Switch to iFrame inside the web page
-//	 * 
-//	 * @param iFrame int switch to
-//	 * @return {@link WebDriver}
-//	 */
-//	public WebDriver switchToIFrame(int iFrame) {
-//		return getDriver().switchTo().frame(iFrame);
-//	}
+	/**
+	 * Switch to iFrame inside the web page
+	 * 
+	 * @param iFrame int switch to
+	 * @return {@link WebDriver}
+	 */
+	public WebDriver switchToIFrame(int iFrame) {
+		return getDriver().switchTo().frame(iFrame);
+	}
 
 	/**
 	 * Switch from iFrame to the main page
@@ -183,7 +183,7 @@ public class BasePage {
 			getWait().until(ExpectedConditions.invisibilityOfAllElements(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			log.info("TimeOut exception invisibility with Web element");
+//			log.info("TimeOut exception invisibility with Web element");
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();

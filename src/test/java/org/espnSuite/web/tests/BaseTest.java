@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 /**
  * This class defines common methods for all test defined in ESPNTest
  * @author: july.moreno
- * @version: 06/07/2020
+ * @version: 07/06/2020
  */
 
 public class BaseTest {
@@ -32,8 +32,9 @@ public class BaseTest {
         driver.getDriver().manage().deleteAllCookies();
         driver.getDriver().manage().window().maximize();
         homePage = new HomePage(driver.getDriver(),url);
+        log.info("Log Info: Opening Browser " + driver.getDriver().getTitle());
         Assert.assertEquals(homePageTitle,driver.getDriver().getTitle());
-        log.info("Open Browser " + driver.getDriver().getTitle());
+        
     }
 
 	/**
@@ -42,7 +43,7 @@ public class BaseTest {
     @AfterTest(alwaysRun = true)
     public void afterTest(){
         homePage.dispose();
-        log.info("Close Browser");
+        log.info("Log Info: Closing Browser");
     }
 
     /**
