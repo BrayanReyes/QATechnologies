@@ -9,7 +9,32 @@
 	<parameter name="url"	value="https://www.espn.com/?src=com&amp;_adblock=true"></parameter>
 	<parameter name="homePageTitle" value="ESPN: Serving sports fans. Anytime. Anywhere."></parameter>
 
-	<test name="Test ESPN Web Page Interaction">
+	<test name="Log In Test ESPN Web Page">
+		<groups>
+			<run>
+				<include name="gLogIn"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="org.espnSuite.web.tests.ESPNTest"></class>
+		</classes>
+	</test>
+	<test name="Log Out Test ESPN Web Page">
+		<groups>
+			<run>
+				<include name="gLogOut"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="org.espnSuite.web.tests.ESPNTest"></class>
+		</classes>
+	</test>
+	<test name="Delete Account Test ESPN Web Page">
+		<groups>
+			<run>
+				<include name="gDeleteAccount"></include>
+			</run>
+		</groups>
 		<classes>
 			<class name="org.espnSuite.web.tests.ESPNTest"></class>
 		</classes>

@@ -26,8 +26,8 @@ public class BasePage {
 	 */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
-		wait = new WebDriverWait(this.driver, 10);
-		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 10), this);
+		wait = new WebDriverWait(this.driver, 5);
+		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 5), this);
 	}
 
 	/**

@@ -71,6 +71,7 @@ public class HomePage extends BasePage {
 	 */
 
 	public void goToUserMenu() {
+		log.info("Click Usuario");
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		log.info("Entrar al menu de Usuario");
@@ -82,8 +83,7 @@ public class HomePage extends BasePage {
 	 */
 
 	public void goToLogIn() {
-		waitElementVisibility(globalUserIcon);
-		clickElement(globalUserIcon);
+		waitElementVisibility(loginOption);
 		clickElement(loginOption);
 		log.info("Entrar a la opción LOG IN");
 	}
@@ -121,8 +121,10 @@ public class HomePage extends BasePage {
 
 	public ESPNIFrame goToUpdateAccountIFrame() {
 		log.info("Entrar a la opción ESPN Profile y hacer switch al iframe");
+		//waitElementInvisibility(globalUserIcon);
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
+		waitElementVisibility(espnProfileOption);
 		clickElement(espnProfileOption);
 		return new ESPNIFrame(switchToIFrame(espnIFrame));
 	}
@@ -134,8 +136,8 @@ public class HomePage extends BasePage {
 	 */
 	public ESPNIFrame goToSignInUpIFrame() {
 		log.info("entra a la opcion LOG IN y hace switch al iframe");
-//		waitElementVisibility(globalUserIcon);
-//		clickElement(globalUserIcon);
+		waitElementVisibility(globalUserIcon);
+		clickElement(globalUserIcon);
 		waitElementVisibility(loginOption);
 		clickElement(loginOption);
 		return new ESPNIFrame(switchToIFrame(espnIFrame));
@@ -164,6 +166,7 @@ public class HomePage extends BasePage {
 
 	public boolean validateUserLoggedIn(String userName) {
 		String tmpUserName = "";
+		waitElementInvisibility(globalUserIcon);
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		if (waitElementVisibility(displayLoggedUser)) {
@@ -185,7 +188,6 @@ public class HomePage extends BasePage {
 
 	public boolean validateUserLoggedOut() {
 		String tmpMessage = "";
-		// need to find a better solution - it is like a sleep of 30 seconds
 		waitElementInvisibility(globalUserIcon); // Log out validation is failing due to user icon is too fast
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
@@ -197,7 +199,6 @@ public class HomePage extends BasePage {
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		return (tmpMessage.equals("Welcome!"));
-
 	}
 
 }

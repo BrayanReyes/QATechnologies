@@ -129,6 +129,7 @@ public class ESPNIFrame extends BasePage {
 		emailAddressInput.sendKeys((user.getEmail()));
 		newPasswordInput.sendKeys(user.getPassword());
 		clickElement(confirmSingUpButton);
+		switchToDefaultContent();
 		log.info("Se crea una nueva cuenta en ESPN");
 	}
 
@@ -167,6 +168,7 @@ public class ESPNIFrame extends BasePage {
 		usernameInput.sendKeys(username);
 		passwordInput.sendKeys(password);
 		clickElement(logInButton);
+		switchToDefaultContent();
 		log.info("Loguedo en ESPN");
 	}
 
@@ -209,7 +211,8 @@ public class ESPNIFrame extends BasePage {
 
 	public void deleteAccountSubmit() {
 		waitElementVisibility(deleteAccountButton);
-//		clickElement(deleteAccountButton);       // Para no borrar las cuentas mientras pruebo
+		clickElement(deleteAccountButton);
+		switchToDefaultContent();
 		log.info("Aceptar Desactivar la Cuenta");
 	}
 

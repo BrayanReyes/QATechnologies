@@ -39,6 +39,10 @@ public class UserDataESPN {
         return password;
     }
 
+    public void setStatusAccount(AccountStatus statusAccount) {
+        this.statusAccount = statusAccount;
+    }
+
     public static AccountStatus getAccountStatus(String accountStatus){
         for (AccountStatus status:AccountStatus.values()){
             if (status.toString().equals(accountStatus))

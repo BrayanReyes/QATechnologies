@@ -5,8 +5,15 @@ import org.testng.annotations.DataProvider;
 
 public class DataProviders {
 
-    @DataProvider(name = "Users")
-    public Object[][] usersESPN(){
-        return Init.initUserDataESPNs();
+    @DataProvider(name = "activeUsers")
+    public static Object[][] activeUsersESPN(){
+        return Init.initUserDataESPNs("ACTIVE");
     }
+
+    @DataProvider(name = "newUsers")
+    public static Object[][] newUsersESPN(){
+        return Init.initUserDataESPNs("NEW");
+    }
+
+
 }
