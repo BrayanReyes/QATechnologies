@@ -8,6 +8,12 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class defines the methods to interact with the IFrame
+ * @author: july.moreno
+ * @version: 06/07/2020
+ */
+
 public class ESPNIFrame extends BasePage {
 
 	@FindBy(css = "#did-ui-view h2")
@@ -46,26 +52,18 @@ public class ESPNIFrame extends BasePage {
 	@FindBy(css = "#cancel-account")
 	private WebElement deleteAccountLink;
 
-	// Esto es un header dinámico ..... validar si se puede utilizar
-	@FindBy(css = "#")
-	private WebElement deleteAccountHeader;
-
 	@FindBy(css = "section.workflow.workflow-deactivate button.btn.btn-primary.ng-isolate-scope")
 	private WebElement deleteAccountButton;
-
-	// Esto es un header dinámico ..... validar si se puede utilizar
-	@FindBy(css = "#")
-	private WebElement accountDeletedHeader;
 
 	@FindBy(css = ".message-error.message.ng-isolate-scope.state-active")
 	private List<WebElement> alertMessages;
 
 	private List<String> signUpErrors;
-	public String assertLogInButton = "Log In";
-	public String assertEspnProfileHeader = "Update Your Account";
-	public String assertDeleteAccountHeader = "Are you sure?";
-	public String assertDeleteAccountButton = "Yes, delete this account";
-	public String assertAccountDeletedHeader = "Your account has been deleted";
+//	public String assertLogInButton = "Log In";
+//	public String assertEspnProfileHeader = "Update Your Account";
+//	public String assertDeleteAccountHeader = "Are you sure?";
+//	public String assertDeleteAccountButton = "Yes, delete this account";
+//	public String assertAccountDeletedHeader = "Your account has been deleted";
 
 	/**
 	 * Constructor, a factory for producing ElementLocators.
@@ -93,7 +91,7 @@ public class ESPNIFrame extends BasePage {
 	}
 
 	/**
-	 * Sign Up to ESPN
+	 * Go to Sign Up option
 	 * 
 	 */
 
@@ -106,7 +104,7 @@ public class ESPNIFrame extends BasePage {
 	/**
 	 * Get Sign Up header
 	 * 
-	 * @return String header text
+	 * @return String "Create Account"
 	 */
 	public String getSignUpHeader() {
 		log.info("Capturando el titulo del IFrame SIGN UP para saber que estoy en el iFrame correcto");
@@ -115,7 +113,7 @@ public class ESPNIFrame extends BasePage {
 	}
 
 	/**
-	 * Create an ESPN Account
+	 * Create a new ESPN Account
 	 * 
 	 */
 
@@ -130,7 +128,7 @@ public class ESPNIFrame extends BasePage {
 		newPasswordInput.sendKeys(user.getPassword());
 		clickElement(confirmSingUpButton);
 		switchToDefaultContent();
-		log.info("Se crea una nueva cuenta en ESPN");
+		log.info("Se creó una nueva cuenta en ESPN");
 	}
 
 	/**
@@ -144,6 +142,8 @@ public class ESPNIFrame extends BasePage {
 
 	/**
 	 * Sign Up error management. Shows Sign Up errors
+	 * 
+	 * @return List of errors raised when the user try to Sign Up
 	 * 
 	 */
 
@@ -159,7 +159,9 @@ public class ESPNIFrame extends BasePage {
 	}
 
 	/**
-	 * Log In to ESPN using an username and password
+	 * Log In to ESPN
+	 * @param username 
+	 * @param password
 	 * 
 	 */
 
@@ -173,9 +175,9 @@ public class ESPNIFrame extends BasePage {
 	}
 
 	/**
-	 * Get Update Account IFrame Header
+	 * Get IFrame Header for ESPN Profile Option 
 	 * 
-	 * @return String Update Account Header Text
+	 * @return String "Update Account"
 	 */
 	public String getEspnProfileHeader() {
 		log.info("Capturando el texto del iFrame para saber que entre UPDATE ACCOUNT para desactivar la cuenta");
@@ -195,12 +197,12 @@ public class ESPNIFrame extends BasePage {
 	}
 
 	/**
-	 * Get ESPN Delete Account Button Text
+	 * Get Delete Account Button Text
 	 * 
-	 * @return String ESPN Delete Account Button Text
+	 * @return String "Yes, delete this account"
 	 */
 	public String getDeleteAccountButtonText() {
-		log.info("Capturando el texto boton de Deelete para confirmar que voy a borrar la cuenta");
+		log.info("Capturando el texto boton de Delete para confirmar que voy a borrar la cuenta");
 		waitElementVisibility(deleteAccountButton);
 		return deleteAccountButton.getText();
 	}

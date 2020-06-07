@@ -12,7 +12,7 @@
 	<test name="Log In Test ESPN Web Page">
 		<groups>
 			<run>
-				<include name="gLogIn"></include>
+				<include name="LogInGroup"></include>
 			</run>
 		</groups>
 		<classes>
@@ -22,7 +22,7 @@
 	<test name="Log Out Test ESPN Web Page">
 		<groups>
 			<run>
-				<include name="gLogOut"></include>
+				<include name="LogOutGroup"></include>
 			</run>
 		</groups>
 		<classes>
@@ -32,7 +32,7 @@
 	<test name="Delete Account Test ESPN Web Page">
 		<groups>
 			<run>
-				<include name="gDeleteAccount"></include>
+				<include name="DeleteAccountGroup"></include>
 			</run>
 		</groups>
 		<classes>

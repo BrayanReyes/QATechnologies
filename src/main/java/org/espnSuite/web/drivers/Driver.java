@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Class of listeners
- * @author Pinguin
+ * @author july.moreno
  */
 
 public class Driver {

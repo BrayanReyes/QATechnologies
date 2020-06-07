@@ -10,12 +10,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * This class defines the methods needed to handle User Accounts and use them through all
+ * the test suite
+ * @author: july.moreno
+ * @version: 06/07/2020
+ */
+
 public class Init {
 
     /**
-     *
+     * Define the structure of the file UserDataESPN.dat in which the User Accounts info will be save
      * @param status
-     * @return
+     * @return arrayUserDataESPNs
      */
     public static Object[][] initUserDataESPNs(String status) {
 
@@ -42,7 +49,7 @@ public class Init {
     }
 
     /**
-     *
+     * Convert the arrayUserDataESPNs List into an Object
      * @param list
      * @return
      */
@@ -57,20 +64,20 @@ public class Init {
     }
 
     /**
-     *
-     * @return
+     *Generate the user data needed to Create a new ESPN Account
+     * @return new User Account Data
      */
     public static UserDataESPN createDataUser(){
         String firstName = generateRandomString();
 ;        String lastName = generateRandomString();
         String email = firstName+"."+lastName+"@espn.com";
-        String password = "123+"+firstName+"#";
+        String password = firstName + "123" + "*" ;
         AccountStatus statusAccount = UserDataESPN.getAccountStatus("NEW");
         return new UserDataESPN(firstName,lastName,email,password,statusAccount);
     }
 
     /**
-     *
+     * Random String generator to generate First and Last Name
      * @return
      */
     private static String generateRandomString(){
@@ -88,7 +95,7 @@ public class Init {
     }
 
     /**
-     *
+     * Save the status of the ESPN Account after Log Out
      * @param user
      */
     public static void saveUserLogOut(UserDataESPN user){
@@ -97,7 +104,7 @@ public class Init {
     }
 
     /**
-     *
+     * Save the status of the ESPN Account after Deactivate
      * @param user
      */
     public static void saveUserDeleteAccount(UserDataESPN user){
@@ -106,7 +113,7 @@ public class Init {
     }
 
     /**
-     *
+     * Save a new User Account Data after run createAccount @BeforeMethods
      * @param user
      */
     private static void saveUser(UserDataESPN user) {

@@ -7,7 +7,7 @@ import org.testng.ITestResult;
 
 /**
  * Class Listener
- * @author July Moreno
+ * @author july.moreno
  */
 
 public class Listener implements ITestListener {
@@ -31,7 +31,7 @@ public class Listener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        log.info("onTestSkipped");
+        log.info("THE TEST WAS SKIPPED");
     }
 
     @Override
@@ -41,11 +41,11 @@ public class Listener implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        log.info("onStart");
+        log.info("THE SUITE STARTED");
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        log.info("onFinish");
+        log.info("THE SUITE FINISHED");
     }
 }

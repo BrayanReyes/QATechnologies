@@ -5,6 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 
+/**
+ * This class defines the methods to interact with the Home Page
+ * @author: july.moreno
+ * @version: 06/07/2020
+ */
+
+
 public class HomePage extends BasePage {
 
 	@FindBy(css = "#global-header h1 a")
@@ -31,16 +38,15 @@ public class HomePage extends BasePage {
 	@FindBy(css = "#disneyid-iframe")
 	private WebElement espnIFrame;
 
-	/**
-	 * Variables used for Assertions
-	 * 
-	 */
-
-
-	public String assertHomePageTitle = "ESPN";
-	public String assertLogInOption = "Log In";
-	public String assertLogOutOption = "Log Out";
-	public String assertEspnProfileOption = "ESPN Profile";
+//	/**
+//	 * Variables used for Assertions
+//	 * 
+//	 */
+//
+//	public String assertHomePageTitle = "ESPN";
+//	public String assertLogInOption = "Log In";
+//	public String assertLogOutOption = "Log Out";
+//	public String assertEspnProfileOption = "ESPN Profile";
 
 
 	/**
@@ -57,7 +63,7 @@ public class HomePage extends BasePage {
 	/**
 	 * Get ESPN Home Page title
 	 * 
-	 * @return String text title
+	 * @return String "ESPN"
 	 */
 	public String getHomePageTitle() {
 		log.info("Obtener el titulo de la Home Page de ESPN para saber que voy a probar la pagina correcta");
@@ -102,7 +108,7 @@ public class HomePage extends BasePage {
 	}
 
 	/**
-	 * Go to Log Out Option
+	 * Go to ESPN Profile Option
 	 * 
 	 */
 
@@ -120,7 +126,7 @@ public class HomePage extends BasePage {
 	 */
 
 	public ESPNIFrame goToUpdateAccountIFrame() {
-		log.info("Entrar a la opción ESPN Profile y hacer switch al iframe");
+		log.info("Entrar a la opción ESPN PROFILE y hacer switch al iframe");
 		//waitElementInvisibility(globalUserIcon);
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
@@ -144,24 +150,24 @@ public class HomePage extends BasePage {
 
 	}
 
-	/**
-	 * Switch to ESPN Profile iFrame
-	 * 
-	 * @return ESPNIFrame
-	 */
-	public ESPNIFrame goToESPNProfileIFrame() {
-		log.info("Cambiandose al iFrame de ESPN Profile");
-		waitElementVisibility(globalUserIcon);
-		clickElement(globalUserIcon);
-		waitElementVisibility(espnProfileOption);
-		clickElement(espnProfileOption);
-		return new ESPNIFrame(switchToIFrame(espnIFrame));
-	}
+//	/**
+//	 * Switch to ESPN Profile iFrame
+//	 * 
+//	 * @return ESPNIFrame
+//	 */
+//	public ESPNIFrame goToESPNProfileIFrame() {
+//		log.info("Cambiandose al iFrame de ESPN Profile");
+//		waitElementVisibility(globalUserIcon);
+//		clickElement(globalUserIcon);
+//		waitElementVisibility(espnProfileOption);
+//		clickElement(espnProfileOption);
+//		return new ESPNIFrame(switchToIFrame(espnIFrame));
+//	}
 
 	/**
 	 * Validate if an user is logged in
 	 * 
-	 * @return
+	 * @return true if user is logged in
 	 */
 
 	public boolean validateUserLoggedIn(String userName) {
@@ -183,12 +189,12 @@ public class HomePage extends BasePage {
 	/**
 	 * Validate if an user is logged out
 	 * 
-	 * @return
+	 * @return true if user is logged out
 	 */
 
 	public boolean validateUserLoggedOut() {
 		String tmpMessage = "";
-		waitElementInvisibility(globalUserIcon); // Log out validation is failing due to user icon is too fast
+		waitElementInvisibility(globalUserIcon);
 		waitElementVisibility(globalUserIcon);
 		clickElement(globalUserIcon);
 		if (waitElementVisibility(displayWelcomeMessage)) {

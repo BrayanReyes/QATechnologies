@@ -13,6 +13,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+/**
+ * This class defines common methods to interact with the web page under test
+ * @author: july.moreno
+ * @version: 06/07/2020
+ */
+
 public class BasePage {
 
 	private WebDriver driver;
@@ -20,7 +26,7 @@ public class BasePage {
 	protected Logger log = Logger.getLogger(BasePage.class);
 
 	/**
-	 * Constructor, a factory for producing {@link ElementLocator}s.
+	 * Constructor, a factory for producing {@link ElementLocators}.
 	 * 
 	 * @param driver Web driver of the page
 	 */
@@ -40,7 +46,7 @@ public class BasePage {
 	}
 
 	/**
-	 * Get the WebDriverWait
+	 * Get the WebDriverWait 
 	 * 
 	 * @return {@link WebDriverWait}
 	 */
@@ -50,6 +56,7 @@ public class BasePage {
 
 	/**
 	 * Close the driver
+	 * 
 	 */
 	public void dispose() {
 		if (getDriver() != null)
@@ -125,15 +132,15 @@ public class BasePage {
 		return getDriver().switchTo().frame(iFrame);
 	}
 
-	/**
-	 * Switch to iFrame inside the web page
-	 * 
-	 * @param iFrame int switch to
-	 * @return {@link WebDriver}
-	 */
-	public WebDriver switchToIFrame(int iFrame) {
-		return getDriver().switchTo().frame(iFrame);
-	}
+//	/**
+//	 * Switch to iFrame inside the web page
+//	 * 
+//	 * @param iFrame int switch to
+//	 * @return {@link WebDriver}
+//	 */
+//	public WebDriver switchToIFrame(int iFrame) {
+//		return getDriver().switchTo().frame(iFrame);
+//	}
 
 	/**
 	 * Switch from iFrame to the main page
@@ -145,7 +152,7 @@ public class BasePage {
 	}
 
 	/**
-	 * Scroll inside the web page until the web element and click it
+	 * Wait for the web element to be clickable and Scroll until find it to click it
 	 * 
 	 * @param webElement to locate and click
 	 */
@@ -156,6 +163,11 @@ public class BasePage {
 		}
 	}
 
+	/**
+	 * Scroll inside the web page until the web element and click it
+	 * 
+	 * @param webElement to locate and click
+	 */
 	protected void moveToElement(WebElement webElement) {
 		Actions action = new Actions(getDriver());
 		action.moveToElement(webElement).perform();

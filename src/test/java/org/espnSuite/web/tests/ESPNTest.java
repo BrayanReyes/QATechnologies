@@ -11,31 +11,55 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 
+/**
+ * This class defines the test method under scope: Log In, Log Out and Deactivate Account
+ * Sign Up is not a test method itself, but is a precondition to the other tests
+ * Groups were used to structure the order in which is desired to run the test
+ * @author: july.moreno
+ * @version: 06/07/2020
+ */
+
+
 public class ESPNTest extends BaseTest {
 
 
-	@Test(description = "Log In", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
-			dataProvider = "activeUsers", groups = "gLogIn")
+	/**
+	 * Log In to an active ESPN account using an username and password and validate the Log In
+	 * was successful.
+	 * The data to Log In is taken from UserDataESPN.dat
+	 * Log In Test will be executed for all the account with "Active" status
+	 */
+	
+	@Test(description = "Log In Test", dataProviderClass = org.espnSuite.web.data.DataProviders.class,
+			dataProvider = "activeUsers", groups = "LogInGroup")
 	public void logInTest(UserDataESPN user) {
 		HomePage homePage = getHomePage();
 		ESPNIFrame espnIFrame = homePage.goToSignInUpIFrame();
 		espnIFrame.logIn(user.getEmail(), user.getPassword());
-		Assert.assertEquals(homePage.getHomePageTitle(), homePage.assertHomePageTitle, "HOME PAGE TITLE IS NO AS EXPECTED");
+//		Assert.assertEquals(homePage.getHomePageTitle(), homePage.assertHomePageTitle, "HOME PAGE TITLE IS NO AS EXPECTED");
 		Assert.assertTrue(homePage.validateUserLoggedIn(user.getFirstName()), "USER NAME IS NOT PRESENT");
 	}
 
-	@AfterMethod(groups = "gLogIn")
-	public void afterLogin(){
+	/**
+	 * Due to Log In Test could be executed for more than one account, I need to Log Out
+	 * from one account to Log In to the following one 
+	 */
+	
+	@AfterMethod(description = "Log Out after ", groups = "LogInGroup")
+	public void logOutAfterLogInTest(){
 		HomePage homePage = getHomePage();
 		homePage.goToLogOut();
 		Assert.assertTrue(homePage.validateUserLoggedOut(), "USER COULD NOT LOG OUT");
 
 	}
 
-
-
-	@BeforeMethod (groups = "gLogOut")
-	public void createAccount() {
+	/**
+	 * Create a new ESPN Account in order to run Log Out Test
+	 * The new user account will be saved in UserDataESPN.dat
+	 */
+	
+	@BeforeMethod (groups = "LogOutGroup")
+	public void createAccountBeforeLogOutTest() {
 		HomePage homePage = getHomePage();
 		ESPNIFrame espnIFrame = homePage.goToSignInUpIFrame();
 		UserDataESPN user = Init.createDataUser();
@@ -47,7 +71,11 @@ public class ESPNTest extends BaseTest {
 		Init.saveUserLogOut(user);
 	}
 
-	@Test(description = "Log Out", groups = "gLogOut")
+	/**
+	 * Log Out from an ESPN Account and validate the Log Out was successful
+	 */
+	
+	@Test(description = "Log Out Test", groups = "LogOutGroup")
 	public void logOutTest() {
 		HomePage homePage = getHomePage();
 		homePage.goToLogOut();
@@ -55,11 +83,13 @@ public class ESPNTest extends BaseTest {
 		//Assert.assertEquals(homePage.getTitle(), homePagetitle, "TITLE IS NO AS EXPECTED");
 	}
 
+	/**
+	 * Create a new ESPN Account in order to run Log Out Test
+	 * The new user account will be saved in UserDataESPN.dat
+	 */
 
-
-
-	@BeforeMethod(groups = "gDeleteAccount")
-	public void beforeDeleteAccount(){
+	@BeforeMethod(groups = "DeleteAccountGroup")
+	public void createAccountBeforeDeleteAccountTest(){
 		HomePage homePage = getHomePage();
 		ESPNIFrame espnIFrame = homePage.goToSignInUpIFrame();
 		UserDataESPN user = Init.createDataUser();
@@ -71,8 +101,12 @@ public class ESPNTest extends BaseTest {
 		Init.saveUserDeleteAccount(user);
 	}
 
-	@Test(description = "Delete account", groups = "gDeleteAccount")
-	public void deleteAccount() {
+	/**
+	 * Deactivate an ESPN Account and validate that deactivate process was successful
+	 */
+	
+	@Test(description = "Delete Account Test", groups = "DeleteAccountGroup")
+	public void deleteAccountTest() {
 		HomePage homePage = getHomePage();
 		ESPNIFrame espnIFrame = homePage.goToUpdateAccountIFrame();
 		espnIFrame.deleteAccount();
