@@ -36,7 +36,8 @@ public class HomePage extends BasePage {
 	 * 
 	 */
 
-	public String assertHomePageTitle = "ESPN: Serving sports fans. Anytime. Anywhere.";
+
+	public String assertHomePageTitle = "ESPN";
 	public String assertLogInOption = "Log In";
 	public String assertLogOutOption = "Log Out";
 	public String assertEspnProfileOption = "ESPN Profile";
@@ -59,7 +60,7 @@ public class HomePage extends BasePage {
 	 * @return String text title
 	 */
 	public String getHomePageTitle() {
-		log.info("Obtener el titulo de la Home Page de ESPN");
+		log.info("Obtener el titulo de la Home Page de ESPN para saber que voy a probar la pagina correcta");
 		waitElementVisibility(homePageTitle);
 		return homePageTitle.getText();
 	}
@@ -132,9 +133,10 @@ public class HomePage extends BasePage {
 	 * @return ESPNIFrame
 	 */
 	public ESPNIFrame goToSignInUpIFrame() {
-		log.info("Entrar a la opción LOG IN y hacer switch al iframe");
-		waitElementVisibility(globalUserIcon);
-		clickElement(globalUserIcon);
+		log.info("entra a la opcion LOG IN y hace switch al iframe");
+//		waitElementVisibility(globalUserIcon);
+//		clickElement(globalUserIcon);
+		waitElementVisibility(loginOption);
 		clickElement(loginOption);
 		return new ESPNIFrame(switchToIFrame(espnIFrame));
 

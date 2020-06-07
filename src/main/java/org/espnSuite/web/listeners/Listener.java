@@ -7,7 +7,7 @@ import org.testng.ITestResult;
 
 /**
  * Class Listener
- * @author Pinguin
+ * @author July Moreno
  */
 
 public class Listener implements ITestListener {
@@ -16,17 +16,17 @@ public class Listener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        log.info("onTestStart");
+        log.info("THE TEST STARTED");
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        log.info("onTestSuccess");
+        log.info("THE TEST PASSED");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        log.info("onTestFailure");
+        log.info("THE TEST FAILED");
     }
 
     @Override
