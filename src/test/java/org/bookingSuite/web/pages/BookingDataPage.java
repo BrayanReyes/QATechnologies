@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Booking Data Page handles basic information of the person who is booking the stay
+ * BookingTest Data Page handles basic information of the person who is booking the stay
  * 
 */
 

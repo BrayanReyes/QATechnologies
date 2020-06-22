@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 /**
  * Hotel Details Page displays info about the selected hotel and let choosing the number of rooms and aditional services 
@@ -34,8 +35,10 @@ public class HotelDetailsPage extends BasePage  {
 	
 	@FindBy(css = ".hprt-reservation-cta button[type=submit]")
 	private WebElement reservareButton;
-	
-	
+
+	@FindBy(css="[class*=\"last-row\"]:first-of-type [class$=\"select\"]")
+	private WebElement roomSelector;
+
 	private String hotelName;
 	private String adultsNumber;
 	private String childrenNumber;
@@ -46,7 +49,23 @@ public class HotelDetailsPage extends BasePage  {
 		this.adultsNumber = adultsNumber;
 		this.childrenNumber = childrenNumber;	
 		waitElementVisibility(hotelNameTitle);
+		moveToElement(hotelNameTitle);
 	}
 
-	
+	public void bookRoom(){
+		moveToElement(bookRoomButton);
+		waitElementVisibility(bookRoomButton);
+		clickElement(bookRoomButton);
+	}
+
+	public void setNumberOfRooms(String rooms){
+		moveToElement(roomSelector);
+		selectElementFromDropDownList(roomSelector,rooms);
+	}
+
+	public BookingDataPage clickFinalReserve(){
+		waitElementVisibility(reservareButton);
+		clickElement(reservareButton);
+		return new BookingDataPage(getDriver());
+	}
 }

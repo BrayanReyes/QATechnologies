@@ -1,5 +1,6 @@
 package org.bookingSuite.web.tests;
 
+import org.bookingSuite.web.pages.BookingHomePage;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -18,7 +19,7 @@ import org.bookingSuite.web.pages.HomePage;
 public class BaseTest {
 
     protected Driver driver;
-    protected HomePage homePage;
+    protected BookingHomePage homePage;
     protected Logger log = Logger.getLogger(BaseTest.class);
 
 	/**
@@ -26,15 +27,13 @@ public class BaseTest {
 	 */
 
     @BeforeTest(alwaysRun = true)
-    @Parameters({"browser","url","homePageTitle"})
-    public void beforeTest(String browser, String url, String homePageTitle){
+    @Parameters({"browser","url"})
+    public void beforeTest(String browser, String url){
     	driver= new Driver(browser);
         driver.getDriver().manage().deleteAllCookies();
         driver.getDriver().manage().window().maximize();
-        homePage = new HomePage(driver.getDriver(),url);
+        homePage = new BookingHomePage(driver.getDriver(),url);
         log.info("Log Info: Opening Browser " + driver.getDriver().getTitle());
-        Assert.assertEquals(homePageTitle,driver.getDriver().getTitle());
-        
     }
 
 	/**
@@ -50,7 +49,7 @@ public class BaseTest {
      * Get the home page
      * @return homePage
      */
-    public HomePage getHomePage() {
+    public BookingHomePage getHomePage() {
         return homePage;
     }
 

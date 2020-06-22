@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Booking Home Page handle the main options in Booking.com page (Dormir, Vuelos, Alquiler de coches, Atracciones turísticas and
+ * BookingTest Home Page handle the main options in BookingTest.com page (Dormir, Vuelos, Alquiler de coches, Atracciones turísticas and
  * Taxis aeropuerto) also, other features like Registra tu alojamiento, Hazte una cuenta and Iniciar sesión 
  *
  * @author: july.moreno
