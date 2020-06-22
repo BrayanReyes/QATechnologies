@@ -84,10 +84,10 @@ public class BookingDataPage extends BasePage {
 	 * 
 	 * @return CompletarReservaPage 
 	*/
-	public CompleteBookingDataPage bookHotel() {
+	public PaymentInformationPage bookHotel() {
 		moveToElement(nextLastDataButton);
 		nextLastDataButton.click();
-		return new CompleteBookingDataPage(getDriver());
+		return new PaymentInformationPage(getDriver());
 	}
 
 }

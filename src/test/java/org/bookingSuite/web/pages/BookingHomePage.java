@@ -16,7 +16,7 @@ import org.openqa.selenium.support.FindBy;
 public class BookingHomePage extends BasePage {
 	
 	@FindBy(css = "#cross-product-bar .xpb__link:first-child")
-    private WebElement dormirMenuOption;
+    private WebElement stayMenuOption;
 	
     /**
      * Constructor.
@@ -31,11 +31,11 @@ public class BookingHomePage extends BasePage {
 	/**
      * Click in "Dormir" menu option
      * 
-     * @return DormirPage
+     * @return Stays Page
      */
-	public StaysPage selectDormirOption() {
-		waitElementVisibility(dormirMenuOption);
-		dormirMenuOption.click();
+	public StaysPage selectStayOption() {
+		waitElementVisibility(stayMenuOption);
+		stayMenuOption.click();
 		return new StaysPage(getDriver());
 	}
 	

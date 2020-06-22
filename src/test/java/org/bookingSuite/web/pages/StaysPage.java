@@ -40,11 +40,27 @@ public class StaysPage extends BasePage{
 	@FindBy(className = "sb-group__field-adults")
 	private WebElement adultsComponent;
 
-//	@FindBy(className = ")
+	@FindBy(css = ".sb-group__field-adults .bui-stepper__display")
+	private WebElement adults_quantity;
+	  
+	@FindBy(css = ".sb-group__field-adults .bui-stepper__add-button")
+	private WebElement btn_add_adults;
+	
+	
+//	@FindBy(className = ".sb-group__field-adults .bui-stepper__add-button")
 //	private WebElement increaseAdultsButton;
 	
 	@FindBy(className = "sb-group-children")
 	private WebElement childrenComponent;	
+	
+	 @FindBy(css = ".sb-group-children .bui-stepper__display")
+	 private WebElement children_quantity;
+	 
+	 @FindBy(css = ".sb-group-children .bui-stepper__add-button")
+	 private WebElement btn_add_children;
+	 
+	 @FindBy(css = ".sb-group-children .bui-stepper__subtract-button")
+     private WebElement btn_subtract_children;
 
 //	@FindBy(className = "")
 //	private WebElement increaseChildrenButton;
