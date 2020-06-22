@@ -36,7 +36,7 @@ public class HotelDetailsPage extends BasePage  {
 	@FindBy(css = ".hprt-reservation-cta button[type=submit]")
 	private WebElement reservareButton;
 
-	@FindBy(css="[class*=\"last-row\"]:first-of-type [class$=\"select\"]")
+	@FindBy(css="#hprt-table > tbody > tr:nth-child(1) select.hprt-nos-select")
 	private WebElement roomSelector;
 
 	private String hotelName;

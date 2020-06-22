@@ -16,13 +16,13 @@ public class BookingTest extends BaseTest{
         HotelsResultPage hotelsResultPage= staysPage.searchAccomodation();
         hotelsResultPage.setStarsFilter("5");
         hotelsResultPage.checkResults();
-        HotelDetailsPage hotelDetailsPage=hotelsResultPage.clickOption(2);
+        HotelDetailsPage hotelDetailsPage=hotelsResultPage.clickOption(3);
         hotelDetailsPage.bookRoom();
-        hotelDetailsPage.setNumberOfRooms("1");
+        hotelDetailsPage.setNumberOfRooms("2");
         BookingDataPage bookingDataPage = hotelDetailsPage.clickFinalReserve();
         bookingDataPage.enterLastName("Kings");
         bookingDataPage.enterEmail("kingsofkings@gmail.com");
-        bookingDataPage.enterEmail("kingsofkings@gmail.com");
+        bookingDataPage.enterEmailConfirm("kingsofkings@gmail.com");
         bookingDataPage.bookHotel();
     }
 }
