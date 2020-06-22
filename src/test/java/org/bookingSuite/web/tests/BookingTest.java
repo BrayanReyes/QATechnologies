@@ -9,7 +9,7 @@ public class BookingTest extends BaseTest{
     @Test(description = "July es muy sexy!")
     public void searchTest(){
         BookingHomePage home = getHomePage();
-        StaysPage staysPage = home.selectDormirOption();
+        StaysPage staysPage = home.selectStayOption();
         staysPage.enterDestination("Bogotá, Colombia");
         staysPage.setDatesSearch();
         staysPage.setFamilyInfo(3,2,"9","2");
