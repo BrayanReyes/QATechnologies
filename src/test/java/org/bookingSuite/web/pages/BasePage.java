@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class defines common methods to interact with the web page under test
@@ -23,10 +24,11 @@ public class BasePage {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
+	private String parentWinHandle ;
 	protected Logger log = Logger.getLogger(BasePage.class);
 
 	/**
-	 * Constructor, a factory for producing {@link ElementLocators}.
+	 * Constructor, a factory for producing  ElementLocators
 	 * 
 	 * @param driver Web driver of the page
 	 */
@@ -34,6 +36,43 @@ public class BasePage {
 		this.driver = driver;
 		wait = new WebDriverWait(this.driver, 10);
 		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 10), this);
+		parentWinHandle = this.driver.getWindowHandle();
+	}
+
+	/**
+	 * Get the value of the parent window
+	 * @return
+	 */
+	public String getParentWinHandle() {
+		return parentWinHandle;
+	}
+
+	/**
+	 *
+	 */
+	public void switchToLastOpenTab(WebDriver driver){
+		Set<String> allWindowsHandles = driver.getWindowHandles();
+		for (String handle:allWindowsHandles) {
+			if(!getParentWinHandle().equals(handle))
+				driver.switchTo().window(handle);
+		}
+	}
+
+	/**
+	 * Select from element by {value}
+	 * @param element
+	 * @param value
+	 */
+	public void selectElementFromDropDownList(WebElement element, String value){
+		try {
+
+			Select dropDownList = new Select(element);
+			dropDownList.selectByValue(value);
+
+		} catch (Exception e) {
+			log.info("Element is not present in the list");
+		}
+
 	}
 
 	/**
@@ -74,7 +113,7 @@ public class BasePage {
 			getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-//			log.info("TimeOut exception with Web element");
+			log.info("TimeOut exception with Web element");
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,24 +229,6 @@ public class BasePage {
 			e.printStackTrace();
 			return false;
 		}
-	}
-
-	
-	/**
-	 * Select from element by {value}
-	 * @param element
-	 * @param value
-	 */
-	public void selectElementFromDropDownList(WebElement element, String value){
-		try {
-			
-			Select dropDownList = new Select(element);
-			dropDownList.selectByValue(value);
-			
-		} catch (Exception e) {
-			log.info("Element is not present in the list");
-		}
-	
 	}
 
 	
