@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
  * Taxis aeropuerto) also, other features like Registra tu alojamiento, Hazte una cuenta and Iniciar sesión 
  *
  * @author: july.moreno
- * @version: 20/06/2020
+ * @version: 24/06/2020
  *
  */
 
@@ -29,14 +29,16 @@ public class BookingHomePage extends BasePage {
 	}
 	
 	/**
-     * Click in "Dormir" menu option
-     * 
-     * @return Stays Page
-     */
-	public StaysPage selectStayOption() {
+	 * Click to {stayMenuOption} to continue the booking process
+	 * 
+	 * @return StaySearchPage
+	 */
+	
+	public StaySearchPage selectStayOption() {
+		log.info("User clicks Stay Option");
 		waitElementVisibility(stayMenuOption);
 		stayMenuOption.click();
-		return new StaysPage(getDriver());
+		return new StaySearchPage(getDriver());
 	}
 	
 }

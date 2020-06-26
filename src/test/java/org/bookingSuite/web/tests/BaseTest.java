@@ -8,7 +8,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.apache.log4j.Logger;
 import org.bookingSuite.web.drivers.Driver;
-import org.bookingSuite.web.pages.HomePage;
 
 /**
  * This class defines common methods for all test defined in ESPNTest
