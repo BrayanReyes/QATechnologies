@@ -102,24 +102,12 @@ public class SearchResultsPage extends BasePage {
 	public void setStarsFilter(String startsDataValue) {
 		waitElementVisibility(startsComponent);
 		moveToElement(startsComponent);
-		for (int i = 0; i < starsFilter.size(); i++) {
-			if (starsFilter.get(i).getAttribute("data-value").equals(startsDataValue)) {
-				moveToElement(starsFilter.get(i));
-				clickElement(starsFilter.get(i));
-				getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", "5"));
-				break;
-			}
-
-		}
-
-//		starsFilter.stream().filter(star -> star.getAttribute("data-value").equals(startsDataValue))
-//				.forEach(x -> moveToElement(x));
-
-//		starsFilter.stream().filter(star -> star.getAttribute("data-value").equals(startsDataValue))
-//				.map(x -> {
-//					moveToElement(x); return x;
-//				});
-
+		starsFilter.stream().filter(star -> star.getAttribute("data-value").equals(startsDataValue))
+				.forEach(x -> {
+					moveToElement(x);
+					clickElement(x);
+				});
+		getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", "5"));
 		log.info("User set the starts filter");
 	}
 
@@ -166,9 +154,10 @@ public class SearchResultsPage extends BasePage {
 		while (nextPageButtonIsClickable()) {
 			initialPageNumber++;
 			moveToElement(nextPageButton);
-//			log.info(searchResultsItem.size());
 			clickElement(nextPageButton);
+			//Wait until the next button is selected
 			while (!increasedPage) {
+				getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", "5"));
 				if (waitElementVisibility(pageNumber)
 						&& pageNumber.getText().equals(String.valueOf(initialPageNumber))) {
 					increasedPage = true;
@@ -178,8 +167,6 @@ public class SearchResultsPage extends BasePage {
 			}
 			checkResults();
 			increasedPage = false;
-//			getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", "5"));
-//			log.info(searchResultsItem.size());
 			totalResults += searchResultsItem.size();
 		};
 
@@ -193,7 +180,6 @@ public class SearchResultsPage extends BasePage {
 	 */
 	public void moveToInitialResultsPage() {
 		moveToElement(firstResultPage);
-		waitElementToBeClickable(firstResultPage);
 		clickElement(firstResultPage);
 		log.info("User click first page button");
 	}
@@ -238,10 +224,14 @@ public class SearchResultsPage extends BasePage {
 	 */
 
 	public LodgingDetailsPage clickLodgingOption(int option) {
-
+		handleUsersModal();
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		WebElement hotelChosen = searchResultsItem.get(option - 1);
 		moveToElement(hotelChosen);
-//		getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", "5"));
 		String hotelName = hotelChosen.findElement(By.className("sr-hotel__name")).getText();
 		moveToElement(hotelChosen);
 		WebElement webElement = hotelChosen.findElement(By.className("bui-button__text"));

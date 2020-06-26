@@ -131,10 +131,10 @@ public class BasePage {
 			getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			log.info("TimeOut exception with Web element");
+			//log.info("TimeOut exception with Web element");
 			return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -152,7 +152,7 @@ public class BasePage {
 		} catch (TimeoutException eTimeOut) {
 			return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -172,7 +172,7 @@ public class BasePage {
 			log.info("TimeOut exception to Click Web element");
 			return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -243,7 +243,7 @@ public class BasePage {
 //			log.info("TimeOut exception invisibility with Web element");
 			return false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
