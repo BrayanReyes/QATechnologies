@@ -169,7 +169,7 @@ public class BasePage {
 			getWait().until(ExpectedConditions.elementToBeClickable(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			log.info("TimeOut exception to Click Web element.");
+		//	log.info("TimeOut exception to Click Web element.");
 			return false;
 		} catch (Exception e) {
 			// e.printStackTrace();
