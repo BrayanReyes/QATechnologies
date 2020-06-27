@@ -1,7 +1,7 @@
 package org.bookingSuite.web.utils;
 
 /**
- * Booker handles basic information related to the Booker
+ * Booker handles basic information related to the Booker.
  * 
  * @author: july.moreno
  * @version: 26/06/2020
@@ -21,14 +21,6 @@ public class Booker {
 	/**
 	 * Constructor.
 	 *
-	 */
-	public Booker() {
-
-	}
-
-	/**
-	 * Constructor.
-	 *
 	 * @param bookerFirstName:   String
 	 * @param bookerLastName:    String
 	 * @param bookerEmail:       String
@@ -37,7 +29,6 @@ public class Booker {
 	 * @param bookerCity:        String
 	 * @param bookerZipCode:     String
 	 * @param bookerPhoneNumber: String
-	 * @param bookerCreditCard:  CreditCard
 	 * 
 	 */
 	public Booker(String bookerFirstName, String bookerLastName, String bookerEmail, String bookerAddress,

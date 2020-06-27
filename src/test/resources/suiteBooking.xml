@@ -2,11 +2,13 @@
 
 <suite name="Booking.com Test" verbose="1">
 	<listeners>
-		<listener class-name="org.bookingSuite.web.listeners.Listener"></listener>
+		<listener
+			class-name="org.bookingSuite.web.listeners.Listener"></listener>
 	</listeners>
-	
+
 	<parameter name="browser" value="chrome"></parameter>
-	<parameter name="url"	value="https://www.booking.com/index.es.html"></parameter>
+	<parameter name="url"
+		value="https://www.booking.com/index.es.html"></parameter>
 
 	<test name="Search Stay and enter Payment Data">
 		<classes>

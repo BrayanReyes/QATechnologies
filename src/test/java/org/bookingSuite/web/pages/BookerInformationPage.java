@@ -5,11 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Booker Information Page handles basic information of the person who is booking the stay
+ * Booker Information Page handles basic information of the person who is
+ * booking the stay
  * 
  * @author: july.moreno
- * @version: 26/06/2020
-*/
+ * @version: 27/06/2020
+ */
 
 public class BookerInformationPage extends BasePage {
 
@@ -19,27 +20,15 @@ public class BookerInformationPage extends BasePage {
 	@FindBy(className = "bp_legacy_form_box__title")
 	private WebElement userInfoBoxTitle;
 
-	@FindBy(id = "booker_title")
-	private WebElement bookerTitleSelect;	
-	
-	@FindBy(id = "firstname")
-	private WebElement firstNameInput;	
-
 	@FindBy(id = "lastname")
 	private WebElement lastNameInput;
 
 	@FindBy(id = "email")
 	private WebElement emailInput;
-	
+
 	@FindBy(id = "email_confirm")
 	private WebElement confirmationEmailInput;
 
-	@FindBy(id = "notstayer_false")
-	private WebElement stayerRadioButton;
-
-	@FindBy(id = "notstayer_true")
-	private WebElement nonStayerRadioButton;
-	
 	@FindBy(name = "book")
 	private WebElement lastDataButton;
 
@@ -57,12 +46,11 @@ public class BookerInformationPage extends BasePage {
 	/**
 	 * Validate if User Information Box is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean userInfoBoxIsPresent() {
 		return userInfoBox.isDisplayed();
 	}
-
 
 	/**
 	 * Get title from User Information Box
@@ -76,8 +64,8 @@ public class BookerInformationPage extends BasePage {
 	/**
 	 * Enter {lastName} to the {lastNameInput} text field
 	 * 
-	 * @param lastName: String 
-	*/
+	 * @param lastName: String
+	 */
 	private void enterLastName(String lastName) {
 		lastNameInput.sendKeys(lastName);
 	}
@@ -85,17 +73,17 @@ public class BookerInformationPage extends BasePage {
 	/**
 	 * Enter {email} to the {emailInput} text field
 	 *
-	 * @param email: String 
-	*/
+	 * @param email: String
+	 */
 	private void enterEmail(String email) {
 		emailInput.sendKeys(email);
 	}
-	
+
 	/**
 	 * Enter {confirmationEmail} to the {confirmationEmailInput} text field
 	 * 
 	 * @param confirmationEmail: String
-	*/
+	 */
 	private void enterEmailConfirm(String confirmationEmail) {
 		confirmationEmailInput.sendKeys(confirmationEmail);
 	}
@@ -103,12 +91,13 @@ public class BookerInformationPage extends BasePage {
 	/**
 	 * Enter Booker Personal Information
 	 *
-	 * @param lastName: String
-	 * @param email: String
+	 * @param lastName:          String
+	 * @param email:             String
+	 * @param confirmationEmail: String
 	 *
 	 */
 
-	public void fillBookerPersonalInformation(String lastName, String email, String confirmationEmail){
+	public void fillBookerPersonalInformation(String lastName, String email, String confirmationEmail) {
 		log.info("The user fills his/her personal information.");
 		enterLastName(lastName);
 		enterEmail(email);
@@ -119,7 +108,7 @@ public class BookerInformationPage extends BasePage {
 	 * Click to {nextLastDataButton} to continue the booking process
 	 * 
 	 * @return PaymentInformationPage
-	*/
+	 */
 	public PaymentInformationPage goToPaymentInformationPage() {
 		log.info("The user clics \"Next, Last Data\" button.");
 		moveToElement(lastDataButton);

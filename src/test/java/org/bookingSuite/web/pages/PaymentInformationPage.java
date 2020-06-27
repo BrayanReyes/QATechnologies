@@ -1,14 +1,13 @@
 package org.bookingSuite.web.pages;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
- * Payment Information Page handles the information related with the location of the booker
- * and the payment data
+ * Payment Information Page handles the information related with the location of
+ * the booker and the payment data.
  *
  */
 
@@ -80,7 +79,6 @@ public class PaymentInformationPage extends BasePage {
 	@FindBy(css = "button[class*=\"book\"]")
 	private WebElement completeBookingButton;
 
-
 	/**
 	 * Constructor.
 	 * 
@@ -95,13 +93,12 @@ public class PaymentInformationPage extends BasePage {
 	/**
 	 * Validate if Booker Details Box is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean bookerDetailsBoxIsPresent() {
 		waitElementVisibility(bookerDetailsBox);
 		return bookerDetailsBox.isDisplayed();
 	}
-
 
 	/**
 	 * Get title from Booker Details Box
@@ -111,7 +108,6 @@ public class PaymentInformationPage extends BasePage {
 	public String getBookerDetailsTitle() {
 		return bookerDetailsTitle.getText();
 	}
-
 
 	/**
 	 * Enter {address} to the {addressInput} text field
@@ -124,7 +120,7 @@ public class PaymentInformationPage extends BasePage {
 				waitElementVisibility(addressInput);
 				addressInput.sendKeys(address);
 			}
-		}catch (NoSuchElementException e){
+		} catch (NoSuchElementException e) {
 			log.info("Address text field is not present.");
 		}
 	}
@@ -136,11 +132,11 @@ public class PaymentInformationPage extends BasePage {
 	 */
 	private void enterCity(String city) {
 		try {
-			if (cityInput.isDisplayed()){
+			if (cityInput.isDisplayed()) {
 				waitElementVisibility(cityInput);
 				cityInput.sendKeys(city);
 			}
-		}catch (NoSuchElementException e){
+		} catch (NoSuchElementException e) {
 			log.info("City text field is not present.");
 		}
 	}
@@ -152,11 +148,11 @@ public class PaymentInformationPage extends BasePage {
 	 */
 	private void enterZipCode(String zipCode) {
 		try {
-		if (zipCodeInput.isDisplayed()){
-			waitElementVisibility(zipCodeInput);
-			zipCodeInput.sendKeys(zipCode);
-		}
-		}catch (NoSuchElementException e){
+			if (zipCodeInput.isDisplayed()) {
+				waitElementVisibility(zipCodeInput);
+				zipCodeInput.sendKeys(zipCode);
+			}
+		} catch (NoSuchElementException e) {
 			log.info("Zip code text field is not present.");
 		}
 	}
@@ -185,14 +181,15 @@ public class PaymentInformationPage extends BasePage {
 	/**
 	 * Fill Booker Details information
 	 *
-	 * @param address: String
-	 * @param city String
-	 * @param zipCode String
-	 * @param country: String
+	 * @param address:     String
+	 * @param city         String
+	 * @param zipCode      String
+	 * @param country:     String
 	 * @param phoneNumber: String
 	 */
 
-	public void fillBookerDetailsInformation(String address, String city, String zipCode, String country, String phoneNumber){
+	public void fillBookerDetailsInformation(String address, String city, String zipCode, String country,
+			String phoneNumber) {
 		log.info("The user fills his/her location information.");
 		enterAddress(address);
 		enterCity(city);
@@ -200,18 +197,16 @@ public class PaymentInformationPage extends BasePage {
 		selectCountry(country);
 		enterPhoneNumber(phoneNumber);
 	}
-/**---------------------------------------------------------------------------------------------------/*
 
- /**
- * Validate if Payment Details Box is present
- *
- * @return true
- */
-public boolean paymentDetailsBoxIsPresent() {
-	waitElementVisibility(paymentDetailsBox);
-	return paymentDetailsBox.isDisplayed();
-}
-
+	/**
+	 * Validate if Payment Details Box is present
+	 *
+	 * @return true
+	 */
+	public boolean paymentDetailsBoxIsPresent() {
+		waitElementVisibility(paymentDetailsBox);
+		return paymentDetailsBox.isDisplayed();
+	}
 
 	/**
 	 * Get title from Payment Details Box
@@ -259,11 +254,11 @@ public boolean paymentDetailsBoxIsPresent() {
 	/**
 	 * Select {cardExpirationMonth} as value for {cardExpirationMonthSelector}
 	 * 
-	 * @param cardEspirationMonth: String
+	 * @param cardExpirationMonth: String
 	 */
-	private void selectCardExpirationMonth(String cardEspirationMonth) {
+	private void selectCardExpirationMonth(String cardExpirationMonth) {
 		waitElementVisibility(cardExpirationMonthSelector);
-		selectElementFromDropDownList(cardExpirationMonthSelector, cardEspirationMonth);
+		selectElementFromDropDownList(cardExpirationMonthSelector, cardExpirationMonth);
 
 	}
 
@@ -290,19 +285,20 @@ public boolean paymentDetailsBoxIsPresent() {
 	/**
 	 * Fill Payment Details
 	 *
-	 * @param cardHolderName: String
-	 * @param cardType: String
-	 * @param cardNumber String
+	 * @param cardHolderName:  String
+	 * @param cardType:        String
+	 * @param cardNumber       String
 	 * @param expirationMonth: String
-	 * @param expirationYear: String
-	 * @param cvcCode: String
+	 * @param expirationYear:  String
+	 * @param cvcCode:         String
 	 */
 
-	public void fillBookerPaymentInformation(String cardHolderName, String cardType, String cardNumber, String expirationMonth, String expirationYear, String cvcCode)
-	
+	public void fillBookerPaymentInformation(String cardHolderName, String cardType, String cardNumber,
+			String expirationMonth, String expirationYear, String cvcCode)
+
 	{
-		
-		if(cardHolderNameInput.isEnabled()){
+
+		if (cardHolderNameInput.isEnabled()) {
 			log.info("The user fills the payment information.");
 			enterCardHolderName(cardHolderName);
 			selectCardType(cardType);
@@ -311,21 +307,18 @@ public boolean paymentDetailsBoxIsPresent() {
 			selectCardExpirationYear(expirationYear);
 			enterCvcCode(cvcCode);
 
-		}
-		else {
+		} else {
 			log.info("Reservation doesn't need credit card.");
 		}
 
 	}
 
-/**---------------------------------------------------------------------------------------------------/*
-
-	// Methods for assertions
+	// -------------------------------------> Methods for assertions  <-------------------------------------//
 
 	/**
 	 * Get text from the Progress Page label
 	 * 
-	 * @return pageProgressTitle: String
+	 * @return Page Progress Title: String
 	 */
 	public String getProgressPageText() {
 		return pageProgressTitle.getText();
@@ -334,7 +327,7 @@ public boolean paymentDetailsBoxIsPresent() {
 	/**
 	 * Get text from the label "Your Group"
 	 * 
-	 * @return guestsGroupText: String
+	 * @return Guests Group Text: String
 	 */
 	public String getGuestsGroupSideBarText() {
 		return guestsGroupSideBar.getText();
@@ -343,7 +336,7 @@ public boolean paymentDetailsBoxIsPresent() {
 	/**
 	 * Get text from the E-mail label
 	 * 
-	 * @return String {email}
+	 * @return Reassurance Email: String
 	 */
 	public String getBookerReassuranceEmail() {
 		return emailReassurance.getText();
@@ -352,71 +345,65 @@ public boolean paymentDetailsBoxIsPresent() {
 	/**
 	 * Validate if Payment Data Area is visible
 	 * 
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean PaymentAreaIsPresent() {
 		return paymentDataDiv.isDisplayed();
 	}
 
 	/**
-	 * Validate if Check Your Data Button is visible
+	 * Validate if Check Your Data button is visible
 	 * 
-	 * @return true
+	 * @return true: boolean
 	 */
 	private boolean checkYourDataButtonIsVisible() {
 		return waitElementVisibility(checkYourDataButton);
 	}
 
 	/**
-	 * Validate if Check Your Data Button is clickable
+	 * Validate if Check Your Data button is clickable
 	 * 
-	 * @return true
+	 * @return true: boolean
 	 */
 	private boolean checkYourDataButtonIsClickable() {
 		return waitElementToBeClickable(checkYourDataButton);
 	}
 
 	/**
-	 * Validate if Check Your Data Button is operable
+	 * Validate if Check Your Data button is operable
 	 * 
-	 * @return true
+	 * @return true: boolean
 	 */
 
 	public boolean checkYourDataButtonIsOperable() {
-		if (checkYourDataButtonIsVisible() && checkYourDataButtonIsClickable()) {
-			return true;
-		}
-		return false;
-	}
+        return checkYourDataButtonIsVisible() && checkYourDataButtonIsClickable();
+    }
 
 	/**
-	 * Validate if Complete Booking Button is visible
+	 * Validate if Complete Booking button is visible
 	 * 
-	 * @return true
+	 * @return true: boolean
 	 */
 	private boolean completeBookingButtonIsVisible() {
 		return waitElementVisibility(completeBookingButton);
 	}
 
 	/**
-	 * Validate if Complete Booking Button is clickable
+	 * Validate if Complete Booking button is clickable
 	 * 
-	 * @return true
+	 * @return true: boolean
 	 */
 	private boolean completeBookingButtonIsClickable() {
 		return waitElementToBeClickable(completeBookingButton);
 	}
 
 	/**
-	 * Validate if Complete Booking Button is operable
+	 * Validate if Complete Booking button is operable
 	 * 
-	 * @return true
+	 * @return true: boolean
 	 */
 
 	public boolean completeBookingButtonIsOperable() {
-		if (completeBookingButtonIsVisible() && completeBookingButtonIsClickable()) {
-			return true;
-		}
-		return false;
-	}
+        return completeBookingButtonIsVisible() && completeBookingButtonIsClickable();
+    }
 }

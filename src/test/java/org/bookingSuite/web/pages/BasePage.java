@@ -1,7 +1,6 @@
 package org.bookingSuite.web.pages;
 
 import org.apache.log4j.Logger;
-import org.bookingSuite.web.utils.AssertTextValidation;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,20 +16,20 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * This class defines common methods to interact with the web page under test
+ * This class defines common methods to interact with the web page under test.
  * 
  * @author: july.moreno
- * @version: 23/06/2020
+ * @version: 26/06/2020
  */
 
 public class BasePage {
 
-	private WebDriver driver;
-	private WebDriverWait wait;
-	private String parentWinHandle;
+	private final WebDriver driver;
+	private final WebDriverWait wait;
+	private final String parentWinHandle;
 	protected Logger log = Logger.getLogger(BasePage.class);
 
-	// Common Locators to handle with modal pages
+	// Locators to handle with modal pages
 	@FindBy(css = ".modal-mask.bp_leaving_users_light_box_mask")
 	private WebElement usersModal;
 
@@ -108,7 +107,7 @@ public class BasePage {
 	 * 
 	 * @return {@link WebDriverWait}
 	 */
-	protected WebDriverWait getWait() {
+	private WebDriverWait getWait() {
 		return wait;
 	}
 
@@ -132,10 +131,10 @@ public class BasePage {
 			getWait().until(ExpectedConditions.visibilityOfAllElements(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			//log.info("TimeOut exception with Web element");
+			// log.info("TimeOut exception with Web element");
 			return false;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
@@ -153,20 +152,16 @@ public class BasePage {
 		} catch (TimeoutException eTimeOut) {
 			return false;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
 
-	
-	
-	
-	
 	/**
 	 *
 	 * Wait for element to be clickable
 	 * 
-	 * @param webElement Web element
+	 * @param webElement: WebElement
 	 * @return boolean
 	 */
 	public boolean waitElementToBeClickable(WebElement webElement) {
@@ -177,19 +172,18 @@ public class BasePage {
 			log.info("TimeOut exception to Click Web element.");
 			return false;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
 
-	
 	/**
 	 *
 	 * Wait for an element attribute
 	 * 
-	 * @param webElements: WebElement
-	 * @param attribute: String
-	 * @param value: String
+	 * @param webElement: WebElement
+	 * @param attribute:   String
+	 * @param value:       String
 	 * @return boolean
 	 */
 	public boolean waitForElementAttribute(WebElement webElement, String attribute, String value) {
@@ -200,18 +194,17 @@ public class BasePage {
 			log.info("TimeOut exception to get Web element attribute.");
 			return false;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
-	
-	
+
 	/**
 	 * Wait After an Element disappear
 	 * 
 	 * @param webElements: WebElement
-	 * @param attribute: String
-	 * @param value: String
+	 * @param attribute:   String
+	 * @param value:       String
 	 * @return boolean
 	 */
 	public boolean waitAfterElementDisappear(WebElement webElements, String attribute, String value) {
@@ -221,7 +214,7 @@ public class BasePage {
 		} catch (TimeoutException eTimeOut) {
 			return false;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
@@ -229,9 +222,7 @@ public class BasePage {
 	/**
 	 * Wait After an Element disappear
 	 * 
-	 * @param webElements: WebElement
-	 * @param attribute: String
-	 * @param value: String
+	 * @param webElement: WebElement
 	 * @return boolean
 	 */
 	public boolean waitToRefresh(WebElement webElement) {
@@ -241,14 +232,11 @@ public class BasePage {
 		} catch (TimeoutException eTimeOut) {
 			return false;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
-	
-	
-	
-	
+
 	/**
 	 * Switch to iFrame inside the web page
 	 * 
@@ -315,7 +303,7 @@ public class BasePage {
 //			log.info("TimeOut exception invisibility with Web element");
 			return false;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}

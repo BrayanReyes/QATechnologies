@@ -1,7 +1,7 @@
 package org.bookingSuite.web.utils;
 
 /**
- * CreditCard handles basic information related to the booker's credit card
+ * CreditCard handles basic information related to the booker's credit card.
  * 
  * @author: july.moreno
  * @version: 26/06/2020
@@ -15,14 +15,6 @@ public class CreditCard {
 	private String expirationMonth;
 	private String expirationYear;
 	private String cvcCcode;
-
-	/**
-	 * Constructor.
-	 *
-	 */
-	public CreditCard() {
-
-	}
 
 	/**
 	 * Constructor.

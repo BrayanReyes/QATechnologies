@@ -2,23 +2,20 @@ package org.bookingSuite.web.pages;
 
 import java.util.List;
 
-import org.bookingSuite.web.utils.SearchParameters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.touch.ScrollAction;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * Search Results Page handles lodging search results and filters
+ * Search Results Page handles lodging search results and filters.
  * 
  */
 
 public class SearchResultsPage extends BasePage {
 
 	@FindBy(css = ".sr_header h1")
-	private WebElement searchResultHeader;
+	private WebElement searchResulstHeader;
 
 	@FindBy(id = "filter_class")
 	private WebElement startsComponent;
@@ -36,16 +33,13 @@ public class SearchResultsPage extends BasePage {
 	private WebElement firstResultPage;
 
 	@FindBy(className = "sr-hotel__name")
-	private List<WebElement> hotelNameLink;
+	private WebElement hotelName;
 
 	@FindBy(className = "bui-review-score__badge")
-	private List<WebElement> reviewScore;
+	private WebElement reviewScore;
 
 	@FindBy(css = "div[class*=\"bui-price-display__value\"]")
-	private List<WebElement> reservationPrice;
-
-	@FindBy(css = ".bui-pagination.results-paging .bui-u-inline")
-	private List<WebElement> resultPagingLinks;
+	private WebElement reservationPrice;
 
 	@FindBy(css = ".bui-pagination__next-arrow a")
 	private WebElement nextPageButton;
@@ -53,18 +47,11 @@ public class SearchResultsPage extends BasePage {
 	@FindBy(css = "[class*='bui-pagination__item--active'] .bui-u-inline")
 	private WebElement pageNumber;
 
-	@FindBy(css = "#hotellist_inner .sr_item .sr-cta-button-row")
-	private WebElement chooseRoomButton;
-
-	@FindBy(name = "group_adults")
-	private WebElement adultsQuantity;
-
-	@FindBy(name = "group_children")
-	private WebElement childrenQuantity;
-
 	@FindBy(css = ".sr-group-recommendation__title_biggest")
 	private WebElement adultsAndChildrenText;
 
+	@FindBy(css = "#hotellist_inner .sr_item .sr-cta-button-row")
+	private WebElement chooseRoomButton;
 
 	/**
 	 * Constructor.
@@ -79,20 +66,20 @@ public class SearchResultsPage extends BasePage {
 	/**
 	 * Validate if Search Result Header is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean searchResultHeaderIsPresent() {
-		return searchResultHeader.isDisplayed();
+		return searchResulstHeader.isDisplayed();
 	}
 
 	/**
 	 * Get Search Result Header text
 	 *
-	 * @return Label: String
+	 * @return Results Header Text: String
 	 */
 	public String getSearchResultHeader() {
-		waitElementVisibility(searchResultHeader);
-		return searchResultHeader.getText();
+		waitElementVisibility(searchResulstHeader);
+		return searchResulstHeader.getText();
 	}
 
 	/**
@@ -108,16 +95,15 @@ public class SearchResultsPage extends BasePage {
 			moveToElement(x);
 			clickElement(x);
 		});
-		
+
 		waitForElementAttribute(firstLodgingItem, "data-class", startsDataValue);
-//		waitForElementAttribute(firstLodgingItem, "data-class", searchParameters.getNumberOfStars());
 		log.info("The user sets the starts filter.");
 	}
 
 	/**
 	 * Validate if next page button is clickable
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean nextPageButtonIsClickable() {
 		return waitElementToBeClickable(nextPageButton);
@@ -159,7 +145,6 @@ public class SearchResultsPage extends BasePage {
 			clickElement(nextPageButton);
 			while (!increasedPage) {
 				waitForElementAttribute(firstLodgingItem, "data-class", startsDataValue);
-//				getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", searchParameters.getNumberOfStars()));
 				if (waitElementVisibility(pageNumber)
 						&& pageNumber.getText().equals(String.valueOf(initialPageNumber))) {
 					increasedPage = true;
@@ -171,14 +156,12 @@ public class SearchResultsPage extends BasePage {
 			increasedPage = false;
 			totalResults += searchResultsItem.size();
 		}
-		;
 
-		return totalResults;
+        return totalResults;
 	}
 
 	/**
 	 * Go back to the first results page
-	 * 
 	 * 
 	 */
 	public void moveToInitialResultsPage() {
@@ -198,7 +181,8 @@ public class SearchResultsPage extends BasePage {
 	}
 
 	/**
-	 * Select one option in the result page and click to {chooseRoomButton} to continue the booking process
+	 * Select one option in the result page and click to {chooseRoomButton} to
+	 * continue the booking process
 	 * 
 	 * @return LodgingDetailsPage
 	 */
@@ -210,9 +194,9 @@ public class SearchResultsPage extends BasePage {
 		log.info("The user selects the option " + option + " in the list.");
 		String hotelName = hotelChosen.findElement(By.className("sr-hotel__name")).getText();
 		moveToElement(hotelChosen);
-		WebElement webElement = hotelChosen.findElement(By.className("bui-button__text"));
-		waitElementVisibility(webElement);
-		clickElement(webElement);
+		WebElement chooseRoomButton = hotelChosen.findElement(By.className("bui-button__text"));
+		waitElementVisibility(chooseRoomButton);
+		clickElement(chooseRoomButton);
 		log.info("The user clicks the \"Choose Room\" Button.");
 		String numberOfGuests = getAdultsChildrenRecommended();
 		switchToLastOpenTab(getDriver());

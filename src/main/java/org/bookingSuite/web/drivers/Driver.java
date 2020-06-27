@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class Driver {
 
     private WebDriver driver;
-    private Logger log = Logger.getLogger(Driver.class);
+    private final Logger log = Logger.getLogger(Driver.class);
 
     /**
      * Constructor

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Stay Search Page handles the stay information and allows to search stay
  * options according with the parameter: destination, dates of check-in and
- * checkout, number of guests and number of rooms
+ * checkout, number of guests and number of rooms.
  * 
  * @author: july.moreno
  * @version: 24/06/2020
@@ -53,22 +53,15 @@ public class StaySearchPage extends BasePage {
 	@FindBy(css = ".sb-group-children .bui-stepper__add-button")
 	private WebElement AddChildrenButton;
 
-	@FindBy(css = ".sb-group-children .bui-stepper__subtract-button")
-	private WebElement decreaseChildrenButton;
-
 	@FindBy(css = ".sb-group__field-rooms .bui-stepper__add-button")
 	private WebElement AddRoomsButton;
 
-	@FindBy(css = ".sb-group__field-rooms .bui-stepper__subtract-button")
-	private WebElement decreaseRoomsButton;
-	
 	@FindBy(css = ".sb-group__field-rooms .bui-stepper__display")
 	private WebElement roomsQuantityLabel;
 
 	@FindBy(css = "#frm button[type=submit]")
 	private WebElement searchButton;
 
-	
 	/**
 	 * Constructor.
 	 * 
@@ -82,7 +75,7 @@ public class StaySearchPage extends BasePage {
 	/**
 	 * Get the text Stay Page Header
 	 *
-	 * @return stayPageHeader: String
+	 * @return Stay Page Header Text : String
 	 */
 	public String getStayPageHeaderText() {
 		return stayPageHeader.getText();
@@ -130,7 +123,7 @@ public class StaySearchPage extends BasePage {
 	/**
 	 * Set the dates for Check In and Ceck Out before to search
 	 * 
-	 * @param daysForward: int
+	 * @param daysForward:  int
 	 * @param stayDuration: int
 	 * 
 	 */
@@ -176,7 +169,7 @@ public class StaySearchPage extends BasePage {
 	/**
 	 * Get the text from Calendar Label
 	 *
-	 * @return calendarLabel: String
+	 * @return Calendar Label: String
 	 */
 	public String getCalendarLabelText() {
 		return calendarLabel.getText();
@@ -214,7 +207,7 @@ public class StaySearchPage extends BasePage {
 	/**
 	 * Get the text from Adults Quantity Label
 	 *
-	 * @return adultsNumberLabel: String
+	 * @return Adults Number Label: String
 	 */
 	public String getAdultsNumberLabelText() {
 		return adultsQuantityLabel.getText();
@@ -247,13 +240,12 @@ public class StaySearchPage extends BasePage {
 	/**
 	 * Get the text from Children Quantity Label
 	 *
-	 * @return childrenNumberLabel: String
+	 * @return Children Number Label: String
 	 */
 	public String getChildrenNumberLabelText() {
 		return childrenQuantityLabel.getText();
 	}
 
-	
 	/**
 	 * Set the quantity of rooms
 	 * 
@@ -277,12 +269,11 @@ public class StaySearchPage extends BasePage {
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * Get the text from Rooms Quantity Label
 	 *
-	 * @return roomsNumberLabel: String
+	 * @return Rooms Number Label: String
 	 */
 	public String getRoomsQuantityLabelText() {
 		return roomsQuantityLabel.getText();
@@ -291,7 +282,7 @@ public class StaySearchPage extends BasePage {
 	/**
 	 * Set the age of all children
 	 * 
-	 * @param childrenAge: String or String[]
+	 * @param childrenAge:String[]
 	 */
 	public void setChildrenAge(String... childrenAge) {
 		for (int i = 0; i < childrenAge.length; i++) {

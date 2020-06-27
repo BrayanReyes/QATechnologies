@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class BookingTest extends BaseTest {
 	
 	/**
-	 * Steps to book a stay from searching a lodging to entering payment data
+	 * Steps to book a stay in Booking.com web page from searching a lodging to entering payment data
 	 * @param searchParameters
 	 * @param booker
 	 * @param creditCard
@@ -89,11 +89,11 @@ public class BookingTest extends BaseTest {
 		//-----------------------------------------------------> Assertions Print <-----------------------------------------------------//
 		log.info("*********************  ASSERTIONS PRINT  ********************");
 		log.info("ASSERT 1 - Progress Page Title: " + paymentInformationPage.getProgressPageText());
-		log.info("ASSERT 2 - Group label: " + paymentInformationPage.getGuestsGroupSideBarText());
+		log.info("ASSERT 2 - Group Label: " + paymentInformationPage.getGuestsGroupSideBarText());
 		log.info("ASSERT 3 - Booker Reassurance Email: " + paymentInformationPage.getBookerReassuranceEmail());
-		log.info("ASSERT 4 - Is \"Payment Area\" visible?: " + paymentInformationPage.PaymentAreaIsPresent());
-		log.info("ASSERT 5 - Is \"Check Your Data\" button ready to use?: " + paymentInformationPage.checkYourDataButtonIsOperable());
-		log.info("ASSERT 6 - Is \"Complete Booking\"  button ready to use?: " + paymentInformationPage.completeBookingButtonIsOperable());
+		log.info("ASSERT 4 - Is \"Payment Area\" visible? : " + paymentInformationPage.PaymentAreaIsPresent());
+		log.info("ASSERT 5 - Is \"Check Your Data\" button ready to use? : " + paymentInformationPage.checkYourDataButtonIsOperable());
+		log.info("ASSERT 6 - Is \"Complete Booking\"  button ready to use? : " + paymentInformationPage.completeBookingButtonIsOperable());
 		
 	}
 }

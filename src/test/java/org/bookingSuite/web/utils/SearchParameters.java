@@ -24,24 +24,15 @@ public class SearchParameters {
 	/**
 	 * Constructor.
 	 *
-	 */
-	public SearchParameters() {
-
-	}
-
-	/**
-	 * Constructor.
-	 *
 	 * @param destination:               String
 	 * @param daysForward:               int
 	 * @param stayDuration:              int
-	 * @param adultsNumber:              int
-	 * @param childrenNumber:            int
+	 * @param stayAdultsNumber:              int
+	 * @param stayChildrenNumber:            int
 	 * @param childrenAge:               String[]
 	 * @param lodgingConfirmRoomsNumber: String
 	 * @param stayStarsNumber:           String
 	 * @param stayOptionToSelect:        int
-	 * 
 	 * 
 	 */
 

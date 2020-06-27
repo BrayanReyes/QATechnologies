@@ -1,9 +1,9 @@
 package org.bookingSuite.web.utils;
 
-
 /**
- * Assert Text Validation defines the entries needed to perform text assertions in the Booking Test class
- * the test suite
+ * Assert Text Validation defines the entries needed to perform text assertions
+ * in the Booking Test class the test suite
+ * 
  * @author: july.moreno
  * @version: 26/06/2020
  */
@@ -15,8 +15,7 @@ public class AssertTextValidation {
 	public static String GuestConfirmation = "3 adultos, 1 niño (9 años)";
 	public static String LastPageProgressText = "Últimos datos";
 	public static String SelectRoomsAdvice = "Primero selecciona tu alojamiento";
-		
-	
+
 	/**
 	 * @return the Stay Page Header
 	 */
@@ -45,7 +44,6 @@ public class AssertTextValidation {
 		return LastPageProgressText;
 	}
 
-
 	/**
 	 * @return the Select Rooms Advice
 	 */
@@ -53,7 +51,4 @@ public class AssertTextValidation {
 		return SelectRoomsAdvice;
 	}
 
-
 }
-
-

@@ -18,20 +18,18 @@ public class DataInit {
 	// case more children are needed, the age should be included in this array.
 	String[] childrenAge = { "9" };
 
-	// Parameters to search a stay: destination, daysForward, stayDuration,
-	// stayAdultsNumber, stayChildrenNumber,
-	// childrenAge, lodgingConfirmRoomsNumber, stayStarsNumber, stayOptionToSelect
+	// Parameters to search a stay:
+	// destination, daysForward, stayDuration,stayAdultsNumber, stayChildrenNumber,childrenAge, lodgingConfirmRoomsNumber,
+	// stayStarsNumber, stayOptionToSelect
 	SearchParameters searchParameters = new SearchParameters("Bogotá, Colombia", 30, 45, 3, 1, childrenAge, "1", "5",
 			2);
 
-	// Parameters for a credit card: creditCardHolderLastName, creditCardType,
-	// creditCardNumber,
-	// creditCardExpirationMonth, creditCardExpirationYear, creditCardCvcCode
+	// Parameters for a credit card: 
+	// CardHolderLastName, creditCardType, creditCardNumber, creditCardExpirationMonth, creditCardExpirationYear, creditCardCvcCode
 	CreditCard creditCard = new CreditCard("Jara", "American Express", "342424242342342", "09", "2022", "3210");
 
-	// Parameters for a booker: bookerFirstName, bookerLastName, bookerEmail,
-	// bookerAddress, bookerCountry,
-	// bookerCity, bookerZipCode, bookerPhoneNumber, bookerCreditCard
+	// Parameters for a booker:
+	// bookerFirstName, bookerLastName, bookerEmail, bookerAddress, bookerCountry, bookerCity, bookerZipCode, bookerPhoneNumber
 	Booker booker = new Booker("July", "Moreno", "email@email.com", "Calle falsa 123", "co", "Bogota", "1101010",
 			"3134204440");
 

@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import org.bookingSuite.web.drivers.Driver;
 
 /**
- * This class defines common methods for all test defined in ESPNTest
+ * This class defines common methods for all test defined in BookingTest
  * @author: july.moreno
  * @version: 07/06/2020
  */

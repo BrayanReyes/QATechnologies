@@ -1,15 +1,13 @@
 package org.bookingSuite.web.pages;
 
-import org.bookingSuite.web.utils.SearchParameters;
 import org.bookingSuite.web.utils.AssertTextValidation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * Lodging Details Page displays information about the selected hotel and let choosing
- * the number of rooms and additional services
+ * Lodging Details Page displays information about the selected hotel and let
+ * choosing the number of rooms and additional services.
  * 
  */
 
@@ -51,9 +49,9 @@ public class LodgingDetailsPage extends BasePage {
 	@FindBy(css = ".hprt-reservation-cta button[type=submit]")
 	private WebElement iWillBookButton;
 
-	private String hotelName;
-	private String numberOfGuests;
-	
+	private final String hotelName;
+	private final String numberOfGuests;
+
 	/**
 	 * Constructor.
 	 *
@@ -61,7 +59,7 @@ public class LodgingDetailsPage extends BasePage {
 	 * @param hotelName:      String
 	 * @param numberOfGuests: String
 	 */
-	LodgingDetailsPage(WebDriver driver, String hotelName,  String numberOfGuests) {
+	LodgingDetailsPage(WebDriver driver, String hotelName, String numberOfGuests) {
 		super(driver);
 		this.hotelName = hotelName;
 		this.numberOfGuests = numberOfGuests;
@@ -72,7 +70,7 @@ public class LodgingDetailsPage extends BasePage {
 	/**
 	 * Validate if Hotel Name label is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean hotelNameLabelIsPresent() {
 		return hotelNameLabel.isDisplayed();
@@ -94,12 +92,9 @@ public class LodgingDetailsPage extends BasePage {
 	 */
 
 	public boolean hotelNameIsTheSame() {
-		if (this.hotelName.equals(getHotelNameLabel())) {
-			return true;
-		}
-		return false;
-	}
-	
+        return this.hotelName.equals(getHotelNameLabel());
+    }
+
 	/**
 	 * Get Nights And Guests Label text
 	 *
@@ -108,7 +103,7 @@ public class LodgingDetailsPage extends BasePage {
 	public String getGuestsTextLabel() {
 		return nightsAndGuestsValidationLabel.getText().substring(17);
 	}
-	
+
 	/**
 	 * Get Nights And Guests Label text
 	 *
@@ -118,7 +113,6 @@ public class LodgingDetailsPage extends BasePage {
 		return nightsAndGuestsLabel.getText().split(",")[0];
 	}
 
-	
 	/**
 	 * Validate if the number of guests is the same than the previous page
 	 *
@@ -126,30 +120,22 @@ public class LodgingDetailsPage extends BasePage {
 	 */
 
 	public boolean guestNumberIsTheSame() {
-		if (this.numberOfGuests.equals(getGuestsTextLabel()))
-			return true;
-		return false;
-	}
-	
-	
-	
+        return this.numberOfGuests.equals(getGuestsTextLabel());
+    }
+
 	/**
 	 * Validate if Nights And Guests Label is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean nightsAndGuestsLabelIsPresent() {
 		return nightsAndGuestsLabel.isDisplayed();
 	}
 
-
-	
-	
-	
 	/**
 	 * Validate if Total Price Label is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean totalPriceLabelIsPresent() {
 		return totalPriceLabel.isDisplayed();
@@ -167,14 +153,14 @@ public class LodgingDetailsPage extends BasePage {
 	/**
 	 * Validate if Check In Summary is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean checkInSummaryLabelIsPresent() {
 		return checkInSummaryLabel.isDisplayed();
 	}
 
 	/**
-	 * Get if Check In Summary text
+	 * Get Check In Summary text
 	 *
 	 * @return Label: String
 	 */
@@ -185,14 +171,14 @@ public class LodgingDetailsPage extends BasePage {
 	/**
 	 * Validate if Check Out Summary is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean checkOutSummaryLabelIsPresent() {
 		return checkOutSummaryLabel.isDisplayed();
 	}
 
 	/**
-	 * Get if Check Out Summary text
+	 * Get Check Out Summary text
 	 *
 	 * @return Label: String
 	 */
@@ -203,14 +189,14 @@ public class LodgingDetailsPage extends BasePage {
 	/**
 	 * Validate if Occupancy Summary is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	public boolean occupancySummaryLabelIsPresent() {
 		return occupancySummaryLabel.isDisplayed();
 	}
 
 	/**
-	 * Get if Occupancy Summary text
+	 * Get Occupancy Summary text
 	 *
 	 * @return Label: String
 	 */
@@ -218,6 +204,10 @@ public class LodgingDetailsPage extends BasePage {
 		return occupancySummaryLabel.getText();
 	}
 
+	/**
+	 * Click to {bookThisRoomButton} to continue the booking process
+	 *
+	 */
 	public void clickBookThisRoom() {
 		moveToElement(bookThisRoomButton);
 		waitElementVisibility(bookThisRoomButton);
@@ -225,6 +215,12 @@ public class LodgingDetailsPage extends BasePage {
 		log.info("The user clicks \"Book This Room\" button.");
 	}
 
+	/**
+	 * Click to {roomsSelector} to select the number of rooms
+	 * 
+	 * @param rooms: String
+	 *
+	 */
 	public void setNumberOfRooms(String rooms) {
 		moveToElement(roomsSelector);
 		selectElementFromDropDownList(roomsSelector, rooms);
@@ -234,7 +230,7 @@ public class LodgingDetailsPage extends BasePage {
 	/**
 	 * Validate if Rooms and Price Summary Label is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	private boolean roomsAndPriceSummaryLabelIsPresent() {
 		return roomsAndPriceSummaryLabel.isDisplayed();
@@ -243,7 +239,7 @@ public class LodgingDetailsPage extends BasePage {
 	/**
 	 * Validate if Price Confirmation Label is present
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 	private boolean priceConfirmationLabelIsPresent() {
 		return priceConfirmationLabel.isDisplayed();
@@ -252,36 +248,31 @@ public class LodgingDetailsPage extends BasePage {
 	/**
 	 * Validate if the number of rooms is already selected
 	 *
-	 * @return true
+	 * @return true: boolean
 	 */
 
 	private boolean roomsNumberIsSelected() {
-		if (roomsAndPriceSummaryLabelIsPresent() && priceConfirmationLabelIsPresent()) {
-			return true;
-		}
-
-		return false;
-	}
+        return roomsAndPriceSummaryLabelIsPresent() && priceConfirmationLabelIsPresent();
+    }
 
 	/**
 	 * Click to {iWillBookButton} to continue the booking process
 	 * 
+	 * @param roomsNumber: String
 	 * @return BookerInformationPage
 	 */
 
 	public BookerInformationPage clickFinalReserve(String roomsNumber) {
-		
+
 		waitAfterElementDisappear(iWillBookButton, "data-title", AssertTextValidation.getSelectRoomsAdvice());
-//		getWait().until(ExpectedConditions.not(ExpectedConditions.attributeToBe(iWillBookButton, "data-title", TextValidation.getSelectRoomsAdvice())));
 		waitToRefresh(iWillBookButton);
-//		getWait().until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(iWillBookButton)));
 		log.info("The user clicks \"I will Book\" Button.");
 
 		if (roomsNumberIsSelected()) {
 			waitElementVisibility(iWillBookButton);
 			clickElement(iWillBookButton);
 			return new BookerInformationPage(getDriver());
-			
+
 		} else {
 			setNumberOfRooms(roomsNumber);
 			roomsNumberIsSelected();
