@@ -1,6 +1,7 @@
 package org.bookingSuite.web.pages;
 
 import org.apache.log4j.Logger;
+import org.bookingSuite.web.utils.AssertTextValidation;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,8 +47,8 @@ public class BasePage {
 	 */
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
-		wait = new WebDriverWait(this.driver, 10);
-		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 10), this);
+		wait = new WebDriverWait(this.driver, 5);
+		PageFactory.initElements(new AjaxElementLocatorFactory(this.driver, 5), this);
 		parentWinHandle = this.driver.getWindowHandle();
 	}
 
@@ -88,7 +89,7 @@ public class BasePage {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.info("Element is not present in the list");
+			log.info("Element is not present in the list.");
 		}
 
 	}
@@ -157,6 +158,10 @@ public class BasePage {
 		}
 	}
 
+	
+	
+	
+	
 	/**
 	 *
 	 * Wait for element to be clickable
@@ -169,7 +174,7 @@ public class BasePage {
 			getWait().until(ExpectedConditions.elementToBeClickable(webElement));
 			return true;
 		} catch (TimeoutException eTimeOut) {
-			log.info("TimeOut exception to Click Web element");
+			log.info("TimeOut exception to Click Web element.");
 			return false;
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -177,6 +182,73 @@ public class BasePage {
 		}
 	}
 
+	
+	/**
+	 *
+	 * Wait for an element attribute
+	 * 
+	 * @param webElements: WebElement
+	 * @param attribute: String
+	 * @param value: String
+	 * @return boolean
+	 */
+	public boolean waitForElementAttribute(WebElement webElement, String attribute, String value) {
+		try {
+			getWait().until(ExpectedConditions.attributeToBe(webElement, attribute, value));
+			return true;
+		} catch (TimeoutException eTimeOut) {
+			log.info("TimeOut exception to get Web element attribute.");
+			return false;
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Wait After an Element disappear
+	 * 
+	 * @param webElements: WebElement
+	 * @param attribute: String
+	 * @param value: String
+	 * @return boolean
+	 */
+	public boolean waitAfterElementDisappear(WebElement webElements, String attribute, String value) {
+		try {
+			getWait().until(ExpectedConditions.not(ExpectedConditions.attributeToBe(webElements, attribute, value)));
+			return true;
+		} catch (TimeoutException eTimeOut) {
+			return false;
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Wait After an Element disappear
+	 * 
+	 * @param webElements: WebElement
+	 * @param attribute: String
+	 * @param value: String
+	 * @return boolean
+	 */
+	public boolean waitToRefresh(WebElement webElement) {
+		try {
+			getWait().until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(webElement)));
+			return true;
+		} catch (TimeoutException eTimeOut) {
+			return false;
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	
+	
 	/**
 	 * Switch to iFrame inside the web page
 	 * 
@@ -257,7 +329,7 @@ public class BasePage {
 			dontShowModal.click();
 			closeModalButton.click();
 		} catch (Exception e) {
-			log.info("The modal doesn't show up");
+			log.info("The modal doesn't show up. It's OK to continue.");
 		}
 	}
 

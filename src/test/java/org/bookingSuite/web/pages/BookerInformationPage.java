@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Booker Information Page handles basic information of the person who is booking the stay
  * 
+ * @author: july.moreno
+ * @version: 26/06/2020
 */
 
 public class BookerInformationPage extends BasePage {
@@ -107,7 +109,7 @@ public class BookerInformationPage extends BasePage {
 	 */
 
 	public void fillBookerPersonalInformation(String lastName, String email, String confirmationEmail){
-		log.info("User fills his/her personal information");
+		log.info("The user fills his/her personal information.");
 		enterLastName(lastName);
 		enterEmail(email);
 		enterEmailConfirm(confirmationEmail);
@@ -119,6 +121,7 @@ public class BookerInformationPage extends BasePage {
 	 * @return PaymentInformationPage
 	*/
 	public PaymentInformationPage goToPaymentInformationPage() {
+		log.info("The user clics \"Next, Last Data\" button.");
 		moveToElement(lastDataButton);
 		lastDataButton.click();
 		return new PaymentInformationPage(getDriver());

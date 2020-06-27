@@ -21,7 +21,7 @@ public class BookingHomePage extends BasePage {
     /**
      * Constructor.
      * @param driver : WebDriver
-     * @param url : String - Home Page url
+     * @param url : String
      */
 	public BookingHomePage(WebDriver driver, String url) {
 		super(driver);
@@ -35,7 +35,7 @@ public class BookingHomePage extends BasePage {
 	 */
 	
 	public StaySearchPage selectStayOption() {
-		log.info("User clicks Stay Option");
+		log.info("The user clicks the \"Stay Option\".");
 		waitElementVisibility(stayMenuOption);
 		stayMenuOption.click();
 		return new StaySearchPage(getDriver());

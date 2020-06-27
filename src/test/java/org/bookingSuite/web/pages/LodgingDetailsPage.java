@@ -1,12 +1,14 @@
 package org.bookingSuite.web.pages;
 
+import org.bookingSuite.web.utils.SearchParameters;
+import org.bookingSuite.web.utils.AssertTextValidation;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
- * Lodging Details Page displays info about the selected hotel and let choosing
+ * Lodging Details Page displays information about the selected hotel and let choosing
  * the number of rooms and additional services
  * 
  */
@@ -50,24 +52,18 @@ public class LodgingDetailsPage extends BasePage {
 	private WebElement iWillBookButton;
 
 	private String hotelName;
-//	private String adultsNumber;
-//	private String childrenNumber;
 	private String numberOfGuests;
-
+	
 	/**
 	 * Constructor.
 	 *
 	 * @param driver:         WebDriver
 	 * @param hotelName:      String
-	 * @param adultsNumber:   String
-	 * @param childrenNumber: String
 	 * @param numberOfGuests: String
 	 */
 	LodgingDetailsPage(WebDriver driver, String hotelName,  String numberOfGuests) {
 		super(driver);
 		this.hotelName = hotelName;
-//		this.adultsNumber = adultsNumber;
-//		this.childrenNumber = childrenNumber;
 		this.numberOfGuests = numberOfGuests;
 		waitElementVisibility(hotelNameLabel);
 		moveToElement(hotelNameLabel);
@@ -119,7 +115,7 @@ public class LodgingDetailsPage extends BasePage {
 	 * @return Label: String
 	 */
 	public String getNightsAndGuestsLabel() {
-		return nightsAndGuestsLabel.getText();
+		return nightsAndGuestsLabel.getText().split(",")[0];
 	}
 
 	
@@ -222,16 +218,15 @@ public class LodgingDetailsPage extends BasePage {
 		return occupancySummaryLabel.getText();
 	}
 
-	public void clicBookThisRoom() {
+	public void clickBookThisRoom() {
 		moveToElement(bookThisRoomButton);
 		waitElementVisibility(bookThisRoomButton);
 		clickElement(bookThisRoomButton);
-		log.info("User click Book This Room button");
+		log.info("The user clicks \"Book This Room\" button.");
 	}
 
 	public void setNumberOfRooms(String rooms) {
 		moveToElement(roomsSelector);
-		log.info("Move to Element");
 		selectElementFromDropDownList(roomsSelector, rooms);
 		log.info("Selected rooms number " + rooms);
 	}
@@ -274,20 +269,21 @@ public class LodgingDetailsPage extends BasePage {
 	 * @return BookerInformationPage
 	 */
 
-	public BookerInformationPage clickFinalReserve() {
-
-		log.info("User clicks I will Book Button");
+	public BookerInformationPage clickFinalReserve(String roomsNumber) {
 		
-		getWait().until(ExpectedConditions.not(
-				ExpectedConditions.attributeToBe(iWillBookButton, "data-title", "Primero selecciona tu alojamiento")));
-		getWait().until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(iWillBookButton)));
+		waitAfterElementDisappear(iWillBookButton, "data-title", AssertTextValidation.getSelectRoomsAdvice());
+//		getWait().until(ExpectedConditions.not(ExpectedConditions.attributeToBe(iWillBookButton, "data-title", TextValidation.getSelectRoomsAdvice())));
+		waitToRefresh(iWillBookButton);
+//		getWait().until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(iWillBookButton)));
+		log.info("The user clicks \"I will Book\" Button.");
 
 		if (roomsNumberIsSelected()) {
 			waitElementVisibility(iWillBookButton);
 			clickElement(iWillBookButton);
 			return new BookerInformationPage(getDriver());
+			
 		} else {
-			setNumberOfRooms("1");
+			setNumberOfRooms(roomsNumber);
 			roomsNumberIsSelected();
 			waitElementVisibility(iWillBookButton);
 			clickElement(iWillBookButton);

@@ -2,6 +2,7 @@ package org.bookingSuite.web.pages;
 
 import java.util.List;
 
+import org.bookingSuite.web.utils.SearchParameters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -46,7 +47,7 @@ public class SearchResultsPage extends BasePage {
 	@FindBy(css = ".bui-pagination.results-paging .bui-u-inline")
 	private List<WebElement> resultPagingLinks;
 
-	@FindBy(css = ".bui-pagination__next-arrow a") // .bui-pagination__link.paging-next
+	@FindBy(css = ".bui-pagination__next-arrow a")
 	private WebElement nextPageButton;
 
 	@FindBy(css = "[class*='bui-pagination__item--active'] .bui-u-inline")
@@ -63,6 +64,7 @@ public class SearchResultsPage extends BasePage {
 
 	@FindBy(css = ".sr-group-recommendation__title_biggest")
 	private WebElement adultsAndChildrenText;
+
 
 	/**
 	 * Constructor.
@@ -102,13 +104,14 @@ public class SearchResultsPage extends BasePage {
 	public void setStarsFilter(String startsDataValue) {
 		waitElementVisibility(startsComponent);
 		moveToElement(startsComponent);
-		starsFilter.stream().filter(star -> star.getAttribute("data-value").equals(startsDataValue))
-				.forEach(x -> {
-					moveToElement(x);
-					clickElement(x);
-				});
-		getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", "5"));
-		log.info("User set the starts filter");
+		starsFilter.stream().filter(star -> star.getAttribute("data-value").equals(startsDataValue)).forEach(x -> {
+			moveToElement(x);
+			clickElement(x);
+		});
+		
+		waitForElementAttribute(firstLodgingItem, "data-class", startsDataValue);
+//		waitForElementAttribute(firstLodgingItem, "data-class", searchParameters.getNumberOfStars());
+		log.info("The user sets the starts filter.");
 	}
 
 	/**
@@ -127,7 +130,6 @@ public class SearchResultsPage extends BasePage {
 
 	public void checkResults() {
 
-		// Modify in order to return boolean value when some info is missing.
 		searchResultsItem.forEach(item -> {
 
 			moveToElement(item);
@@ -145,7 +147,7 @@ public class SearchResultsPage extends BasePage {
 	 * 
 	 * @return result items: int
 	 */
-	public int searchResultsItem() {
+	public int searchResultsItem(String startsDataValue) {
 		int initialPageNumber = 1;
 		int totalResults = searchResultsItem.size();
 		boolean increasedPage = false;
@@ -155,20 +157,21 @@ public class SearchResultsPage extends BasePage {
 			initialPageNumber++;
 			moveToElement(nextPageButton);
 			clickElement(nextPageButton);
-			//Wait until the next button is selected
 			while (!increasedPage) {
-				getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", "5"));
+				waitForElementAttribute(firstLodgingItem, "data-class", startsDataValue);
+//				getWait().until(ExpectedConditions.attributeToBe(firstLodgingItem, "data-class", searchParameters.getNumberOfStars()));
 				if (waitElementVisibility(pageNumber)
 						&& pageNumber.getText().equals(String.valueOf(initialPageNumber))) {
 					increasedPage = true;
-					
-					log.info("Click to the next result page");
+
+					log.info("The user clicks the \"next result page\" button.");
 				}
 			}
 			checkResults();
 			increasedPage = false;
 			totalResults += searchResultsItem.size();
-		};
+		}
+		;
 
 		return totalResults;
 	}
@@ -181,31 +184,8 @@ public class SearchResultsPage extends BasePage {
 	public void moveToInitialResultsPage() {
 		moveToElement(firstResultPage);
 		clickElement(firstResultPage);
-		log.info("User click first page button");
+		log.info("The user clicks the \"first page\" button.");
 	}
-
-//	/**
-//	 * Get Adults quantity 
-//     *
-//     */
-//	
-//	private String getAdultsQuantity(){
-//		moveToElement(adultsQuantity);
-//		waitElementVisibility(adultsQuantity);
-//		return adultsQuantity.getText();
-//	}
-//
-//	/**
-//	 * Get Children quantity 
-//     *
-//     */
-//
-//	private String getChildrenQuantity(){
-//		moveToElement(childrenQuantity);
-//		waitElementVisibility(childrenQuantity);
-//		return childrenQuantity.getText();
-//	}
-//	
 
 	/**
 	 * Get the the Reservation guest from a specific item result and remove the
@@ -218,27 +198,22 @@ public class SearchResultsPage extends BasePage {
 	}
 
 	/**
-	 * Click to {chooseRoomButton} to continue the booking process
+	 * Select one option in the result page and click to {chooseRoomButton} to continue the booking process
 	 * 
 	 * @return LodgingDetailsPage
 	 */
 
 	public LodgingDetailsPage clickLodgingOption(int option) {
 		handleUsersModal();
-//		try {
-//			Thread.sleep(5000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 		WebElement hotelChosen = searchResultsItem.get(option - 1);
 		moveToElement(hotelChosen);
+		log.info("The user selects the option " + option + " in the list.");
 		String hotelName = hotelChosen.findElement(By.className("sr-hotel__name")).getText();
 		moveToElement(hotelChosen);
 		WebElement webElement = hotelChosen.findElement(By.className("bui-button__text"));
 		waitElementVisibility(webElement);
 		clickElement(webElement);
-//		String numberOfAdults = getAdultsQuantity();
-//		String numberOfChildren = getChildrenQuantity();
+		log.info("The user clicks the \"Choose Room\" Button.");
 		String numberOfGuests = getAdultsChildrenRecommended();
 		switchToLastOpenTab(getDriver());
 		return new LodgingDetailsPage(getDriver(), hotelName, numberOfGuests);

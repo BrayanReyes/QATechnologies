@@ -178,7 +178,6 @@ public class PaymentInformationPage extends BasePage {
 	 */
 	private void enterPhoneNumber(String phoneNumber) {
 		waitElementVisibility(phoneNumberInput);
-		phoneNumberInput.sendKeys(Keys.CLEAR);
 		phoneNumberInput.sendKeys(phoneNumber);
 
 	}
@@ -194,7 +193,7 @@ public class PaymentInformationPage extends BasePage {
 	 */
 
 	public void fillBookerDetailsInformation(String address, String city, String zipCode, String country, String phoneNumber){
-		log.info("User fills his/her location information");
+		log.info("The user fills his/her location information.");
 		enterAddress(address);
 		enterCity(city);
 		enterZipCode(zipCode);
@@ -302,9 +301,9 @@ public boolean paymentDetailsBoxIsPresent() {
 	public void fillBookerPaymentInformation(String cardHolderName, String cardType, String cardNumber, String expirationMonth, String expirationYear, String cvcCode)
 	
 	{
-		log.info("User fills the payment information");
 		
 		if(cardHolderNameInput.isEnabled()){
+			log.info("The user fills the payment information.");
 			enterCardHolderName(cardHolderName);
 			selectCardType(cardType);
 			enterCardNumber(cardNumber);
@@ -314,7 +313,7 @@ public boolean paymentDetailsBoxIsPresent() {
 
 		}
 		else {
-			log.info("Reservation doesn't need credit card");
+			log.info("Reservation doesn't need credit card.");
 		}
 
 	}

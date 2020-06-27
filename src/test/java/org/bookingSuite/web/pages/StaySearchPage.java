@@ -2,12 +2,13 @@ package org.bookingSuite.web.pages;
 
 import java.time.LocalDate;
 
+import org.bookingSuite.web.utils.SearchParameters;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
 /**
  * Stay Search Page handles the stay information and allows to search stay
- * option according with the parameter: destination, dates of check-in and
+ * options according with the parameter: destination, dates of check-in and
  * checkout, number of guests and number of rooms
  * 
  * @author: july.moreno
@@ -55,12 +56,19 @@ public class StaySearchPage extends BasePage {
 	@FindBy(css = ".sb-group-children .bui-stepper__subtract-button")
 	private WebElement decreaseChildrenButton;
 
+	@FindBy(css = ".sb-group__field-rooms .bui-stepper__add-button")
+	private WebElement AddRoomsButton;
+
+	@FindBy(css = ".sb-group__field-rooms .bui-stepper__subtract-button")
+	private WebElement decreaseRoomsButton;
+	
 	@FindBy(css = ".sb-group__field-rooms .bui-stepper__display")
 	private WebElement roomsQuantityLabel;
 
 	@FindBy(css = "#frm button[type=submit]")
 	private WebElement searchButton;
 
+	
 	/**
 	 * Constructor.
 	 * 
@@ -86,7 +94,7 @@ public class StaySearchPage extends BasePage {
 	 * @param destination: String
 	 */
 	public void enterDestination(String destination) {
-		log.info("User enter destination");
+		log.info("The user enters the destination.");
 		waitElementVisibility(destinationInputText);
 		destinationInputText.sendKeys(destination);
 		waitElementVisibility(destinationFirstOption);
@@ -122,15 +130,18 @@ public class StaySearchPage extends BasePage {
 	/**
 	 * Set the dates for Check In and Ceck Out before to search
 	 * 
+	 * @param daysForward: int
+	 * @param stayDuration: int
+	 * 
 	 */
 
-	public void setDatesSearch() {
+	public void setDatesToSearch(int daysForward, int stayDuration) {
 		openCalendar();
 		// Start Date
-		selectDate(30);
+		selectDate(daysForward);
 		// End Date
-		selectDate(45);
-		log.info("User set the dates for Check In and Check Out");
+		selectDate(stayDuration);
+		log.info("The user sets the dates for Check In and Check Out.");
 	}
 
 	/**
@@ -242,6 +253,32 @@ public class StaySearchPage extends BasePage {
 		return childrenQuantityLabel.getText();
 	}
 
+	
+	/**
+	 * Set the quantity of rooms
+	 * 
+	 * @param roomsQuantity: int
+	 */
+	public void setRoomQuantity(int roomsQuantity) {
+
+		if (roomsQuantity < 0 || roomsQuantity > 30) {
+			log.info("Error in rooms quantity");
+		} else {
+			switch (roomsQuantity) {
+			case 1:
+				log.info("Defaults Rooms Quantity");
+				break;
+			default:
+				for (int i = 1; i < roomsQuantity; i++) {
+					waitElementVisibility(AddRoomsButton);
+					clickElement(AddRoomsButton);
+				}
+				break;
+			}
+		}
+	}
+	
+	
 	/**
 	 * Get the text from Rooms Quantity Label
 	 *
@@ -262,13 +299,6 @@ public class StaySearchPage extends BasePage {
 			String tmpCSS = "[data-group-child-age=\"" + i + "\"]";
 			WebElement childAgeWE = getDriver().findElement(By.cssSelector(tmpCSS));
 			selectElementFromDropDownList(childAgeWE, childrenAge[i]);
-//			Select childAgeS = new Select(childAgeWE);
-//			try {
-//				childAgeS.selectByValue(childrenAge[i]);
-//			}
-//			catch (NoSuchElementException exception){
-//				log.info("ERROR --> Children age value not allowed "+childrenAge[i]);
-//			}
 		}
 	}
 
@@ -283,7 +313,7 @@ public class StaySearchPage extends BasePage {
 	 */
 
 	public void setGuestInformation(int adultsNumber, int childrenNumber, String... childrenAges) {
-		log.info("User sets the guest information");
+		log.info("The user sets the guest information.");
 		waitElementVisibility(guestDiv);
 		clickElement(guestDiv);
 		setAdultsQuantity(adultsNumber);
@@ -297,7 +327,7 @@ public class StaySearchPage extends BasePage {
 	 * @return LodgingDetailsPage
 	 */
 	public SearchResultsPage clickSearchButton() {
-		log.info("User clicks search button");
+		log.info("The user clicks the \"Search\" button.");
 		waitElementVisibility(searchButton);
 		clickElement(searchButton);
 		return new SearchResultsPage(getDriver());
