@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class PaymentFlightPage extends BasePage {
 
-    @FindBy(className = "flights generic-header")
+    @FindBy(css = "#page-header .flights.generic-header")
     private WebElement paymentFlightHeader;
 
     @FindBy(id = "preferences")
@@ -38,6 +38,7 @@ public class PaymentFlightPage extends BasePage {
      */
     public PaymentFlightPage(WebDriver driver) {
         super(driver);
+        handleNextWindow(getDriver());
     }
 
 

@@ -96,6 +96,7 @@ public class FlightsResultPage extends BasePage {
      */
     public FlightsResultPage(WebDriver driver) {
         super(driver);
+       // handleNextWindow(getDriver());
     }
 
     /**
@@ -205,12 +206,13 @@ public class FlightsResultPage extends BasePage {
         }
         waitForElementAttribute(updateResultsMarker,"aria-live","polite");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         changeWindowByIndex(0);
-    }
+
+        }
 
     /**
      * Calculate the Flight Duration in minutes
@@ -389,10 +391,18 @@ public class FlightsResultPage extends BasePage {
         if (forceHotelModal.isEnabled()) {
             getWait().until(ExpectedConditions.elementToBeClickable(noThanksLink));
             noThanksLink.click();
+            switchToLastOpenTab(getDriver());
+
+
     }
+        changeWindowByIndex(0);
         return new ReviewYourTripPage(getDriver());
     }
 
+    /**
+     * Intento 3 de buscar el vuelo de Departure - Funciona
+     * @param index
+     */
 
     public void selectDepartingFLightAt(int index) {
         WebElement element = resultList.findElements(flightModule).get(index);
@@ -404,20 +414,20 @@ public class FlightsResultPage extends BasePage {
         element.findElement(selectFareButton).click();
     }
 
+    /**
+     * Intento 3 de buscar el vuelo de Returning - No Funciona
+     * @param index
+     */
     public void selectReturningFLightAt(int index) {
 
-
         moveToElement(flightListContainer);
-
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        BasePage.jsScroll(getDriver(), flightListContainer);
 
         getWait().until(ExpectedConditions.visibilityOfElementLocated(changeListClass));
 
         WebElement element = resultList.findElements(flightModule).get(index);
+
+
         element.findElement(selectButton).click();
 
         getWait().until(ExpectedConditions.visibilityOf(element.findElement(By.id("basic-economy-tray-content-" + (index + 1)))));

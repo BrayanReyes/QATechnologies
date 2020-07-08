@@ -47,11 +47,11 @@ public class FlightsTest extends BaseTest{
         log.info("Is \"Flight Duration\" label present in each item?: " + resultPage.isFlightDurationPresentInEachDivResult());
         Assert.assertTrue(resultPage.isFlightDetailsAndFeesPresentInEachDivResult(),"FLIGHT DETAILS AND BAGGAGE FEES LABEL IS NOT PRESENT IN EACH ITEM");
         log.info("Is \"Flight Details and Baggage Fees\" label present in each item?: " + resultPage.isFlightDetailsAndFeesPresentInEachDivResult());
-        resultPage.sortResultsBy(flightsParameters.getDuration());
+        resultPage. sortResultsBy(flightsParameters.getDuration());
         Assert.assertTrue(resultPage.validateFlightsListOrder(),"RESULTS ARE NOT SORTED PROPERLY BY DURATION");
         log.info("Are Flight results ordered by duration?: " + resultPage.validateFlightsListOrder());
 
-      resultPage.selectDepartingFLightAt(0);
+      resultPage.selectDepartingFLightAt(1);
 
        //resultPage.selectFlight(0);
        // resultPage.selectFirstFlight();
@@ -73,7 +73,7 @@ public class FlightsTest extends BaseTest{
         Assert.assertTrue(yourTripPage.isPriceContainerPresent(),"PRICE CONTAINER IS NOT DISPLAYED");
         Assert.assertTrue(yourTripPage.isPriceLabelPresent(),"PRICE LABEL IS NOT DISPLAYED");
         log.info("Total Price: " + yourTripPage.getTotalPriceLabel());
-        Assert.assertFalse(yourTripPage.isPriceGuaranteeLabelPresent(),"PRICE GUARANTEE LABEL IS DISPLAYED");
+        Assert.assertTrue(yourTripPage.isPriceGuaranteeLabelPresent(),"PRICE GUARANTEE LABEL IS NOT DISPLAYED");
         log.info("Price Guarantee Label: " + yourTripPage.getPriceGuaranteeLabel());
         log.info("Is Price Guarantee Label present?: " + yourTripPage.isPriceGuaranteeLabelPresent());
 

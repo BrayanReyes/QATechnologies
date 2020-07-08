@@ -55,6 +55,7 @@ public class FlightsSearchPage extends BasePage {
      */
     public FlightsSearchPage(WebDriver driver) {
         super(driver);
+        handleNextWindow(getDriver());
     }
 
     /**

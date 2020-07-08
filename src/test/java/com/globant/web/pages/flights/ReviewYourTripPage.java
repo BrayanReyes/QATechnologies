@@ -4,10 +4,11 @@ import com.globant.web.pages.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ReviewYourTripPage extends BasePage {
 
-    @FindBy(className = "section-header-main")
+    @FindBy(css = "#fisHeader .section-header-main")
     private WebElement reviewYourTripHeader;
 
     @FindBy(css = ".tripSummaryContainer.desktopView .totalContainer")
@@ -16,7 +17,7 @@ public class ReviewYourTripPage extends BasePage {
     @FindBy(css = ".tripSummaryContainer.desktopView .packagePriceTotal")
     private WebElement totalPriceLabel;
 
-    @FindBy(className = "section[class$=desktopView] .priceGuarantee span")
+    @FindBy(css = "section[class$=desktopView] .priceGuarantee span")
     private WebElement priceGuaranteeLabel;
 
     @FindBy(css = ".flightSummaryContainer div[class*=\"flex-card\"]:nth-child(2) .flex-area-primary")
@@ -35,6 +36,7 @@ public class ReviewYourTripPage extends BasePage {
      */
     public ReviewYourTripPage(WebDriver driver) {
         super(driver);
+        handleNextWindow(driver);
     }
 
     /**
@@ -44,6 +46,7 @@ public class ReviewYourTripPage extends BasePage {
      */
     public boolean isReviewYourTripHeaderPresent() {
         waitElementVisibility(reviewYourTripHeader);
+        log.info("CHECK HERE: " + reviewYourTripHeader);
         return reviewYourTripHeader.isDisplayed();
     }
 
@@ -94,7 +97,7 @@ public class ReviewYourTripPage extends BasePage {
      * @return true: boolean
      */
     public boolean isPriceGuaranteeLabelPresent() {
-        waitElementVisibility(priceGuaranteeLabel);
+        getWait().until(ExpectedConditions.visibilityOfAllElements(priceGuaranteeLabel));
         return priceGuaranteeLabel.isDisplayed();
     }
 
@@ -104,7 +107,7 @@ public class ReviewYourTripPage extends BasePage {
      * @return Label: String
      */
     public String getPriceGuaranteeLabel() {
-        waitElementVisibility(priceGuaranteeLabel);
+        getWait().until(ExpectedConditions.visibilityOfAllElements(priceGuaranteeLabel));
         return priceGuaranteeLabel.getText();
     }
 
@@ -134,6 +137,7 @@ public class ReviewYourTripPage extends BasePage {
     public PaymentFlightPage clickContinueBookingButton() {
         log.info("The user click the \"Continue Booking\" button");
         clickElement(continueBookingButton);
+        switchToLastOpenTab(getDriver());
         return new PaymentFlightPage(getDriver());
 
     }
