@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="3" passed="3">
+  <reporter-output>
+  </reporter-output>
+  <suite name="TraveloCity suite" duration-ms="51635" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:57Z">
+    <groups>
+    </groups>
+    <test name="Travel test" duration-ms="51635" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:57Z">
+      <class name="com.globant.web.tests.TraveloFlightBookingTest">
+        <test-method status="PASS" signature="beforeSuite(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="beforeSuite" is-config="true" duration-ms="15848" started-at="2020-06-30T18:18:49Z" finished-at="2020-06-30T18:19:05Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://www.travelocity.com/]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method status="PASS" signature="init()[pri:0, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="init" is-config="true" duration-ms="1" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:05Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="searchFlightAndVerifyResult(java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="searchFlightAndVerifyResult" duration-ms="23110" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:28Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[las]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[lax]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Price,Departure,Arrival,Duration]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- searchFlightAndVerifyResult -->
+        <test-method status="PASS" signature="selectFlightsAndGoDetails()[pri:2, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="selectFlightsAndGoDetails" duration-ms="20484" started-at="2020-06-30T18:19:28Z" finished-at="2020-06-30T18:19:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- selectFlightsAndGoDetails -->
+        <test-method status="PASS" signature="gotoBookingValidationAndPassengerInfo(java.lang.String, java.lang.String)[pri:3, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="gotoBookingValidationAndPassengerInfo" duration-ms="8010" started-at="2020-06-30T18:19:49Z" finished-at="2020-06-30T18:19:57Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Andrea]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Perez]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- gotoBookingValidationAndPassengerInfo -->
+        <test-method status="PASS" signature="afterSuite()[pri:0, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="afterSuite" is-config="true" duration-ms="1395" started-at="2020-06-30T18:19:57Z" finished-at="2020-06-30T18:19:58Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterSuite -->
+      </class> <!-- com.globant.web.test.TraveloFlightBookingTest -->
+    </test> <!-- Travel test -->
+  </suite> <!-- TraveloCity suite -->
+</testng-results>

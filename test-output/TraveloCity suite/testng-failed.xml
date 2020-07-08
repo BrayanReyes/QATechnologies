@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [TraveloCity suite]">
+  <parameter name="lastName" value="Perez"/>
+  <parameter name="dropOptions" value="Price,Departure,Arrival,Duration"/>
+  <parameter name="browser" value="chrome"/>
+  <parameter name="destination" value="lax"/>
+  <parameter name="name" value="Andrea"/>
+  <parameter name="from" value="las"/>
+  <parameter name="url" value="https://www.travelocity.com/"/>
+  <test thread-count="5" name="Travel test(failed)">
+    <classes>
+      <class name="com.globant.web.tests.TraveloFlightBookingTest">
+        <methods>
+          <include name="searchFlightAndVerifyResult"/>
+          <include name="selectFlightsAndGoDetails"/>
+          <include name="gotoBookingValidationAndPassengerInfo"/>
+          <include name="afterSuite"/>
+          <include name="init"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- com.globant.web.test.TraveloFlightBookingTest -->
+    </classes>
+  </test> <!-- Travel test(failed) -->
+</suite> <!-- Failed suite [TraveloCity suite] -->
