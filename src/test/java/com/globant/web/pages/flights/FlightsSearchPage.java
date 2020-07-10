@@ -7,8 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
-import java.time.LocalDate;
 import java.util.NoSuchElementException;
+
+/**
+ * Flights Search Page handles the process to search a flight according with parameters like:
+ * Flying from, Flying to, Departing and Returning Dates and Quantity of passengers,
+ */
 
 public class FlightsSearchPage extends BasePage {
 
@@ -37,8 +41,6 @@ public class FlightsSearchPage extends BasePage {
     @FindBy(css = "#gcw-flights-form-hp-flight button[type=submit]")
     private WebElement searchFlightsButton;
 
-    ////////
-
     @FindBy (className = "datepicker-close")
     private WebElement calendarLabel;
 
@@ -55,7 +57,6 @@ public class FlightsSearchPage extends BasePage {
      */
     public FlightsSearchPage(WebDriver driver) {
         super(driver);
-        handleNextWindow(getDriver());
     }
 
     /**
@@ -115,21 +116,6 @@ public class FlightsSearchPage extends BasePage {
         moveToElement(calendarLabel);
     }
 
-    /**
-     * Find the element for the date component in the calendar
-     *
-     * @param cssSelector: String
-     */
-    private WebElement findDateElementByCSS(String cssSelector) {
-        try {
-            return getDriver().findElement(By.cssSelector(cssSelector));
-        } catch (Exception e) {
-            // log.info(e);
-            waitElementToBeClickable(nextMonthButton);
-            clickElement(nextMonthButton);
-            return findDateElementByCSS(cssSelector);
-        }
-    }
 
     /**
      * Select a Date according with a number of days given
@@ -137,39 +123,24 @@ public class FlightsSearchPage extends BasePage {
      * @param daysFromNow: int
      */
 
-    private void selectDate(int daysFromNow) {
+    private void selectDepartingDate(int daysFromNow) {
         String tmpCSS = calculateDateCSS(daysFromNow);
-        WebElement tmpDate = findDateElementByCSS(tmpCSS);
-        clickElement(tmpDate);
+        WebElement dayToDepart = findDateElementByCSS(nextMonthButton,tmpCSS);
+        clickElement(dayToDepart);
     }
 
     /**
-     * Set up the [data-date] value for the check-in, chek-out dates
-     * [data-date="2020-06-26"]
-     *
-     * @param days: int
-     *
+     * Set the Departing Date.
      */
 
-    private String calculateDateCSS(int days) {
-        LocalDate increasedDate = LocalDate.now().plusDays(days).minusMonths(1);
-        return "button[data-year='" + increasedDate.getYear() + "']" + "[data-month='" + increasedDate.getMonthValue() + "']"
-                + "[data-day='" + increasedDate.getDayOfMonth() + "']";
-    }
-
-    /**
-     * Set the Departing Date. The date should be 30 days after today
-     */
-
-    public void setDatesToDepart(int daysForward) {
+    public void setDepartingDate(int daysForward) {
         openCalendar();
-        selectDate(daysForward);
+        selectDepartingDate(daysForward);
         log.info("The user selects the Departing Date through the Calendar");
     }
 
-
     /**
-     * Set the Returning Date. The date should be 10 days after today
+     * Set the Returning Date.
      */
     public void setReturningDate(int daysToReturn) {
         setReturningDate(returningFlightsDataPicker,daysToReturn);

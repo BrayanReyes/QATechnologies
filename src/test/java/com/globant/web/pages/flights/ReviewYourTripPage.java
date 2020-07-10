@@ -6,6 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+/**
+ * Review Your Trip Page shows the summary of the flights options selected for departing and returning
+ * before to complete the booking process.
+ */
+
 public class ReviewYourTripPage extends BasePage {
 
     @FindBy(css = "#fisHeader .section-header-main")
@@ -17,7 +22,7 @@ public class ReviewYourTripPage extends BasePage {
     @FindBy(css = ".tripSummaryContainer.desktopView .packagePriceTotal")
     private WebElement totalPriceLabel;
 
-    @FindBy(css = "section[class$=desktopView] .priceGuarantee span")
+    @FindBy(css = "section[class$=desktopView] .priceGuarantee")
     private WebElement priceGuaranteeLabel;
 
     @FindBy(css = ".flightSummaryContainer div[class*=\"flex-card\"]:nth-child(2) .flex-area-primary")
@@ -36,7 +41,6 @@ public class ReviewYourTripPage extends BasePage {
      */
     public ReviewYourTripPage(WebDriver driver) {
         super(driver);
-        handleNextWindow(driver);
     }
 
     /**
@@ -137,6 +141,7 @@ public class ReviewYourTripPage extends BasePage {
     public PaymentFlightPage clickContinueBookingButton() {
         log.info("The user click the \"Continue Booking\" button");
         clickElement(continueBookingButton);
+        handleAdvertisement();
         switchToLastOpenTab(getDriver());
         return new PaymentFlightPage(getDriver());
 

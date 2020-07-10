@@ -103,6 +103,7 @@ public class HotelsSearchPage extends BasePage {
         log.info("The user click the \"Search\" button");
         waitElementVisibility(searchHotelsButton);
         clickElement(searchHotelsButton);
+        switchToLastOpenTab(getDriver());
         return new HotelsResultPage(getDriver());
     }
 

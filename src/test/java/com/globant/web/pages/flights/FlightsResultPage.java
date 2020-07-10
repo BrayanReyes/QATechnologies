@@ -1,20 +1,21 @@
 package com.globant.web.pages.flights;
 
 import com.globant.web.pages.BasePage;
-import jdk.nashorn.internal.ir.TryNode;
+import com.globant.web.pages.packages.SummaryPackagePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
+
+/**
+ * Flights Result Page shows the result after perform a flights search, also allows to sort the flights
+ * and select option for Departing and Returning flight
+ */
 
 public class FlightsResultPage extends BasePage {
 
@@ -24,26 +25,8 @@ public class FlightsResultPage extends BasePage {
     @FindBy(id = "sortDropdown")
     private WebElement sortDropdown;
 
-    @FindBy(id = "uitk-live-announce")
-    private WebElement updatedResults;
-
-  ///
     @FindBy (id = "flightModuleList")
-    private WebElement resultList;
-
-//    @FindBy (className = "flight-module")
-//    private WebElement flightModule ;
-
-//    @FindBy (className = "t-select-btn")
-//    private WebElement selectButton  ;
-
-//    @FindBy (css = ".basic-economy-footer .t-select-btn")
-//    private WebElement selectFareButton  ;
-
-    @FindBy (id = "flightSearchResultDiv")
-    private WebElement changeList ;
-
-//    #flightModuleList li[data-test-id="offer-listing"]
+    private WebElement flightsResultList;
 
     @FindBy(css = "div[class=\"grid-container standard-padding \"]")
     private List<WebElement> resultItemsList;
@@ -57,9 +40,6 @@ public class FlightsResultPage extends BasePage {
     @FindBy(className = "flight-details-link")
     private List<WebElement> flightDetailsAndFeesList;
 
-    @FindBy(id = "uitk-live-announce")
-    private WebElement updateResultsMarker;
-
     @FindBy(id = "bCol")
     private WebElement flightListContainer;
 
@@ -69,25 +49,15 @@ public class FlightsResultPage extends BasePage {
     @FindBy(id = "forcedChoiceNoThanks")
     private WebElement noThanksLink;
 
-    private static final String NO_THANKS_LINK = "forcedChoiceNoThanks";
-    private static final String FlightDurationCSS = "[data-test-id=\"duration\"]";
-    private static final String HourSeparator = "h";
-    private static final String MinuteSeparator = "m";
-    private static final String ButtonDivPath = "//div[@id='basic-economy-tray-content-";
-    private static final String ButtonSelect = "//button[@class='btn-secondary btn-action t-select-btn']";
-    private static final String SelectFlightButtonCSS = "div[class='uitk-col all-col-shrink'] button[data-test-id='select-button']";
-    private static final String FareFlightButtonCSS = "button[data-test-id='select-button-1']";
-
-    private static final String ID_RESULT_LIST = "flightModuleList";
-    private static final String CSS_SELECT_FARE_BUTTON = ".basic-economy-footer .t-select-btn";
-    private static final String CLASS_FLIGHT_MODULE = "flight-module";
-    private static final String CLASS_SELECT_BUTTON = "t-select-btn";
-    private static final String CLASS_SHOW_CHANGE_FLIGHT = "show-change-flight-filter";
-
-    By flightModule = By.className(CLASS_FLIGHT_MODULE);
-    By selectButton = By.className(CLASS_SELECT_BUTTON);
-    By changeListClass = By.className(CLASS_SHOW_CHANGE_FLIGHT);
-    By selectFareButton = By.cssSelector(CSS_SELECT_FARE_BUTTON);
+    private static final String FLIGHT_DURATION_CSS = "[data-test-id=\"duration\"]";
+    private static final String HOUR_SEPARATOR = "h";
+    private static final String MINUTE_SEPARATOR = "m";
+    private static final String DEPARTING_FARE_BUTTON_CSS = ".basic-economy-footer .t-select-btn";
+    private static final String FLIGHT_MODULE_CLASS = "flight-module";
+    private static final String SELECT_BUTTON_CLASS = "t-select-btn";
+    private static final String FLIGHTS_RESULT_LIST_CLASS = "#flightModuleList";
+    private static final String REFRESHED_FLIGHTS_LIST_CLASS = "show-change-flight-filter";
+    private static final String RETURNING_FARE_BUTTON_ID="#basic-economy-tray-content-";
 
     /**
      * Constructor,
@@ -96,7 +66,6 @@ public class FlightsResultPage extends BasePage {
      */
     public FlightsResultPage(WebDriver driver) {
         super(driver);
-       // handleNextWindow(getDriver());
     }
 
     /**
@@ -106,6 +75,15 @@ public class FlightsResultPage extends BasePage {
      */
     public String getFlightPageHeader() {
         return flightsPageHeader.getText();
+    }
+
+    /**
+     * Validate if SFlight Page Header is present
+     *
+     * @return true: boolean
+     */
+    public boolean isFlightPageHeaderPresent() {
+        return flightsPageHeader.isDisplayed();
     }
 
     /**
@@ -164,31 +142,6 @@ public class FlightsResultPage extends BasePage {
         return new Select(sortDropdown);
     }
 
-
-//    /**
-//     * Validate if a particual option is in sort flights dropdown
-//     *
-//     * @return true: boolean
-//     */
-//    public boolean isSortOptionsInDropdown(List<String> sortingOptions) {
-//        boolean isOptionInDrop = true;
-//        List<WebElement> sortingOptionsList = selectDropdownOption(sortDropdown).getOptions();
-//        Set<String> flightsSortOptions = new HashSet<>();
-//
-//        flightsSortOptions.addAll(
-//                sortingOptionsList.stream()
-//                        .map(option -> option.getText().split(" ")[0].toLowerCase())
-//                        .collect(Collectors.toList()));
-//
-//        for (String option : sortingOptions)
-//            if (!flightsSortOptions.contains(option.toLowerCase()))
-//                isOptionInDrop = false;
-//
-//        log.info("valid on option" + isOptionInDrop);
-//        return isOptionInDrop;
-//    }
-
-
     /**
      * Select {Duration (Shortest)} as value for the {sortDropdown}
      *
@@ -204,14 +157,7 @@ public class FlightsResultPage extends BasePage {
                 break;
             }
         }
-        waitForElementAttribute(updateResultsMarker,"aria-live","polite");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        changeWindowByIndex(0);
-
+        handleAdvertisement();
         }
 
     /**
@@ -220,9 +166,8 @@ public class FlightsResultPage extends BasePage {
      * @param flightDuration: String
      */
     private int calculateTotalMinutesFlight(String flightDuration) {
-        //log.info("Calculate total flight duration from hours to minutes");
-        int durationInHourToMinutes = Integer.parseInt(flightDuration.substring(0, flightDuration.indexOf(HourSeparator))) * 60;
-        int durationInMinutes = Integer.parseInt(flightDuration.substring(flightDuration.indexOf(" "), flightDuration.indexOf(MinuteSeparator)).trim());
+        int durationInHourToMinutes = Integer.parseInt(flightDuration.substring(0, flightDuration.indexOf(HOUR_SEPARATOR))) * 60;
+        int durationInMinutes = Integer.parseInt(flightDuration.substring(flightDuration.indexOf(" "), flightDuration.indexOf(MINUTE_SEPARATOR)).trim());
         int totalFlightDurationMinutes = durationInHourToMinutes + durationInMinutes;
         return totalFlightDurationMinutes;
     }
@@ -233,14 +178,12 @@ public class FlightsResultPage extends BasePage {
      * return true: boolean
      */
     public boolean validateFlightsListOrder() {
-        //selectDropdownOption(sortDropdown);
-        //waitForElementAttribute(updatedResults,"aria-live","polite");
         String flightDuration = "";
         int previousItemDuration = 0;
         int currentItemDuration = 0;
 
         for (WebElement resultItem : resultItemsList) {
-            flightDuration = resultItem.findElement(By.cssSelector(FlightDurationCSS)).getText();
+            flightDuration = resultItem.findElement(By.cssSelector(FLIGHT_DURATION_CSS)).getText();
             currentItemDuration = calculateTotalMinutesFlight(flightDuration);
             if (previousItemDuration > currentItemDuration)
                 return false;
@@ -250,189 +193,62 @@ public class FlightsResultPage extends BasePage {
     }
 
     /**
-     * Confirm the Flight selection accepting the Fare Button
+     * Select a Departure Flight according with the number option
+     * @param departingOption: int
      */
 
-    private void confirmFlightOption(WebElement flightOptionItem, int fareFlightOption) {
-        WebElement selectFlightButton = flightOptionItem.findElement(By.cssSelector(SelectFlightButtonCSS));
-        clickElement(selectFlightButton);
-        acceptTheFareButton(flightOptionItem, fareFlightOption);
+    public void selectDepartingFLight(int departingOption) {
+        log.info("The user selects the Departing flight number: " + departingOption);
+        waitListToBeRefreshed(REFRESHED_FLIGHTS_LIST_CLASS);
+        WebElement departureFlightSelected = flightsResultList.findElements(By.className(FLIGHT_MODULE_CLASS)).get(departingOption-1);
+        jsScroll(getDriver(), departureFlightSelected);
+        departureFlightSelected.findElement(By.className(SELECT_BUTTON_CLASS)).click();
+        log.info("The user clicks \"Select\" button");
+        waitElementInsideContainer(departureFlightSelected, DEPARTING_FARE_BUTTON_CSS);
+        departureFlightSelected.findElement(By.cssSelector(DEPARTING_FARE_BUTTON_CSS)).click();
+        log.info("The user clicks \"Select Fare\" button");
     }
 
     /**
-     * Select the first flight option for departure
+     * Select a Returning Flight according with the number option
+     * @param returningOption: int
      */
-    public void selectFirstFlight() {
-        log.info("The user clicks \"Select\" flight button");
-        waitElementVisibility(resultItemsList);
-        WebElement firstFlight = resultItemsList.stream().findFirst().get();
-        moveToElement(firstFlight);
-        log.info("The user click the \"Select This Fare\" button");
-        confirmFlightOption(firstFlight, 1);
-
-    }
-
-    ////////////////////////////////////////////////////7
-
-    public void selectFlight(int result) {
-        getWait().until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("div[class=\"grid-container standard-padding \"]"), result));
-
-        WebElement selectButton = resultItemsList.get(result).findElement(By.cssSelector("[data-test-id=\"select-button\"]"));
-        clickElement(selectButton);
-
-        List<WebElement> flightDetails = resultItemsList.get(result).findElements(By.cssSelector("[data-test-id=\"basic-economy-tray-details\"]"));
-        log.info("FLIGH LIST " + flightDetails.size() );
-        if(flightDetails.size() > 0){
-            WebElement selectFareButton = flightDetails.get(0).findElement(By.cssSelector("[data-test-id=\"select-button\"]"));
-           log.info("DIO CLICK AL FARE BUTTON");
-            clickElement(selectFareButton);
-        }
-
-        handleAdvertisement();
-    }
-/////////////////////////////////////////////////////////////
-
-    public ReviewYourTripPage selectReturningFlight(int result){
-        selectFlight(result);
-
-        // Check if add hotel pop-up shows up
-        if(forceHotelModal.isDisplayed()){
-            WebElement noThanksLink = forceHotelModal.findElement(By.id("forcedChoiceNoThanks"));
-            clickElement(noThanksLink);
-        }
-
-        return new ReviewYourTripPage (getDriver());
-    }
-    ////////////////////////////////////////////////////////////
-
-    /**
-     * Accept the Fare Button
-     */
-    private void acceptTheFareButton(WebElement element, int option) {
-        waitElementVisibility(element);
-        WebElement selectFareButton = element.findElement(
-                By.xpath(ButtonDivPath + option + "']" + ButtonSelect));
-        clickElement(selectFareButton);
-    }
-
-    /**
-     * Select the Return Flight
-     */
-    public void selectReturnFlight(int returnFlightOption) {
-        //waitToRefresh(resultItemsList);
-        getWait().until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("[data-test-id=\"offer-listing\"]"), returnFlightOption));
-       getWait().until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class=\"grid-container standard-padding \"]")));
-        // waitElementVisibility(resultItemsList);
-
-        log.info("1: " + resultItemsList.size());
-        log.info("2 " + selectFlightButtonList.size() );
-
-
-        WebElement flightOptionChosen = resultItemsList.get(returnFlightOption-1);
-        moveToElement(flightOptionChosen);
-        log.info("The user chooses the returning flight. Option: " + returnFlightOption);
-        WebElement chooseFlightButton = flightOptionChosen.findElement(By.cssSelector(SelectFlightButtonCSS));
-        waitElementVisibility(chooseFlightButton);
-        clickElement(chooseFlightButton);
-        log.info("The user clicks the \"Select\" Button.");
-        WebElement fareFlightButton = flightOptionChosen.findElement(By.cssSelector(FareFlightButtonCSS));
-        waitElementVisibility(fareFlightButton);
-        clickElement(fareFlightButton);
-        log.info("The user clicks the \"Select this fare\" Button.");
-    }
-
-
-//        if (flightOption == null) {
-//            selectFirstFlight();
-//            changeWindowByIndex(2);
-//            log.info("Departure Flight Not Found. Selected the first one by default");
-//
-//        } else {
-//            confirmFlightOption(flightOption, returnFlightOption);
-//            changeWindowByIndex(2);
-//            log.info("The user select the flight option " + returnFlightOption);
-//       }
-//    }
-
-    /**
-     * Get the index for the "Returning" List
-     */
-    private WebElement getListIndexElement(List<WebElement> list, int index) {
-        try {
-            log.info("PRIMERO: " +list.get(index).getSize());
-            return list.get(index);
-        } catch (Exception ex) {
-            System.err.println("Returning option not found");
-        }
-        return null;
+    public void selectReturningFLight(int returningOption) {
+        log.info("The user selects the Returning flight number: " + returningOption);
+        moveToElement(flightListContainer);
+        jsScroll(getDriver(), flightListContainer);
+        waitListToBeRefreshed(REFRESHED_FLIGHTS_LIST_CLASS);
+        WebElement returnFlight = flightsResultList.findElements(By.className(FLIGHT_MODULE_CLASS)).get(returningOption-1);
+        returnFlight.findElement(By.className(SELECT_BUTTON_CLASS)).click();
+        log.info("The user clicks \"Select\" button");
+        getWait().until(ExpectedConditions.visibilityOf(returnFlight.findElement(By.cssSelector(RETURNING_FARE_BUTTON_ID + (returningOption)))));
+        getWait().until(ExpectedConditions.elementToBeClickable(returnFlight.findElement(By.cssSelector(RETURNING_FARE_BUTTON_ID + (returningOption) + " button"))));
+        returnFlight.findElement(By.cssSelector(RETURNING_FARE_BUTTON_ID + (returningOption) + " button")).click();
+        log.info("The user clicks \"Select Fare\" button");
     }
 
 
     /**
-     * Handle Force Hotel Modal
-     */
-
-    public void handleForceHotelModal() {
-        log.info("Force Hotel Modal shows up");
-        if (forceHotelModal.isDisplayed()) {
-            WebElement noThanksLink = forceHotelModal.findElement(By.cssSelector(NO_THANKS_LINK));
-            waitElementVisibility(noThanksLink);
-            clickElement(noThanksLink);
-            log.info("The user click the \"No Thanks\" link");
-        }
-    }
-
-
-    /**
-     * Pass to the next Page for flight booking process
+     * Handle Force Hotel Modal and pass to the next Page for flight booking process
      */
 
     public ReviewYourTripPage goToReviewYourTripPage() {
         if (forceHotelModal.isEnabled()) {
+            log.info("Force Hotel Modal shows up");
             getWait().until(ExpectedConditions.elementToBeClickable(noThanksLink));
             noThanksLink.click();
+            log.info("The user click the \"No Thanks\" link");
             switchToLastOpenTab(getDriver());
-
-
-    }
-        changeWindowByIndex(0);
+        }
+        handleAdvertisement();
         return new ReviewYourTripPage(getDriver());
     }
 
     /**
-     * Intento 3 de buscar el vuelo de Departure - Funciona
-     * @param index
+     * Continue with the package booking process
      */
-
-    public void selectDepartingFLightAt(int index) {
-        WebElement element = resultList.findElements(flightModule).get(index);
-        BasePage.jsScroll(getDriver(), element);
-
-        element.findElement(selectButton).click();
-
-        getWait().until(ExpectedConditions.visibilityOf(element.findElement(selectFareButton)));
-        element.findElement(selectFareButton).click();
+    public SummaryPackagePage goToSummaryPackagePage(){
+        return new SummaryPackagePage(getDriver());
     }
 
-    /**
-     * Intento 3 de buscar el vuelo de Returning - No Funciona
-     * @param index
-     */
-    public void selectReturningFLightAt(int index) {
-
-        moveToElement(flightListContainer);
-        BasePage.jsScroll(getDriver(), flightListContainer);
-
-        getWait().until(ExpectedConditions.visibilityOfElementLocated(changeListClass));
-
-        WebElement element = resultList.findElements(flightModule).get(index);
-
-
-        element.findElement(selectButton).click();
-
-        getWait().until(ExpectedConditions.visibilityOf(element.findElement(By.id("basic-economy-tray-content-" + (index + 1)))));
-
-        getWait().until(ExpectedConditions.elementToBeClickable(element.findElement(By.cssSelector("#basic-economy-tray-content-" + (index + 1) + " button"))));
-        element.findElement(By.cssSelector("#basic-economy-tray-content-" + (index + 1) + " button")).click();
-    }
 }

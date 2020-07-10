@@ -9,9 +9,14 @@
 	<parameter name="browser" value="chrome"></parameter>
 	<parameter name="url" value="https://www.travelocity.com"></parameter>
 
-	<test name="Search a Hotel by Name">
+	<test name="Verify that search by hotel name works properly">
 		<classes>
-			<class name="com.globant.web.tests.HotelsTest"></class>
+			<class name="com.globant.web.tests.SearchHotelTest"></class>
+		</classes>
+	</test>
+	<test name="Get Hotel member discount banner">
+		<classes>
+			<class name="com.globant.web.tests.HotelsMemberDiscountTest"></class>
 		</classes>
 	</test>
 </suite>

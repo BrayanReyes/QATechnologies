@@ -5,6 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Review And Book Page shows the details about the vacational package chosen through the process of
+ * selecting the hotel, the departing and returning flights.  Also, allows to select additional services
+ * like transportation.
+ */
+
 public class ReviewAndBookPage extends BasePage {
 
     @FindBy(className = "flights")

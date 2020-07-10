@@ -1,12 +1,14 @@
 package com.globant.web.pages.packages;
 
 import com.globant.web.pages.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.time.LocalDate;
+/**
+ * Package Search Page handles the process of searching a Vacation Package, according with the
+ * the type of package, origin, destination, dates and number of travelers
+ */
 
 public class PackagesSearchPage extends BasePage {
 
@@ -34,14 +36,8 @@ public class PackagesSearchPage extends BasePage {
     @FindBy(id = "package-returning-hp-package")
     private WebElement returningPackageDataPicker;
 
-    @FindBy(id = "package-rooms-hp-package")
-    private WebElement roomsPackageNumber;
-
     @FindBy(id = "package-1-adults-hp-package")
     private WebElement adultsPackageNumber;
-
-    @FindBy(id = "package-1-children-hp-package")
-    private WebElement childrenPackageNumber;
 
     @FindBy(id = "partialHotelBooking-hp-package")
     private WebElement partialHotelBookingCheckBox;
@@ -51,12 +47,6 @@ public class PackagesSearchPage extends BasePage {
 
     @FindBy(id = "package-checkout-hp-package")
     private WebElement checkOutPackageDataPicker;
-
-    @FindBy(id = "package-1-adults-hp-package")
-    private WebElement packageAdultsNumber;
-
-    @FindBy(id = "package-1-children-hp-package")
-    private WebElement packageChildrenNumber;
 
     @FindBy(id = "search-button-hp-package")
     private WebElement searchPackageButton;
@@ -94,7 +84,6 @@ public class PackagesSearchPage extends BasePage {
     }
 
 
-
     /**
      * Set the City where you are flying from
      *
@@ -105,6 +94,7 @@ public class PackagesSearchPage extends BasePage {
         packageFlyingFromInput.sendKeys(flyingFrom);
         log.info("The user types the city where is flying from");
     }
+
 
     /**
      * Set the City where do will return
@@ -117,6 +107,7 @@ public class PackagesSearchPage extends BasePage {
         log.info("The user types the city where is flying to");
 
     }
+
 
     /**
      * Open the calendar
@@ -133,21 +124,6 @@ public class PackagesSearchPage extends BasePage {
         moveToElement(calendarLabel);
     }
 
-    /**
-     * Find the element for the date component in the calendar
-     *
-     * @param cssSelector: String
-     */
-    private WebElement findDateElementByCSS(String cssSelector) {
-        try {
-            return getDriver().findElement(By.cssSelector(cssSelector));
-        } catch (Exception e) {
-            // log.info(e);
-            waitElementToBeClickable(nextMonthButton);
-            clickElement(nextMonthButton);
-            return findDateElementByCSS(cssSelector);
-        }
-    }
 
     /**
      * Select a Date according with a number of days given
@@ -157,38 +133,20 @@ public class PackagesSearchPage extends BasePage {
 
     private void selectDate(int daysFromNow) {
         String tmpCSS = calculateDateCSS(daysFromNow);
-        WebElement tmpDate = findDateElementByCSS(tmpCSS);
+        WebElement tmpDate = findDateElementByCSS(nextMonthButton,tmpCSS);
         clickElement(tmpDate);
     }
 
-    /**
-     * Set up the [data-date] value for the check-in, chek-out dates
-     * [data-date="2020-06-26"]
-     *
-     * @param days: int
-     *
-     */
 
-    private String calculateDateCSS(int days) {
-        LocalDate increasedDate = LocalDate.now().plusDays(days).minusMonths(1);
-        return "button[data-year='" + increasedDate.getYear() + "']" + "[data-month='" + increasedDate.getMonthValue() + "']"
-                + "[data-day='" + increasedDate.getDayOfMonth() + "']";
-    }
-
-    public void setDatesToDepart(int daysForward) {
-        openCalendar();
-        selectDate(daysForward);
-        log.info("The user selects the Departing Date");
-    }
-
-
-    /**
+     /**
      * Set the Departing Date.
      */
     public void setDepartingDate(int daysForward) {
-        setDepartingDate(departingPackageDataPicker,daysForward);
+        openCalendar();
+        selectDate(daysForward);
         log.info("The user selects the Departing Date through the Calendar");
     }
+
 
     /**
      * Set the Returning Date.
@@ -198,23 +156,27 @@ public class PackagesSearchPage extends BasePage {
         log.info("The user selects the Returning Date through the Calendar");
     }
 
+
     /**
      * Set the adults quantity for the flight
      *
      * @param numberOfAdults
      */
     public void setAdultsQuantity(String numberOfAdults) {
-        log.info("The user selects the Adults quantity in the dropdown list");
+        log.info("The user selects the Adults quantity : " + numberOfAdults);
         selectPassengersQuantity(adultsPackageNumber,numberOfAdults);
     }
+
 
     /**
      * Click on "I only need a hotel for part of my stay" filter
      */
     public void filterPartOfStay() {
+        log.info("User clicks \"I only need a hotel for part of my stay\" check button");
         waitElementVisibility(partialHotelBookingCheckBox);
         clickElement(partialHotelBookingCheckBox);
     }
+
 
     /**
      * Set the Check In Date
@@ -223,6 +185,7 @@ public class PackagesSearchPage extends BasePage {
         setDepartingDate(checkInPackageDataPicker,daysForward);
         log.info("The user selects the Check In Date through the Calendar");
     }
+
 
     /**
      * Set the Check Out Date.
@@ -254,6 +217,7 @@ public class PackagesSearchPage extends BasePage {
         return packageAlertMessage.isDisplayed();
     }
 
+
     /**
      * Get Alert Message
      *
@@ -263,6 +227,5 @@ public class PackagesSearchPage extends BasePage {
         waitElementVisibility(packageAlertMessage);
         return packageAlertMessage.getText();
     }
-
 
 }

@@ -1,6 +1,7 @@
 package com.globant.web.pages.hotels;
 
 import com.globant.web.pages.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,6 +33,7 @@ public class HotelsResultPage extends BasePage {
     @FindBy (css="span[data-stid=content-hotel-lead-price]")
     private WebElement hotelPrice;
 
+    private final static String  CLOSE_DISCOUNT_MODAL_CSS=".uitk-toolbar-overlay button[type=button]";
     /**
      * Constructor
      *
@@ -39,16 +41,16 @@ public class HotelsResultPage extends BasePage {
      */
     public HotelsResultPage(WebDriver driver) {
         super(driver);
-        handleDiscountModal();
     }
 
     /**
      *
      */
-    public void handleDiscountModal(){
-            waitElementVisibility(discountModal);
-            waitElementToBeClickable(closeDiscountModalButton);
+    public void handleDiscountModal() {
+        if (discountModal.isDisplayed()) {
+            WebElement closeDiscountModalButton = discountModal.findElement(By.cssSelector(CLOSE_DISCOUNT_MODAL_CSS));
             clickElement(closeDiscountModalButton);
+        }
     }
 
     /**
@@ -65,7 +67,7 @@ public class HotelsResultPage extends BasePage {
      * Click on Property Name Filter Button
      */
     public void clickPropertyNameFilterButton() {
-        waitElementToBeClickable(searchByPropertyNameButton);
+        waitElementVisibility(searchByPropertyNameButton);
         clickElement(searchByPropertyNameButton);
         log.info("The user click the \"Search by property name\" button");
     }
@@ -79,10 +81,8 @@ public class HotelsResultPage extends BasePage {
     public void setPropertyName(String propertyName) {
         waitElementVisibility(propertyNameInput);
         propertyNameInput.sendKeys(propertyName);
-        waitElementVisibility(hotelFirstOption);
         clickElement(hotelFirstOption);
-        log.info("The user types and select the property that is looking for");
-
+        log.info("The user types and select the property that matches with: " + propertyName);
     }
 
     /**

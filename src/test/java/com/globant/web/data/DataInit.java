@@ -20,9 +20,9 @@ public class DataInit {
 
     // Parameters to search a flight:
 
-    FlightsParameters flightsParameters = new FlightsParameters("LAS","LAX","1","1",childrenAge,60,70,"Duration (Shortest)",1);
+    FlightsParameters searchParameters = new FlightsParameters("LAS","LAX","1","1",childrenAge,60,73,"Duration (Shortest)",1,3,"July","Moreno");
 
-    PackagesParameters searchFlightHotelCar = new PackagesParameters("LAS","LAX",60,73,"1","July","Moreno");
+    //PackagesParameters searchFlightHotelCar = new PackagesParameters("LAS","LAX",60,73,"1","July","Moreno");
 
     PackagesParameters packagesParameters = new PackagesParameters("LAS","LAX",5,10,11,20);
 
@@ -35,7 +35,7 @@ public class DataInit {
      */
     @DataProvider(name = "InputFlightsData")
     public Object[][] inputFlightsData() {
-        return new Object[][]{{flightsParameters}};
+        return new Object[][]{{searchParameters}};
 
     }
 
@@ -68,12 +68,12 @@ public class DataInit {
     }
 
 
-    /**
-     * Data Provider for Package (Flight + Hotel + Car) Test
-     */
-    @DataProvider(name = "InputFlightHotelCarData")
-    public Object[][] inputFlightHotelCarData() {
-        return new Object[][]{{searchFlightHotelCar}};
-
-    }
+//    /**
+//     * Data Provider for Package (Flight + Hotel + Car) Test
+//     */
+//    @DataProvider(name = "InputFlightHotelCarData")
+//    public Object[][] inputFlightHotelCarData() {
+//        return new Object[][]{{searchFlightHotelCar}};
+//
+//    }
 }

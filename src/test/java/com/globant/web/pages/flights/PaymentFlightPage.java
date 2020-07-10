@@ -5,6 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Payment Page shows the details about the flight selected and allows to enter the payment data.
+ */
+
 public class PaymentFlightPage extends BasePage {
 
     @FindBy(css = "#page-header .flights.generic-header")
@@ -31,6 +35,12 @@ public class PaymentFlightPage extends BasePage {
     @FindBy(id = "complete-booking")
     private WebElement completeBookingButton;
 
+    @FindBy(id = "firstname[0]")
+    private WebElement firstNameInput;
+
+    @FindBy(id = "lastname[0]")
+    private WebElement lastNameInput;
+
     /**
      * Constructor
      *
@@ -38,7 +48,6 @@ public class PaymentFlightPage extends BasePage {
      */
     public PaymentFlightPage(WebDriver driver) {
         super(driver);
-        handleNextWindow(getDriver());
     }
 
 
@@ -70,6 +79,30 @@ public class PaymentFlightPage extends BasePage {
     public String getPreferencesSectionTitle() {
         waitElementVisibility(preferencesSectionTitle);
         return preferencesSectionTitle.getText();
+    }
+
+    /**
+     * Set the First Name for flight section
+     *
+     * @param firstName: String
+     */
+    public void setFirstName(String firstName) {
+        waitElementVisibility(firstNameInput);
+        firstNameInput.sendKeys(firstName);
+        log.info("The user types the first name");
+
+    }
+
+    /**
+     * Set the Last Name for flight section
+     *
+     * @param lastName: String
+     */
+    public void setLastName(String lastName) {
+        waitElementVisibility(lastNameInput);
+        lastNameInput.sendKeys(lastName);
+        log.info("The user types the last name");
+
     }
 
     /**

@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 //import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.NoSuchElementException;
 
 /**
  * This class defines common methods to interact with the web page under test.
@@ -123,7 +121,6 @@ public class BasePage {
 
     /**
      * Close the driver
-     *
      */
     public void dispose() {
         if (getDriver() != null)
@@ -168,7 +165,6 @@ public class BasePage {
     }
 
     /**
-     *
      * Wait for element to be clickable
      *
      * @param webElement: WebElement
@@ -188,12 +184,11 @@ public class BasePage {
     }
 
     /**
-     *
      * Wait for an element attribute
      *
      * @param webElement: WebElement
-     * @param attribute:   String
-     * @param value:       String
+     * @param attribute:  String
+     * @param value:      String
      * @return boolean
      */
     public boolean waitForElementAttribute(WebElement webElement, String attribute, String value) {
@@ -327,11 +322,12 @@ public class BasePage {
      * @param days
      * @return {@link String}
      */
-    protected String todayDateIncreasedBy(int days) {
+    protected String calculateDateCSS(int days) {
         LocalDate increasedDate = LocalDate.now().plusDays(days).minusMonths(1);
         return "button[data-year='" + increasedDate.getYear() + "']" + "[data-month='" + increasedDate.getMonthValue() + "']"
                 + "[data-day='" + increasedDate.getDayOfMonth() + "']";
     }
+
 
     /**
      * Set the adults quantity for a search
@@ -344,11 +340,27 @@ public class BasePage {
     }
 
     /**
+     * Find the element for the date component in the calendar
+     *
+     * @param cssSelector: String
+     */
+    public WebElement findDateElementByCSS(WebElement webElement, String cssSelector) {
+        try {
+            return getDriver().findElement(By.cssSelector(cssSelector));
+        } catch (Exception e) {
+            // log.info(e);
+            waitElementToBeClickable(webElement);
+            clickElement(webElement);
+            return findDateElementByCSS(webElement, cssSelector);
+        }
+    }
+
+    /**
      * Set the Departing Date.
      */
     public void setDepartingDate(WebElement webElement, int days) {
         clickElement(webElement);
-        String tmpLocator = todayDateIncreasedBy(days);
+        String tmpLocator = calculateDateCSS(days);
         WebElement startDate = getDriver().findElement(By.cssSelector(tmpLocator));
         clickElement(startDate);
     }
@@ -358,53 +370,33 @@ public class BasePage {
      */
     public void setReturningDate(WebElement webElement, int days) {
         clickElement(webElement);
-        String tmpLocator = todayDateIncreasedBy(days);
+        String tmpLocator = calculateDateCSS(days);
         WebElement endDate = getDriver().findElement(By.cssSelector(tmpLocator));
         clickElement(endDate);
     }
 
     /**
      * Wait to an attribute
+     *
      * @param webElement: WebElement
-     * @param attribute: String
-     * @param value: String
+     * @param attribute:  String
+     * @param value:      String
      */
-    public void waitAttributeToBe(WebElement webElement,String attribute, String value) {
-        getWait().until(ExpectedConditions.attributeToBe(webElement, attribute,value));
+    public void waitAttributeToBe(WebElement webElement, String attribute, String value) {
+        getWait().until(ExpectedConditions.attributeToBe(webElement, attribute, value));
     }
 
-    public void selectPassengers(WebElement selectElement, Integer value) {
-        new Select(selectElement).selectByVisibleText(value.toString());
-    }
-
-    public boolean isElementSelected(WebElement element) {
-        return element.isSelected();
-    }
-
-//    /**
-//     * Handle the modal displayed in the booking process
-//     */
-//    public void handleUsersModal() {
-//        try {
-//            waitElementVisibility(usersModal);
-//            dontShowModal.click();
-//            closeModalButton.click();
-//        } catch (Exception e) {
-//            log.info("The modal doesn't show up. It's OK to continue.");
-//        }
-
-
-    public void handleAdvertisement(){
+    public void handleAdvertisement() {
         String mainWindowHandle = driver.getWindowHandle();
 
         Set<String> allHandles = driver.getWindowHandles();
 
-        for(String curHandle : allHandles){
-            if(!curHandle.equals(mainWindowHandle)){
-                try{
+        for (String curHandle : allHandles) {
+            if (!curHandle.equals(mainWindowHandle)) {
+                try {
                     driver.switchTo().window(curHandle);
                     driver.close();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -418,32 +410,28 @@ public class BasePage {
         js.executeScript("arguments[0].scrollIntoView()", element);
     }
 
-    public static void handleNextWindow(WebDriver webDriver) {
-        String parent = webDriver.getWindowHandle();
-        Set<String> s1 = webDriver.getWindowHandles();
-        Iterator<String> it = s1.iterator();
 
-        while (it.hasNext()) {
-            String child_window = it.next();
-            if (!parent.equals(child_window)) {
-                webDriver.switchTo().window(child_window);
-            }
-        }
+    /**
+     * Custom Wait for the Fare Button in the Departure Flight
+     *
+     * @param containerElement: list to wait until it is visible
+     * @param elementToBeClickable: String
+     *
+     */
+    public void waitElementInsideContainer(WebElement containerElement, String elementToBeClickable) {
+        getWait().until(ExpectedConditions.visibilityOf(containerElement.findElement(By.cssSelector(elementToBeClickable))));
+
     }
 
-    public static void closePreviousWindow(WebDriver webDriver) {
-        String parent = webDriver.getWindowHandle();
-        Set<String> s1 = webDriver.getWindowHandles();
-        Iterator<String> it = s1.iterator();
 
-        while (it.hasNext()) {
-            String child_window = it.next();
-            if (!parent.equals(child_window)) {
-                webDriver.switchTo().window(child_window);
-                webDriver.close();
-            }
-        }
-        webDriver.switchTo().window(parent);
+
+    /**
+     * Custom Wait for the result after selecting the departing flight
+     *
+     * @param cssUpdateMarker: CSS String
+     *
+     */
+    public void waitListToBeRefreshed(String cssUpdateMarker) {
+        getWait().until(ExpectedConditions.visibilityOfElementLocated(By.className(cssUpdateMarker)));
     }
-
 }

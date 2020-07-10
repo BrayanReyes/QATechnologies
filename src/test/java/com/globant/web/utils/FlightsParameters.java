@@ -7,26 +7,35 @@ public class FlightsParameters {
     private String numberOfAdults = "2";
     private String numberOfChildren = "0";
     private String[] childrenAge;
-    private int daysForward;
-    private int daysToReturn;
-    private String duration;
+    private int flightDaysForward;
+    private int flightDaysToReturn;
+    private int checkInDaysForward;
+    private int checkOutDaysToReturn;
+    private String flightsSortCriteria;
+    private int departureFlightOption;
     private int returnFlightOption;
+    private String bookerFirstName;
+    private String bookerLastName;
 
     /**
-     * Constructor
+     * Constructor for perform a Flight Search
      */
     public FlightsParameters(String flyingFrom, String flyingTo, String numberOfAdults, String numberOfChildren,
-                             String[] childrenAge, int daysForward, int daysToReturn, String duration, int returnFlightOption){
+                             String[] childrenAge, int flightDaysForward, int flightDaysToReturn, String flightsSortCriteria,
+                             int departureFlightOption, int returnFlightOption, String bookerFirstName, String bookerLastName){
+
         this.flyingFrom=flyingFrom;
         this.flyingTo=flyingTo;
         this.numberOfAdults=numberOfAdults;
         this.numberOfChildren=numberOfChildren;
         this.childrenAge=childrenAge;
-        this.daysForward=daysForward;
-        this.daysToReturn=daysToReturn;
-        this.duration=duration;
+        this.flightDaysForward = flightDaysForward;
+        this.flightDaysToReturn = flightDaysToReturn;
+        this.flightsSortCriteria = flightsSortCriteria;
+        this.departureFlightOption=departureFlightOption;
         this.returnFlightOption=returnFlightOption;
-
+        this.bookerFirstName = bookerFirstName;
+        this.bookerLastName = bookerLastName;
 }
 
     public String getFlyingFrom() {
@@ -49,50 +58,31 @@ public class FlightsParameters {
         return childrenAge;
     }
 
-    public int getDaysForward() {
-        return daysForward;
+    public int getFlightDaysForward() {
+        return flightDaysForward;
     }
 
-    public int getDaysToReturn() {
-        return daysToReturn;
+    public int getFlightDaysToReturn() {
+        return flightDaysToReturn;
     }
 
-    private void setFlyingFrom(String flyingFrom) {
-        this.flyingFrom = flyingFrom;
+    public int getDepartureFlightOption() { return departureFlightOption; }
+
+    public int getReturnFlightOption() { return returnFlightOption; }
+
+    public String getFlightsSortCriteria() { return flightsSortCriteria; }
+
+    public int getCheckInDaysForward() { return checkInDaysForward; }
+
+    public int getCheckOutDaysToReturn() {
+        return checkOutDaysToReturn;
     }
 
-    private void setFlyingTo(String flyingTo) {
-        this.flyingTo = flyingTo;
+    public String getBookerFirstName() {
+        return bookerFirstName;
     }
 
-    private void setNumberOfAdults(String numberOfAdults) {
-        this.numberOfAdults = numberOfAdults;
-    }
-
-    private void setNumberOfChildren(String numberOfChildren) {
-        this.numberOfChildren = numberOfChildren;
-    }
-
-    private void setChildrenAge(String[] childrenAge) {
-        this.childrenAge = childrenAge;
-    }
-
-    private void setDaysForward(int daysForward) {
-        this.daysForward = daysForward;
-    }
-
-    private void setDaysToReturn(int daysToReturn) {
-        this.daysToReturn = daysToReturn;
-    }
-
-    public int getReturnFlightOption() {
-        return returnFlightOption;
-    }
-
-    public String getDuration() {
-        return duration;
-
-
-
+    public String getBookerLastName() {
+        return bookerLastName;
     }
 }

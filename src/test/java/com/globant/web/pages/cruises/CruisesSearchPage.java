@@ -132,7 +132,7 @@ public class CruisesSearchPage extends BasePage {
         log.info("The user click the \"Search\" button");
         waitElementVisibility(searchCruisesButton);
         clickElement(searchCruisesButton);
-
+        switchToLastOpenTab(getDriver());
         return new CruisesResultPage(getDriver());
     }
 

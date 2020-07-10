@@ -1,15 +1,21 @@
 package com.globant.web.pages.packages;
 
 import com.globant.web.pages.BasePage;
+import com.globant.web.pages.flights.FlightsResultPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
-public class RoomDetailsPage extends BasePage {
+/**
+ * Room Details Page shows the information regarding with the hotel chosen and allows to
+ * select a room
+ */
 
+public class RoomDetailsPage extends BasePage {
 
     @FindBy(id = "hotel-name")
     private WebElement hotelNameLabel;
@@ -29,16 +35,14 @@ public class RoomDetailsPage extends BasePage {
     @FindBy(id = "availability-header")
     private WebElement chooseRoomHeader;
 
-    @FindBy(className = "book-button-wrapper")
-    private WebElement selectRoomButton;
+    //  @FindBy(className = "book-button-wrapper")
+    //private WebElement selectRoomButton;
 
     @FindBy(id = "covid-alert-refundability-0")
     private WebElement nonRefundableModal;
 
-    @FindBy(className = ".modal-body a[data-track-page*=\"NonRefundable.Continue\"]")
-    private WebElement nonRefundableContinueButton;
-
-    private final static String NON_REFUNDABLE_CONTINUE_BUTTON=".modal-body a[data-track-page*=\"NonRefundable.Continue\"]";
+    private final static String NON_REFUNDABLE_CONTINUE_BUTTON = ".modal-body a[data-track-page*=\"NonRefundable.Continue\"]";
+    private final static String SELECT_ROOM_BUTTON = "book-button-wrapper";
 
     String previousHotelName;
     String previousHotelPrice;
@@ -52,20 +56,11 @@ public class RoomDetailsPage extends BasePage {
      * @param previousHotelPrice
      * @param previousStarsNumber
      */
-    public RoomDetailsPage(WebDriver driver,String previousHotelName, String previousHotelPrice, String previousStarsNumber) {
+    public RoomDetailsPage(WebDriver driver, String previousHotelName, String previousHotelPrice, String previousStarsNumber) {
         super(driver);
-        this.previousHotelName=previousHotelName;
-        this.previousHotelPrice=previousHotelPrice;
-        this.previousStarsNumber=previousStarsNumber;
-    }
-
-    /**
-     * Validate if Hotel Name label is present
-     *
-     * @return true: boolean
-     */
-    public boolean hotelNameLabelIsPresent() {
-        return hotelNameLabel.isDisplayed();
+        this.previousHotelName = previousHotelName;
+        this.previousHotelPrice = previousHotelPrice;
+        this.previousStarsNumber = previousStarsNumber;
     }
 
     /**
@@ -88,15 +83,6 @@ public class RoomDetailsPage extends BasePage {
     }
 
     /**
-     * Validate if Hotel Price label is present
-     *
-     * @return true: boolean
-     */
-    public boolean hotelPriceLabelIsPresent() {
-        return hotelPriceLabel.isDisplayed();
-    }
-
-    /**
      * Get Hotel Price label text
      *
      * @return Label: String
@@ -115,14 +101,6 @@ public class RoomDetailsPage extends BasePage {
         return this.previousHotelPrice.equals(getHotelPriceLabel());
     }
 
-    /**
-     * Validate if Stars label is present
-     *
-     * @return true: boolean
-     */
-    public boolean startsLabelIsPresent() {
-        return starsNumber.isDisplayed();
-    }
 
     /**
      * Get Starts Label text
@@ -142,7 +120,6 @@ public class RoomDetailsPage extends BasePage {
     public boolean starsTextIsTheSame() {
         return this.previousStarsNumber.equals(getStarsLabel());
     }
-
 
 
     /**
@@ -177,13 +154,12 @@ public class RoomDetailsPage extends BasePage {
 
     /**
      * Select one Room clicking the Select Button
-     *
      */
 
-    public void selectFirstRoom(){
+    public void selectFirstRoom() {
         log.info("The user clicks the \"Select Room\" button");
         waitElementVisibility(roomsItem);
-        List<WebElement> roomsItem = this.roomsItem.findElements(By.className("book-button-wrapper"));
+        List<WebElement> roomsItem = this.roomsItem.findElements(By.className(SELECT_ROOM_BUTTON));
         clickElement(roomsItem.stream().findFirst().get());
     }
 
@@ -192,21 +168,19 @@ public class RoomDetailsPage extends BasePage {
      */
     public void handleNonRefundablePopUp() {
         log.info("Non refundable pop-up shows up");
-        if (nonRefundableModal.isDisplayed()) {
-            WebElement nonRefundable = nonRefundableModal.findElement(By.cssSelector(NON_REFUNDABLE_CONTINUE_BUTTON));
-            waitElementVisibility(nonRefundable);
-            clickElement(nonRefundable);
+        if (nonRefundableModal.isEnabled()) {
+            WebElement nonRefundableContinueButton = nonRefundableModal.findElement(By.cssSelector(NON_REFUNDABLE_CONTINUE_BUTTON));
+            clickElement(nonRefundableContinueButton);
             log.info("The user click the \"Continue with non-refundable rate\" button");
         }
     }
 
-
     /**
      * Continue to the next page
      */
-    public SelectFlightsPage goToSelectFlightsPage() {
+    public FlightsResultPage goToSelectFlightsPage() {
         handleNonRefundablePopUp();
-    return new SelectFlightsPage(getDriver());
+        return new FlightsResultPage(getDriver());
     }
 
 }

@@ -8,6 +8,11 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+/**
+ * Summary Package Page shows the whole vacational package information and allows to enter the
+ * payment information.
+ */
+
 public class SummaryPackagePage extends BasePage {
 
     @FindBy (id = "destination-text")

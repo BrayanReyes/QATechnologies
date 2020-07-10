@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -49,12 +50,31 @@ public class CruisesResultPage extends BasePage {
     @FindBy(css = ".btn-container .btn.btn-secondary")
     private WebElement cruiseContinueButton;
 
+    @FindBy (className = "modal-inner")
+    private WebElement futureCruiseModal;
+
+    @FindBy (className = "btn-close modal")
+    private WebElement closeModalButton;
+
     /**
      * Constructor
      * @param driver
      */
     public CruisesResultPage(WebDriver driver) {
         super(driver);
+    }
+
+    /**
+     * Handle Future Cruise Credit Modal
+     */
+
+    public void HandleCruiseCreditModal(){
+        if(futureCruiseModal.isEnabled()){
+            log.info("Future Cruise Modal shows up");
+            getWait().until(ExpectedConditions.elementToBeClickable(closeModalButton));
+            closeModalButton.click();
+            log.info("User close \"Future Cruise Credit\" modal");
+        }
     }
 
     /**

@@ -8,7 +8,12 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class PackageResultPage  extends BasePage {
+/**
+ * Package Results Page shows the hotels result list after search a vacational package, also allows to
+ * sort and filter the results in order to chose one Hotel option
+ */
+
+public class PackageResultPage extends BasePage {
 
     @FindBy(className = "section-header-main")
     private WebElement hotelResultHeader;
@@ -46,9 +51,6 @@ public class PackageResultPage  extends BasePage {
     @FindBy (id = "pill-star3")
     private WebElement starFilterMark;
 
-    @FindBy(className = "hotelTitle")
-    private WebElement hotelNameLink;
-
     @FindBy(css = ".hotelTitle [data-automation=hotel-name]")
     private WebElement hotelNameLabel;
 
@@ -58,11 +60,10 @@ public class PackageResultPage  extends BasePage {
     @FindBy(css = ".flex-content.info-and-price .starRating.secondary .visuallyhidden")
     private WebElement starsNumberLabel;
 
-    WebElement firstHotel;
+    WebElement firstHotelSelected;
 
-    private static final String hotelNameCSS=".hotelTitle [data-automation=hotel-name]";
-    private static final String hotelPriceCSS= "ul.hotel-price > li.actualPrice.price.fakeLink";
-    private static final String starsNumberCSS= ".flex-content.info-and-price .starRating.secondary .visuallyhidden" ;
+    private static final String HOTEL_NAME_CSS =".hotelTitle [data-automation=hotel-name]";
+    private static final String HOTEL_PRICE_CSS = "ul.hotel-price > li.actualPrice.price.fakeLink";
 
     /**
      * Constructor
@@ -185,26 +186,34 @@ public class PackageResultPage  extends BasePage {
     /**
      * Click on Sort By Price Button
      */
-    public boolean sortByPrice() {
-        log.info("The user click the \"Sort by Price\" button");
+    public void sortByPrice() {
+        log.info("The user clicks the \"Sort by Price\" button");
         waitElementVisibility(sortByPriceButton);
         clickElement(sortByPriceButton);
         waitAttributeToBe(updatedResults,"aria-live","polite");
-        List<WebElement> elements = hotelResultContainer.findElements(By.cssSelector("ul.hotel-price > li.actualPrice.price.fakeLink"));
+    }
+
+
+    /**
+     * Validate if Hotels are sorted by price
+     */
+    public boolean validateHotelsPriceOrder() {
+        List<WebElement> elements = hotelResultContainer.findElements(By.cssSelector(HOTEL_PRICE_CSS));
         int previousPrice = 0, currentPrice;
         for (WebElement Option : elements) {
             currentPrice = Integer.valueOf(Option.getText().replace(",", "").substring(1));
             if (previousPrice > currentPrice)
                 return false;
             previousPrice = currentPrice;
+            handleAdvertisement();
         }
         return true;
     }
 
     /**
-     * Filter By 3 start
+     * Filter By stars
      */
-    public void filterByStarts(){
+    public void filterByStars(){
         log.info("The user click the \"Stars\" filter");
         waitElementToBeClickable(filterBy3stars);
         clickElement(filterBy3stars);
@@ -230,9 +239,9 @@ public class PackageResultPage  extends BasePage {
 
     public String chooseFirstOption(){
         log.info("The user select the first hotel option");
-        firstHotel = resultItem.stream().findFirst().get();
+        firstHotelSelected = resultItem.stream().findFirst().get();
         return
-                firstHotel.findElement(By.cssSelector(hotelNameCSS)).getText();
+                firstHotelSelected.findElement(By.cssSelector(HOTEL_NAME_CSS)).getText();
 
     }
 
@@ -273,16 +282,14 @@ public class PackageResultPage  extends BasePage {
      */
     public RoomDetailsPage clickHotelNameLink() {
         log.info("The user click the \"Hotel Name\" link");
-        waitElementVisibility(firstHotel);
-       clickElement(firstHotel);
+        waitElementVisibility(firstHotelSelected);
+        clickElement(firstHotelSelected);
         String previousHotelName = getHotelName();
         String previousHotelPrice = getHotelPrice();
         String previousStarsNumber = getNumberOfStars();
         changeWindowByIndex(1);
-        //switchToLastOpenTab(getDriver());
+        switchToLastOpenTab(getDriver());
         return new RoomDetailsPage(getDriver(),previousHotelName,previousHotelPrice,previousStarsNumber);
     }
-
-
 
 }
