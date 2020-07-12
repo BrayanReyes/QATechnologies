@@ -49,6 +49,9 @@ public class FlightsResultPage extends BasePage {
     @FindBy(id = "forcedChoiceNoThanks")
     private WebElement noThanksLink;
 
+    @FindBy(id = "uitk-live-announce")
+    private WebElement pageUpdatedMarker;
+
     private static final String FLIGHT_DURATION_CSS = "[data-test-id=\"duration\"]";
     private static final String HOUR_SEPARATOR = "h";
     private static final String MINUTE_SEPARATOR = "m";
@@ -178,10 +181,10 @@ public class FlightsResultPage extends BasePage {
      * return true: boolean
      */
     public boolean validateFlightsListOrder() {
+        waitAttributeToBe(pageUpdatedMarker,"aria-live","polite");
         String flightDuration = "";
         int previousItemDuration = 0;
         int currentItemDuration = 0;
-
         for (WebElement resultItem : resultItemsList) {
             flightDuration = resultItem.findElement(By.cssSelector(FLIGHT_DURATION_CSS)).getText();
             currentItemDuration = calculateTotalMinutesFlight(flightDuration);

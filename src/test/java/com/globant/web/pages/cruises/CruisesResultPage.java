@@ -29,6 +29,9 @@ public class CruisesResultPage extends BasePage {
     @FindBy(id = "uitk-live-announce")
     private WebElement pageUpdatedMarker;
 
+    @FindBy(id = "travel-advisory-wrap")
+    private WebElement modalIndicator;
+
     @FindBy(css = ".col.cruise-card-content .flex-card")
     private List<WebElement> cruisesResultsItem;
 
@@ -97,12 +100,13 @@ public class CruisesResultPage extends BasePage {
     public void HandleCruiseCreditModal() {
         if (futureCruiseModal.isEnabled() || futureCruiseModal.isDisplayed()) {
             log.info("Future Cruise Modal shows up");
-            waitAttributeToBe(pageUpdatedMarker,"aria-live","polite");
-            // waitElementInsideContainer(futureCruiseModal, CLOSE_MODAL_BUTTON_CLASS);
+            waitAttributeToBe(modalIndicator,"aria-hidden","true");
             WebElement closeModalIcon = futureCruiseModal.findElement(By.id("modalCloseButton"));
+
+            handleAdvertisement();
             clickElement(closeModalIcon);
             log.info("User close \"Future Cruise Credit\" modal");
-            handleAdvertisement();
+
         }
     }
 

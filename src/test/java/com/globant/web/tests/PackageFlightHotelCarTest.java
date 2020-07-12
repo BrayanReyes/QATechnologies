@@ -4,10 +4,8 @@ import com.globant.web.data.DataInit;
 import com.globant.web.pages.HomePage;
 import com.globant.web.pages.flights.FlightsResultPage;
 import com.globant.web.pages.packages.*;
-import com.globant.web.utils.FlightsParameters;
+import com.globant.web.utils.SearchParameters;
 import com.globant.web.utils.TextValidations;
-import com.globant.web.utils.PackagesParameters;
-import com.sun.xml.internal.messaging.saaj.util.LogDomainConstants;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -24,7 +22,7 @@ public class PackageFlightHotelCarTest extends BaseTest {
     @Test(description = "Booking a Flight, Hotel and a Car",
             dataProvider = "InputFlightsData",
             dataProviderClass = DataInit.class)
-    public void bookingFlightHotelCarTest(FlightsParameters flightsParameters) {
+    public void bookingFlightHotelCarTest(SearchParameters searchParameters) {
 
         HomePage home = getHomePage();
 
@@ -36,11 +34,11 @@ public class PackageFlightHotelCarTest extends BaseTest {
 
         Assert.assertEquals(packageSearchPage.getVacationPackageType(), TextValidations.getVacationPackageType(), "VACATION PACKAGE OPTION DOES NOT MATCH");
         packageSearchPage.selectPackageType();
-        packageSearchPage.setFlyingFrom(flightsParameters.getFlyingFrom());
-        packageSearchPage.setFlyingTo(flightsParameters.getFlyingTo());
-        packageSearchPage.setDepartingDate(flightsParameters.getFlightDaysForward());
-        packageSearchPage.setReturningDate(flightsParameters.getFlightDaysToReturn());
-        packageSearchPage.setAdultsQuantity(flightsParameters.getNumberOfAdults());
+        packageSearchPage.setFlyingFrom(searchParameters.getFlyingFrom());
+        packageSearchPage.setFlyingTo(searchParameters.getFlyingTo());
+        packageSearchPage.setDepartingDate(searchParameters.getFlightDaysForward());
+        packageSearchPage.setReturningDate(searchParameters.getFlightDaysToReturn());
+        packageSearchPage.setAdultsQuantity(searchParameters.getNumberOfAdults());
         PackageResultPage packageResultPage = packageSearchPage.clickSearchPackageButton();
 
         //-----------------------------------------------------> Package Results Page <-----------------------------------------------------//
@@ -88,9 +86,9 @@ public class PackageFlightHotelCarTest extends BaseTest {
 
         Assert.assertTrue(flightsresultPage.isFlightPageHeaderPresent(),"DEPARTURE HEADER IS NOT PRESENT");
         log.info("Departing Page Header: " + flightsresultPage.getFlightPageHeader());
-        flightsresultPage.selectDepartingFLight(flightsParameters.getDepartureFlightOption());
+        flightsresultPage.selectDepartingFLight(searchParameters.getDepartureFlightOption());
         log.info("Returning Page Header: " + flightsresultPage.getFlightPageHeader());
-        flightsresultPage.selectReturningFLight(flightsParameters.getReturnFlightOption());
+        flightsresultPage.selectReturningFLight(searchParameters.getReturnFlightOption());
         SummaryPackagePage summaryPage = flightsresultPage.goToSummaryPackagePage();
 
          //-----------------------------------------------------> Summary Package Page <-----------------------------------------------------//
@@ -126,8 +124,8 @@ public class PackageFlightHotelCarTest extends BaseTest {
         Assert.assertEquals(reviewPage.getFlightSectionHeader(), TextValidations.getFlightSectionHeader(), "FLIGHT SECTION HEADER DOES NOT MATCH");
         log.info("Flight Section Title: " + reviewPage.getFlightSectionTitle());
         Assert.assertTrue(reviewPage.isFlightSectionTitlePresent(),"FLIGHT SECTION TITLE IS NOT DISPLAYED");
-        reviewPage.setFirstName(flightsParameters.getBookerFirstName());
-        reviewPage.setLastName(flightsParameters.getBookerLastName());
+        reviewPage.setFirstName(searchParameters.getBookerFirstName());
+        reviewPage.setLastName(searchParameters.getBookerLastName());
         log.info("Hotel Section Header: " + reviewPage.getHotelSectionHeader());
         Assert.assertEquals(reviewPage.getHotelSectionHeader(), TextValidations.getHotelSectionHeader(), "HOTEL SECTION HEADER DOES NOT MATCH");
         Assert.assertTrue(reviewPage.isHotelSectionTitlePresent(),"HOTEL SECTION TITLE IS NOT DISPLAYED");
@@ -143,7 +141,7 @@ public class PackageFlightHotelCarTest extends BaseTest {
         Assert.assertEquals(reviewPage.getHotelGuestsData(), TextValidations.getHotelGuestsLabel(), "HOTEL GUESTS DOES NOT MATCH");
         Assert.assertTrue(reviewPage.isHotelLocationDataPresent(),"HOTEL LOCATION DATA IS NOT DISPLAYED");
         Assert.assertEquals(reviewPage.getTransportationGuestsData(), TextValidations.getTransportationGuestsLabel(), "TRANSPORTATION GUESTS DOES NOT MATCH");
-        Assert.assertEquals(reviewPage.getTransportationLocationData(), TextValidations.getTransportationLocationLabel(), "TRANSPORTATION LOCATION DOES NOT MATCH");
+        Assert.assertTrue(reviewPage.isTransportationLocationDataPresent(), "TRANSPORTATION LOCATION IS NOT PRESENT");
         Assert.assertTrue(reviewPage.isPriceLabelPresent(),"PRICE LABEL IS NOT DISPLAYED");
         log.info("******************* FINAL ASSERTS *******************");
         log.info("Flight Travelers: " + reviewPage.getFlightTravelersData());

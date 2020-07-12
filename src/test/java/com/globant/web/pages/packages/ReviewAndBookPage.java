@@ -312,6 +312,16 @@ public class ReviewAndBookPage extends BasePage {
     }
 
     /**
+     * Validate if Transportation Location is present
+     *
+     * @return true: boolean
+     */
+    public boolean isTransportationLocationDataPresent() {
+        return transportationLocationData.isDisplayed();
+    }
+
+
+    /**
      * Validate if Total Price Label is present
      *
      * @return true: boolean

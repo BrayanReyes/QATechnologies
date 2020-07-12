@@ -41,6 +41,9 @@ public class PaymentFlightPage extends BasePage {
     @FindBy(id = "lastname[0]")
     private WebElement lastNameInput;
 
+    @FindBy(id = "uitk-live-announce")
+    private WebElement pageUpdatedMarker;
+
     /**
      * Constructor
      *
@@ -57,6 +60,7 @@ public class PaymentFlightPage extends BasePage {
      * @return Label: String
      */
     public String getPaymentFlightHeader() {
+        waitAttributeToBe(pageUpdatedMarker,"aria-live","assertive");
         waitElementVisibility(paymentFlightHeader);
         return paymentFlightHeader.getText();
     }

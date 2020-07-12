@@ -1,6 +1,6 @@
 package com.globant.web.utils;
 
-public class FlightsParameters {
+public class SearchParameters {
 
     private String flyingFrom;
     private String flyingTo;
@@ -20,9 +20,9 @@ public class FlightsParameters {
     /**
      * Constructor for perform a Flight Search
      */
-    public FlightsParameters(String flyingFrom, String flyingTo, String numberOfAdults, String numberOfChildren,
-                             String[] childrenAge, int flightDaysForward, int flightDaysToReturn, String flightsSortCriteria,
-                             int departureFlightOption, int returnFlightOption, String bookerFirstName, String bookerLastName){
+    public SearchParameters(String flyingFrom, String flyingTo, String numberOfAdults, String numberOfChildren,
+                            String[] childrenAge, int flightDaysForward, int flightDaysToReturn, String flightsSortCriteria,
+                            int departureFlightOption, int returnFlightOption, String bookerFirstName, String bookerLastName){
 
         this.flyingFrom=flyingFrom;
         this.flyingTo=flyingTo;

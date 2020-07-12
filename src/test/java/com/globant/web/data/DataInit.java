@@ -1,7 +1,7 @@
 package com.globant.web.data;
 
 import com.globant.web.utils.CruisesParameters;
-import com.globant.web.utils.FlightsParameters;
+import com.globant.web.utils.SearchParameters;
 import com.globant.web.utils.HotelsParameters;
 import com.globant.web.utils.PackagesParameters;
 import org.testng.annotations.DataProvider;
@@ -18,7 +18,7 @@ public class DataInit {
     // Parameters to book a flight:
     String[] childrenAge = {"3"};
 
-    FlightsParameters searchParameters = new FlightsParameters(
+    SearchParameters searchParameters = new SearchParameters(
             "LAS",
             "LAX",
             "1",
@@ -74,7 +74,7 @@ public class DataInit {
     }
 
     /**
-     * Data Provider for Package (Flight + Hotel) Test
+     * Data Provider for Package Test
      */
     @DataProvider(name = "InputPackageData")
     public Object[][] inputPackageData() {

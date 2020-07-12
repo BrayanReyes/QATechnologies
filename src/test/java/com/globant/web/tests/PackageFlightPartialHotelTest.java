@@ -2,9 +2,7 @@ package com.globant.web.tests;
 
 import com.globant.web.data.DataInit;
 import com.globant.web.pages.HomePage;
-import com.globant.web.pages.flights.FlightsResultPage;
 import com.globant.web.pages.packages.*;
-import com.globant.web.utils.FlightsParameters;
 import com.globant.web.utils.PackagesParameters;
 import com.globant.web.utils.TextValidations;
 import org.testng.Assert;

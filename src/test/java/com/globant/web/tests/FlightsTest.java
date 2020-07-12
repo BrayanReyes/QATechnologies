@@ -7,7 +7,7 @@ import com.globant.web.pages.flights.FlightsSearchPage;
 import com.globant.web.pages.flights.PaymentFlightPage;
 import com.globant.web.pages.flights.ReviewYourTripPage;
 import com.globant.web.utils.TextValidations;
-import com.globant.web.utils.FlightsParameters;
+import com.globant.web.utils.SearchParameters;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,7 +20,7 @@ public class FlightsTest extends BaseTest{
     @Test(description = "Booking a Flight till the payment page",dataProvider="InputFlightsData",
             dataProviderClass = com.globant.web.data.DataInit.class)
 
-    public void bookingFlightTest(FlightsParameters flightsParameters){
+    public void bookingFlightTest(SearchParameters searchParameters){
 
         HomePage home = getHomePage();
 
@@ -32,13 +32,13 @@ public class FlightsTest extends BaseTest{
 
         Assert.assertEquals(flightsPage.getFlyingTypeText(), TextValidations.getFlightsPageLabel(),"FLIGHTS LABEL DOES NOT MATCH");
         flightsPage.selectFlightType();
-        flightsPage.setFlyingFrom(flightsParameters.getFlyingFrom());
-        flightsPage.setFlyingTo(flightsParameters.getFlyingTo());
-        flightsPage.setDepartingDate(flightsParameters.getFlightDaysForward());
-        flightsPage.setReturningDate(flightsParameters.getFlightDaysToReturn());
-        flightsPage.setAdultsQuantity(flightsParameters.getNumberOfAdults());
-        flightsPage.setChildrenQuantity(flightsParameters.getNumberOfChildren());
-        flightsPage.setChildrenAge(flightsParameters.getChildrenAge());
+        flightsPage.setFlyingFrom(searchParameters.getFlyingFrom());
+        flightsPage.setFlyingTo(searchParameters.getFlyingTo());
+        flightsPage.setDepartingDate(searchParameters.getFlightDaysForward());
+        flightsPage.setReturningDate(searchParameters.getFlightDaysToReturn());
+        flightsPage.setAdultsQuantity(searchParameters.getNumberOfAdults());
+        flightsPage.setChildrenQuantity(searchParameters.getNumberOfChildren());
+        flightsPage.setChildrenAge(searchParameters.getChildrenAge());
         FlightsResultPage flightsresultPage = flightsPage.clickSearchFlightButton();
 
         //-----------------------------------------------------> Flights Result Page <-----------------------------------------------------//
@@ -52,14 +52,14 @@ public class FlightsTest extends BaseTest{
         log.info("Is \"Select\" button present in each item?: " + flightsresultPage.isSelectButtonPresentInEachDivResult());
         log.info("Is \"Flight Duration\" label present in each item?: " + flightsresultPage.isFlightDurationPresentInEachDivResult());
         log.info("Is \"Flight Details and Baggage Fees\" label present in each item?: " + flightsresultPage.isFlightDetailsAndFeesPresentInEachDivResult());
-        flightsresultPage. sortResultsBy(flightsParameters.getFlightsSortCriteria());
+        flightsresultPage. sortResultsBy(searchParameters.getFlightsSortCriteria());
         Assert.assertTrue(flightsresultPage.validateFlightsListOrder(),"RESULTS ARE NOT SORTED PROPERLY BY DURATION");
         log.info("Are Flight results ordered by duration?: " + flightsresultPage.validateFlightsListOrder());
         log.info("Departure Flights Page Header: " + flightsresultPage.getFlightPageHeader());
-        flightsresultPage.selectDepartingFLight(flightsParameters.getDepartureFlightOption());
+        flightsresultPage.selectDepartingFLight(searchParameters.getDepartureFlightOption());
         Assert.assertEquals(flightsresultPage.getFlightPageHeader(), TextValidations.getReturnFlightPageHeader(),"RETURN HEADER DOES NOT MATCH");
         log.info("Return Flights Page Header: " + flightsresultPage.getFlightPageHeader());
-        flightsresultPage.selectReturningFLight(flightsParameters.getReturnFlightOption());
+        flightsresultPage.selectReturningFLight(searchParameters.getReturnFlightOption());
         ReviewYourTripPage yourTripPage = flightsresultPage.goToReviewYourTripPage();
 
         //-----------------------------------------------------> Review Your Trip Page <-----------------------------------------------------//
@@ -82,8 +82,8 @@ public class FlightsTest extends BaseTest{
 
         Assert.assertEquals(paymentPage.getPaymentFlightHeader(), TextValidations.getPaymentFlightPageHeader(),"PAYMENT FLIGHT PAGE HEADER DOES NOT MATCH");
         Assert.assertTrue(paymentPage.isPreferencesSectionPresent(),"PREFERENCES SECTION IS NOT DISPLAYED");
-        paymentPage.setFirstName(flightsParameters.getBookerFirstName());
-        paymentPage.setLastName(flightsParameters.getBookerLastName());
+        paymentPage.setFirstName(searchParameters.getBookerFirstName());
+        paymentPage.setLastName(searchParameters.getBookerLastName());
         Assert.assertEquals(paymentPage.getPreferencesSectionTitle(), TextValidations.getPreferencesSectionTitle(),"PREFERENCES SECTION TITLE DOES NOT MATCH");
         Assert.assertTrue(paymentPage.isPaymentSectionPresent(),"PAYMENT SECTION IS NOT DISPLAYED");
         Assert.assertEquals(paymentPage.getPaymentSectionTitle(), TextValidations.getPaymentSectionTitle(),"PAYMENT SECTION TITLE DOES NOT MATCH");
