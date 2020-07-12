@@ -45,6 +45,9 @@ public class HotelsResultPage extends BasePage {
 	@FindBy(className = "uitk-typeahead-results no-bullet")
 	private WebElement propertyNamesContainer;
 
+	@FindBy(id = "uitk-live-announce")
+	private WebElement pageUpdatedMarker;
+
 	private final static String CLOSE_DISCOUNT_MODAL_CSS = ".uitk-toolbar-overlay button[type=button]";
 
 	/**
@@ -72,6 +75,7 @@ public class HotelsResultPage extends BasePage {
 	 * @return true: Boolean
 	 */
 	public boolean isPropertyNameFilterPresent() {
+		waitAttributeToBe(pageUpdatedMarker, "aria-live", "polite");
 		waitElementVisibility(searchByPropertyNameButton);
 		return searchByPropertyNameButton.isDisplayed();
 	}

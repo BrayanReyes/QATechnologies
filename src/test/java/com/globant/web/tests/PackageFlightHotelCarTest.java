@@ -46,13 +46,13 @@ public class PackageFlightHotelCarTest extends BaseTest {
 		Assert.assertTrue(packageResultPage.isHotelResultContainerPresent(), "RESULT CONTAINER IS NOT DISPLAYED");
 		Assert.assertTrue(packageResultPage.isOriginLabelPresent(), "ORIGIN LABEL IS NOT DISPLAYED");
 		Assert.assertTrue(packageResultPage.isDestinationLabelPresent(), "DESTINATION LABEL IS NOT DISPLAYED");
-		Assert.assertFalse(packageResultPage.isTravelersLabelPresent(), "TRAVELERS LABEL IS DISPLAYED");
+		Assert.assertTrue(packageResultPage.isMapIconPresent(), "MAP IS NOT DISPLAYED");
 		Assert.assertTrue(packageResultPage.isSortContainerPresent(), "SORT CONTAINER IS NOT DISPLAYED");
 		log.info("Package Results Page Header: " + packageResultPage.getHotelResultHeader());
 		log.info("Origin: " + packageResultPage.getOriginLabel());
 		log.info("Destination: " + packageResultPage.getDestinationLabel());
+		log.info("Is Map displayed?: " + packageResultPage.isMapIconPresent());
 		log.info("Is Hotel Results Container displayed?: " + packageResultPage.isHotelResultContainerPresent());
-		log.info("Is Travelers label displayed?: " + packageResultPage.isTravelersLabelPresent());
 		log.info("Is sort flights container displayed?: " + packageResultPage.isSortContainerPresent());
 		packageResultPage.sortByPrice();
 		Assert.assertTrue(packageResultPage.validateHotelsPriceOrder(), "RESULTS ARE NOT SORTED PROPERLY BY PRICE");

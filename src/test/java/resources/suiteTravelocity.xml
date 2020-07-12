@@ -28,12 +28,12 @@
 		</classes>
 	</test>
 
-	<test name="Verify that search by hotel name works properly">
+	<test name="Search Hotel by Name">
 		<classes>
 			<class name="com.globant.web.tests.SearchHotelTest"></class>
 		</classes>
 	</test>
-	<test name="Get Hotel member discount banner">
+	<test name="Get Hotel Member Discount Banner">
 		<classes>
 			<class name="com.globant.web.tests.HotelsMemberDiscountTest"></class>
 		</classes>

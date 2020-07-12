@@ -31,8 +31,8 @@ public class PackageResultPage extends BasePage {
 	@FindBy(css = ".col.playback-summary-data .destination.fakeLink")
 	private WebElement destinationLabel;
 
-	@FindBy(css = ".col.playback-summary-data .travelers.fakeLink span")
-	private WebElement travelersLabel;
+	@FindBy(className = "mapIcon")
+	private WebElement mapIcon;
 
 	@FindBy(id = "sortContainer")
 	private WebElement sortContainer;
@@ -155,9 +155,9 @@ public class PackageResultPage extends BasePage {
 	 *
 	 * @return true: Boolean
 	 */
-	public boolean isTravelersLabelPresent() {
-		waitElementVisibility(travelersLabel);
-		return travelersLabel.isDisplayed();
+	public boolean isMapIconPresent() {
+		waitElementVisibility(mapIcon);
+		return mapIcon.isDisplayed();
 
 	}
 
@@ -166,9 +166,9 @@ public class PackageResultPage extends BasePage {
 	 *
 	 * @return Travelers: String
 	 */
-	public String getTravelersLabel() {
-		waitElementVisibility(travelersLabel);
-		return travelersLabel.getText();
+	public String getMapIcon() {
+		waitElementVisibility(mapIcon);
+		return mapIcon.getText();
 	}
 
 	/**

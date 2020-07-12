@@ -8,7 +8,7 @@
 	<parameter name="browser" value="chrome"></parameter>
 	<parameter name="url" value="https://www.travelocity.com"></parameter>
 
-	<test name="Booking a Flight till payment page">
+	<test name="Booking a Flight">
 		<classes>
 			<class name="com.globant.web.tests.FlightsTest"></class>
 		</classes>
