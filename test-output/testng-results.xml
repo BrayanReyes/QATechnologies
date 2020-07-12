@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="3" passed="3">
+<testng-results skipped="0" failed="2" ignored="0" total="6" passed="4">
   <reporter-output>
   </reporter-output>
-  <suite name="TraveloCity suite" duration-ms="51635" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:57Z">
+  <suite name="Web Automation Training - Travelocity Test" duration-ms="313579" started-at="2020-07-12T22:22:07Z" finished-at="2020-07-12T22:27:21Z">
     <groups>
     </groups>
-    <test name="Travel test" duration-ms="51635" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:57Z">
-      <class name="com.globant.web.tests.TraveloFlightBookingTest">
-        <test-method status="PASS" signature="beforeSuite(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="beforeSuite" is-config="true" duration-ms="15848" started-at="2020-06-30T18:18:49Z" finished-at="2020-06-30T18:19:05Z">
+    <test name="Booking a Flight till payment page" duration-ms="66689" started-at="2020-07-12T22:22:07Z" finished-at="2020-07-12T22:23:14Z">
+      <class name="com.globant.web.tests.FlightsTest">
+        <test-method status="PASS" signature="beforeTest(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.FlightsTest@31610302]" name="beforeTest" is-config="true" duration-ms="10366" started-at="2020-07-12T22:22:07Z" finished-at="2020-07-12T22:22:18Z">
           <params>
             <param index="0">
               <value>
@@ -16,63 +16,291 @@
             </param>
             <param index="1">
               <value>
-                <![CDATA[https://www.travelocity.com/]]>
+                <![CDATA[https://www.travelocity.com]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- beforeSuite -->
-        <test-method status="PASS" signature="init()[pri:0, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="init" is-config="true" duration-ms="1" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:05Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- init -->
-        <test-method status="PASS" signature="searchFlightAndVerifyResult(java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="searchFlightAndVerifyResult" duration-ms="23110" started-at="2020-06-30T18:19:05Z" finished-at="2020-06-30T18:19:28Z">
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="bookingFlightTest(com.globant.web.utils.FlightsParameters)[pri:0, instance:com.globant.web.tests.FlightsTest@31610302]" name="bookingFlightTest" duration-ms="55217" started-at="2020-07-12T22:22:18Z" description="Booking a Flight till the payment page" data-provider="InputFlightsData" finished-at="2020-07-12T22:23:13Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[las]]>
+                <![CDATA[com.globant.web.utils.FlightsParameters@3f1d2e23]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- bookingFlightTest -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.globant.web.tests.FlightsTest@31610302]" name="afterTest" is-config="true" duration-ms="1072" started-at="2020-07-12T22:23:13Z" finished-at="2020-07-12T22:23:14Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+      </class> <!-- com.globant.web.tests.FlightsTest -->
+    </test> <!-- Booking a Flight till payment page -->
+    <test name="Search a Flight + Hotel + Car" duration-ms="116600" started-at="2020-07-12T22:23:14Z" finished-at="2020-07-12T22:25:11Z">
+      <class name="com.globant.web.tests.PackageFlightHotelCarTest">
+        <test-method status="PASS" signature="beforeTest(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.PackageFlightHotelCarTest@5a8e6209]" name="beforeTest" is-config="true" duration-ms="10588" started-at="2020-07-12T22:23:14Z" finished-at="2020-07-12T22:23:25Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[lax]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Price,Departure,Arrival,Duration]]>
+                <![CDATA[https://www.travelocity.com]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- searchFlightAndVerifyResult -->
-        <test-method status="PASS" signature="selectFlightsAndGoDetails()[pri:2, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="selectFlightsAndGoDetails" duration-ms="20484" started-at="2020-06-30T18:19:28Z" finished-at="2020-06-30T18:19:49Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- selectFlightsAndGoDetails -->
-        <test-method status="PASS" signature="gotoBookingValidationAndPassengerInfo(java.lang.String, java.lang.String)[pri:3, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="gotoBookingValidationAndPassengerInfo" duration-ms="8010" started-at="2020-06-30T18:19:49Z" finished-at="2020-06-30T18:19:57Z">
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="bookingFlightHotelCarTest(com.globant.web.utils.FlightsParameters)[pri:0, instance:com.globant.web.tests.PackageFlightHotelCarTest@5a8e6209]" name="bookingFlightHotelCarTest" duration-ms="104933" started-at="2020-07-12T22:23:25Z" description="Booking a Flight, Hotel and a Car" data-provider="InputFlightsData" finished-at="2020-07-12T22:25:10Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Andrea]]>
+                <![CDATA[com.globant.web.utils.FlightsParameters@6afbe6a1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- bookingFlightHotelCarTest -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.globant.web.tests.PackageFlightHotelCarTest@5a8e6209]" name="afterTest" is-config="true" duration-ms="1074" started-at="2020-07-12T22:25:10Z" finished-at="2020-07-12T22:25:11Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+      </class> <!-- com.globant.web.tests.PackageFlightHotelCarTest -->
+    </test> <!-- Search a Flight + Hotel + Car -->
+    <test name="Search a Flight + Partial Hotel" duration-ms="18426" started-at="2020-07-12T22:25:11Z" finished-at="2020-07-12T22:25:29Z">
+      <class name="com.globant.web.tests.PackageFlightPartialHotelTest">
+        <test-method status="PASS" signature="beforeTest(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.PackageFlightPartialHotelTest@6325a3ee]" name="beforeTest" is-config="true" duration-ms="9493" started-at="2020-07-12T22:25:11Z" finished-at="2020-07-12T22:25:20Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[Perez]]>
+                <![CDATA[https://www.travelocity.com]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- gotoBookingValidationAndPassengerInfo -->
-        <test-method status="PASS" signature="afterSuite()[pri:0, instance:com.globant.web.tests.TraveloFlightBookingTest@1d057a39]" name="afterSuite" is-config="true" duration-ms="1395" started-at="2020-06-30T18:19:57Z" finished-at="2020-06-30T18:19:58Z">
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="bookingPartialPackageTest(com.globant.web.utils.PackagesParameters)[pri:0, instance:com.globant.web.tests.PackageFlightPartialHotelTest@6325a3ee]" name="bookingPartialPackageTest" duration-ms="8047" started-at="2020-07-12T22:25:20Z" description="Verify that the error message displayed when looking for a hotel in incorrect dates is correct." data-provider="InputPackageData" finished-at="2020-07-12T22:25:28Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[com.globant.web.utils.PackagesParameters@73a1a1b4]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- afterSuite -->
-      </class> <!-- com.globant.web.test.TraveloFlightBookingTest -->
-    </test> <!-- Travel test -->
-  </suite> <!-- TraveloCity suite -->
+        </test-method> <!-- bookingPartialPackageTest -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.globant.web.tests.PackageFlightPartialHotelTest@6325a3ee]" name="afterTest" is-config="true" duration-ms="883" started-at="2020-07-12T22:25:28Z" finished-at="2020-07-12T22:25:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+      </class> <!-- com.globant.web.tests.PackageFlightPartialHotelTest -->
+    </test> <!-- Search a Flight + Partial Hotel -->
+    <test name="Verify that search by hotel name works properly" duration-ms="40455" started-at="2020-07-12T22:25:29Z" finished-at="2020-07-12T22:26:10Z">
+      <class name="com.globant.web.tests.SearchHotelTest">
+        <test-method status="PASS" signature="beforeTest(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.SearchHotelTest@887af79]" name="beforeTest" is-config="true" duration-ms="11980" started-at="2020-07-12T22:25:29Z" finished-at="2020-07-12T22:25:41Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://www.travelocity.com]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="FAIL" signature="searchHotelByNameTest(com.globant.web.utils.HotelsParameters)[pri:0, instance:com.globant.web.tests.SearchHotelTest@887af79]" name="searchHotelByNameTest" duration-ms="27557" started-at="2020-07-12T22:25:41Z" description="Verify that search by hotel name works properly" data-provider="InputHotelData" finished-at="2020-07-12T22:26:09Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[com.globant.web.utils.HotelsParameters@4e782401]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.TimeoutException">
+            <message>
+              <![CDATA[Expected condition failed: waiting for data-gr-c-s-loaded to be "true". Current data-gr-c-s-loaded: "" (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CO-IT01517', ip: '192.168.1.10', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_251'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.116, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\JULY~1.MOR\AppData...}, goog:chromeOptions: {debuggerAddress: localhost:58101}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: d1a2960612dfc7cc12230f5ddee088f0]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for data-gr-c-s-loaded to be "true". Current data-gr-c-s-loaded: "" (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CO-IT01517', ip: '192.168.1.10', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_251'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 83.0.4103.116, chrome: {chromedriverVersion: 83.0.4103.39 (ccbf011cb2d2b..., userDataDir: C:\Users\JULY~1.MOR\AppData...}, goog:chromeOptions: {debuggerAddress: localhost:58101}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: d1a2960612dfc7cc12230f5ddee088f0
+at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:113)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:283)
+at com.globant.web.pages.BasePage.waitAttributeToBe(BasePage.java:374)
+at com.globant.web.pages.hotels.HotelsResultPage.isHotelNameFilterMarkPresent(HotelsResultPage.java:113)
+at com.globant.web.tests.SearchHotelTest.searchHotelByNameTest(SearchHotelTest.java:39)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- searchHotelByNameTest -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.globant.web.tests.SearchHotelTest@887af79]" name="afterTest" is-config="true" duration-ms="915" started-at="2020-07-12T22:26:09Z" finished-at="2020-07-12T22:26:10Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+      </class> <!-- com.globant.web.tests.SearchHotelTest -->
+    </test> <!-- Verify that search by hotel name works properly -->
+    <test name="Get Hotel member discount banner" duration-ms="26917" started-at="2020-07-12T22:26:10Z" finished-at="2020-07-12T22:26:37Z">
+      <class name="com.globant.web.tests.HotelsMemberDiscountTest">
+        <test-method status="PASS" signature="beforeTest(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.HotelsMemberDiscountTest@5ae63ade]" name="beforeTest" is-config="true" duration-ms="8358" started-at="2020-07-12T22:26:10Z" finished-at="2020-07-12T22:26:18Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://www.travelocity.com]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="FAIL" signature="getHotelMemberDiscountTest(com.globant.web.utils.HotelsParameters)[pri:0, instance:com.globant.web.tests.HotelsMemberDiscountTest@5ae63ade]" name="getHotelMemberDiscountTest" duration-ms="17681" started-at="2020-07-12T22:26:18Z" description="Get Hotel member discount banner" data-provider="InputHotelData" finished-at="2020-07-12T22:26:36Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[com.globant.web.utils.HotelsParameters@5d24703e]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[SIGNED DISCOUNT FIRST TEXT IS NOT DISPLAYED expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: SIGNED DISCOUNT FIRST TEXT IS NOT DISPLAYED expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:96)
+at org.testng.Assert.failNotEquals(Assert.java:776)
+at org.testng.Assert.assertTrue(Assert.java:44)
+at com.globant.web.tests.HotelsMemberDiscountTest.getHotelMemberDiscountTest(HotelsMemberDiscountTest.java:42)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getHotelMemberDiscountTest -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.globant.web.tests.HotelsMemberDiscountTest@5ae63ade]" name="afterTest" is-config="true" duration-ms="876" started-at="2020-07-12T22:26:36Z" finished-at="2020-07-12T22:26:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+      </class> <!-- com.globant.web.tests.HotelsMemberDiscountTest -->
+    </test> <!-- Get Hotel member discount banner -->
+    <test name="Search a Cruise" duration-ms="44327" started-at="2020-07-12T22:26:37Z" finished-at="2020-07-12T22:27:21Z">
+      <class name="com.globant.web.tests.CruisesTest">
+        <test-method status="PASS" signature="beforeTest(java.lang.String, java.lang.String)[pri:0, instance:com.globant.web.tests.CruisesTest@1f36e637]" name="beforeTest" is-config="true" duration-ms="9919" started-at="2020-07-12T22:26:37Z" finished-at="2020-07-12T22:26:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://www.travelocity.com]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="bookingCruiseTest(com.globant.web.utils.CruisesParameters)[pri:0, instance:com.globant.web.tests.CruisesTest@1f36e637]" name="bookingCruiseTest" duration-ms="33489" started-at="2020-07-12T22:26:47Z" description="Booking a Cruise" data-provider="InputCruisesData" finished-at="2020-07-12T22:27:20Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[com.globant.web.utils.CruisesParameters@788fa91f]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- bookingCruiseTest -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.globant.web.tests.CruisesTest@1f36e637]" name="afterTest" is-config="true" duration-ms="917" started-at="2020-07-12T22:27:20Z" finished-at="2020-07-12T22:27:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+      </class> <!-- com.globant.web.tests.CruisesTest -->
+    </test> <!-- Search a Cruise -->
+  </suite> <!-- Web Automation Training - Travelocity Test -->
 </testng-results>

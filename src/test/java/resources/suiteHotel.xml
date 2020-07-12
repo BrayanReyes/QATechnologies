@@ -2,8 +2,7 @@
 
 <suite name="Travelocity Test" verbose="1">
 	<listeners>
-		<listener
-				class-name="com.globant.web.listeners.Listener"></listener>
+		<listener class-name="com.globant.web.listeners.Listener"></listener>
 	</listeners>
 
 	<parameter name="browser" value="chrome"></parameter>

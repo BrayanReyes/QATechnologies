@@ -1,7 +1,6 @@
 package com.globant.web.pages.cruises;
 
 import com.globant.web.pages.BasePage;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +8,12 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+/**
+ * Cruises Result Page shows the results after search for a cruise, also allows to
+ * see the details of the ship and sort the findings
+ * @author july.moreno
+ *
+ */
 public class CruisesResultPage extends BasePage {
 
     @FindBy(css = "#destination-toggle #destination-select")
@@ -53,7 +58,7 @@ public class CruisesResultPage extends BasePage {
     @FindBy(css = ".btn-container .btn.btn-secondary")
     private WebElement cruiseContinueButton;
 
-    @FindBy(id = "active-fcc-info-modal")  //"modal-inner"
+    @FindBy(id = "active-fcc-info-modal")  
     private WebElement futureCruiseModal;
 
     @FindBy(className = "modal-loader")
@@ -79,10 +84,6 @@ public class CruisesResultPage extends BasePage {
 
     @FindBy(css = ".desktop-filter-container:first-of-type .options-group-container label[id^=\"length-10-14\"]")
     private WebElement option_10_14_Label;
-
-
-    private final static String CLOSE_MODAL_BUTTON_CLASS = ".modal-inner.modal-dismiss button[class^=\"btn-close\"]";
-    private final static String FILTER_10_14_LABEL_CSS = ".desktop-filter-container:first-of-type .options-group-container label[id^=\"length-10-14\"]";
 
     /**
      * Constructor

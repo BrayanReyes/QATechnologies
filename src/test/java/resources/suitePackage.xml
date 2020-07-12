@@ -2,8 +2,7 @@
 
 <suite name="Travelocity Test" verbose="1">
 	<listeners>
-		<listener
-				class-name="com.globant.web.listeners.Listener"></listener>
+		<listener class-name="com.globant.web.listeners.Listener"></listener>
 	</listeners>
 
 	<parameter name="browser" value="chrome"></parameter>
@@ -16,7 +15,8 @@
 	</test>
 	<test name="Search a Flight + Partial Hotel">
 		<classes>
-			<class name="com.globant.web.tests.PackageFlightPartialHotelTest"></class>
+			<class
+				name="com.globant.web.tests.PackageFlightPartialHotelTest"></class>
 		</classes>
 	</test>
 </suite>

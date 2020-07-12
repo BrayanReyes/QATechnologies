@@ -22,23 +22,23 @@ Cruises discount is displayed.
 **[Note: ]** I couldn't find any label, advertisement or pop-up suggesting a discount for booking cruises.
 Take this in account, I decided to sort cruises by price and select the cheapest cruise in the list after filtering by nights number.
 
-**[Suite Tests Description]**
+# Suite Tests Description
 
 **suiteFlight.xml**
 
-Calls "FlightsTest" class covering the Exercise 1.
+Calls "FlightsTest" covering the **Exercise 1**.
 
 **suitePackage.xml**
 
-Calls "PackageFlightHotelCarTest" class covering the Exercise 2 and calls "PackageFlightPartialHotelTest" class covering the Exercise 4.
+Calls "PackageFlightHotelCarTest" covering the **Exercise 2** and "PackageFlightPartialHotelTest" covering the **Exercise 4**.
 
 **suiteHotel.xml**
 
-Calls "SearchHotelTest" class covering the Exercise 3 - Searching Hotel by name and calls "HotelsMemberDiscountTest" class covering the Exercise 3 - Find the Member Discount Banner.
+Calls "SearchHotelTest" covering the **Exercise 3** Searching Hotel by name and "HotelsMemberDiscountTest" covering the **Exercise 3** Find the Member Discount Banner.
 
 **suiteCruise.xml**
 
-Calls "CruisesTest" class covering the Exercise 5.
+Calls "CruisesTest" covering the **Exercise 5**.
 
 **suiteTravelocity.xml**
 

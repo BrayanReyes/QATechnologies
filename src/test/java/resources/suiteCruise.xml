@@ -1,17 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Travelocity Test" verbose="1">
-  <listeners>
-    <listener
-            class-name="com.globant.web.listeners.Listener"></listener>
-  </listeners>
+	<listeners>
+		<listener class-name="com.globant.web.listeners.Listener"></listener>
+	</listeners>
 
-  <parameter name="browser" value="chrome"></parameter>
-  <parameter name="url" value="https://www.travelocity.com"></parameter>
+	<parameter name="browser" value="chrome"></parameter>
+	<parameter name="url" value="https://www.travelocity.com"></parameter>
 
-  <test name="Search a Cruise">
-    <classes>
-      <class name="com.globant.web.tests.CruisesTest"></class>
-    </classes>
-  </test>
+	<test name="Search a Cruise">
+		<classes>
+			<class name="com.globant.web.tests.CruisesTest"></class>
+		</classes>
+	</test>
 </suite>
