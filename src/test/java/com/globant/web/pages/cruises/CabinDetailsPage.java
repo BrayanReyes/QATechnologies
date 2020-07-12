@@ -88,7 +88,7 @@ public class CabinDetailsPage extends BasePage {
      */
     public String getDestination() {
         waitElementVisibility(shipItemHeader);
-        return shipItemHeader.getText().substring(8,14);
+        return shipItemHeader.getText().split(" ")[2];
     }
 
 

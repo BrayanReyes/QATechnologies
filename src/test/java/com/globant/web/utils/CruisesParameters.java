@@ -3,13 +3,13 @@ package com.globant.web.utils;
 public class CruisesParameters {
 
     private String cruiseDestination;
-    private int daysForward;
-    private int stayDuration;
+    private int departAsEarly;
+    private int departAsLate;
 
-    public CruisesParameters(String destination, int daysForward, int stayDuration){
-        this.cruiseDestination=destination;
-        this.daysForward=daysForward;
-        this.stayDuration=stayDuration;
+    public CruisesParameters(String destination, int departAsEarly, int departAsLate) {
+        this.cruiseDestination = destination;
+        this.departAsEarly = departAsEarly;
+        this.departAsLate = departAsLate;
     }
 
 
@@ -17,11 +17,11 @@ public class CruisesParameters {
         return cruiseDestination;
     }
 
-    public int getDaysForward() {
-        return daysForward;
+    public int getDepartAsEarly() {
+        return departAsEarly;
     }
 
-    public int getStayDuration() {
-        return stayDuration;
+    public int getDepartAsLate() {
+        return departAsLate;
     }
 }

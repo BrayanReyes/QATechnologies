@@ -55,7 +55,7 @@ public class SearchHotelTest extends BaseTest {
         log.info("Is Amenities Grid displayed?: " + hotelDetailsPage.isAmenitiesGridPresent());
         log.info("Is Member Discount Banner displayed?: " + hotelDetailsPage.isAmenitiesGridPresent());
         log.info("Discount Banner Link: " + hotelDetailsPage.getSignUpLinkText());
-        log.info("Search by hotel name works properly");
+        log.info("---------- Search by hotel name works properly ----------");
     }
 
 }

@@ -33,6 +33,9 @@ public class HomePage extends BasePage {
     @FindBy(id = "tab-activity-tab-hp")
     private WebElement thingsToDoTab;
 
+    @FindBy(id = "uitk-live-announce")
+    private WebElement pageUpdatedMarker;
+
     /**
      * Constructor.
      *
@@ -95,6 +98,7 @@ public class HomePage extends BasePage {
         log.info("The user clicks the \"Cruises Tab\".");
         waitElementVisibility(cruisesTab);
         cruisesTab.click();
+        waitAttributeToBe(pageUpdatedMarker, "aria-live", "polite");
         return new CruisesSearchPage(getDriver());
     }
 

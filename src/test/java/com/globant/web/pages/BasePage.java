@@ -92,7 +92,7 @@ public class BasePage {
 
             Select dropDownList = new Select(element);
             dropDownList.selectByValue(value);
-            // dropDownList.selectByVisibleText(value);
+            //dropDownList.selectByVisibleText(value);
 
         } catch (Exception e) {
             e.printStackTrace();

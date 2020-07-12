@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class HotelsResultPage extends BasePage {
 
 
@@ -33,7 +35,14 @@ public class HotelsResultPage extends BasePage {
     @FindBy (css="span[data-stid=content-hotel-lead-price]")
     private WebElement hotelPrice;
 
+    @FindBy (css = ".uitk-typeahead-results li")
+    private List<WebElement> optionsToSelect;
+
+    @FindBy (className = "uitk-typeahead-results no-bullet")
+    private WebElement propertyNamesContainer;
+
     private final static String  CLOSE_DISCOUNT_MODAL_CSS=".uitk-toolbar-overlay button[type=button]";
+   private final static String FIRST_OPTION_CSS=".uitk-dialog-content-wrapper li:first-of-type";
     /**
      * Constructor
      *
@@ -81,7 +90,11 @@ public class HotelsResultPage extends BasePage {
     public void setPropertyName(String propertyName) {
         waitElementVisibility(propertyNameInput);
         propertyNameInput.sendKeys(propertyName);
-        clickElement(hotelFirstOption);
+        waitElementVisibility(optionsToSelect);
+        WebElement firstHotel = optionsToSelect.stream().findFirst().get();
+        //        WebElement firstHotel = propertyNamesContainer.findElement(By.cssSelector(FIRST_OPTION_CSS));
+        //firstHotel.click();
+        clickElement(firstHotel);
         log.info("The user types and select the property that matches with: " + propertyName);
     }
 

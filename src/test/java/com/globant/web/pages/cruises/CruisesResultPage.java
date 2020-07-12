@@ -1,11 +1,11 @@
 package com.globant.web.pages.cruises;
 
 import com.globant.web.pages.BasePage;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ public class CruisesResultPage extends BasePage {
     @FindBy(id = "travelers-select")
     private WebElement TravelersLabel;
 
-    @FindBy(css = ".cruise-page-header")
+    @FindBy(css = ".cruise-page-header > span:first-of-type")
     private WebElement cruisesResultPageHeader;
 
-    @FindBy(css = "aside[role='complementary'] input[name='length-10-14']")
-    private WebElement cruiseLength_10_14_RadioButton;
+    @FindBy(css = ".filter-options-container input[name='length-10-14']")
+    private WebElement cruiseLength_10_14;
 
     @FindBy(id = "uitk-live-announce")
     private WebElement pageUpdatedMarker;
@@ -50,14 +50,40 @@ public class CruisesResultPage extends BasePage {
     @FindBy(css = ".btn-container .btn.btn-secondary")
     private WebElement cruiseContinueButton;
 
-    @FindBy (className = "modal-inner")
+    @FindBy(id = "active-fcc-info-modal")  //"modal-inner"
     private WebElement futureCruiseModal;
 
-    @FindBy (className = "btn-close modal")
+    @FindBy(className = "modal-loader")
+    private WebElement modalLoader;
+
+    @FindBy(id = "fcc-info-modal")
     private WebElement closeModalButton;
+
+    @FindBy(css = ".desktop-filter-container:first-of-type .filter-options-container > div")
+    private WebElement cruiseLengthContainer;
+
+    @FindBy(css = ".desktop-filter-container .options-group-container input[name^=\"length\"]")
+    private List<WebElement> cruiseLengthRadioButtonList;
+
+    @FindBy(css = ".desktop-filter-container .options-group-container input[name^=\"length-10-14\"]")
+    private WebElement cruiseLength_10_14_RadioButton;
+
+    @FindBy(css = ".desktop-filter-container .options-group-container label[id^=\"length\"]")
+    private WebElement nightsLabel;
+
+    @FindBy(css = ".desktop-filter-container:first-of-type .options-group-container label[id^=\"length\"]")
+    private List<WebElement> optionsLabelList;
+
+    @FindBy(css = ".desktop-filter-container:first-of-type .options-group-container label[id^=\"length-10-14\"]")
+    private WebElement option_10_14_Label;
+
+
+    private final static String CLOSE_MODAL_BUTTON_CLASS = ".modal-inner.modal-dismiss button[class^=\"btn-close\"]";
+    private final static String FILTER_10_14_LABEL_CSS = ".desktop-filter-container:first-of-type .options-group-container label[id^=\"length-10-14\"]";
 
     /**
      * Constructor
+     *
      * @param driver
      */
     public CruisesResultPage(WebDriver driver) {
@@ -68,12 +94,15 @@ public class CruisesResultPage extends BasePage {
      * Handle Future Cruise Credit Modal
      */
 
-    public void HandleCruiseCreditModal(){
-        if(futureCruiseModal.isEnabled()){
+    public void HandleCruiseCreditModal() {
+        if (futureCruiseModal.isEnabled() || futureCruiseModal.isDisplayed()) {
             log.info("Future Cruise Modal shows up");
-            getWait().until(ExpectedConditions.elementToBeClickable(closeModalButton));
-            closeModalButton.click();
+            waitAttributeToBe(pageUpdatedMarker,"aria-live","polite");
+            // waitElementInsideContainer(futureCruiseModal, CLOSE_MODAL_BUTTON_CLASS);
+            WebElement closeModalIcon = futureCruiseModal.findElement(By.id("modalCloseButton"));
+            clickElement(closeModalIcon);
             log.info("User close \"Future Cruise Credit\" modal");
+            handleAdvertisement();
         }
     }
 
@@ -84,7 +113,7 @@ public class CruisesResultPage extends BasePage {
      */
     public String getCruisesResultsHeader() {
         waitElementVisibility(cruisesResultPageHeader);
-            return cruisesResultPageHeader.getText().substring(10);
+        return cruisesResultPageHeader.getText();
     }
 
 
@@ -148,20 +177,49 @@ public class CruisesResultPage extends BasePage {
         return TravelersLabel.isDisplayed();
     }
 
+
+    /**
+     * Get the header for Cruises Results Page
+     *
+     * @return cruises results header: String
+     */
+    public String getNightsLabel() {
+        waitElementVisibility(nightsLabel);
+        return nightsLabel.getText();
+    }
+
+    /**
+     * Validate the length of nights cruise filter
+     */
+    public int validateOptionsToFilter() {
+        waitElementVisibility(cruiseLengthRadioButtonList);
+        return cruiseLengthRadioButtonList.size();
+    }
+
     /**
      * Click on 10-14 Nights Cruise Length filter
      */
     public void filterByCruiseLength() {
-        log.info("The user filter by cruse length");
-        waitElementVisibility(cruiseLength_10_14_RadioButton);
-        clickElement(cruiseLength_10_14_RadioButton);
+        switch (validateOptionsToFilter()) {
+            case 0:
+                log.info("There is not options to filter by night length");
+                break;
+            case 1:
+                WebElement sortOption = cruiseLengthRadioButtonList.stream().findFirst().get();
+                clickElement(sortOption);
+                log.info("Filter by 10 - 14 nights is not available. Selecting the first option.");
+                log.info("Nights filter: " + getNightsLabel());
+                break;
+            default:
+                waitElementVisibility(cruiseLength_10_14_RadioButton);
+                clickElement(cruiseLength_10_14_RadioButton);
+                log.info("The user filter by 10 - 14 cruise length");
+         }
         waitAttributeToBe(pageUpdatedMarker, "aria-live", "polite");
-
     }
 
     /**
      * Get Ship Name, Price and Dates for each item after searching
-     *
      */
 
     public void checkResults() {
@@ -179,34 +237,35 @@ public class CruisesResultPage extends BasePage {
     }
 
 
-        /**
-         * Sort by Price
-         */
-        public void sortCruisesByPrice(){
-            log.info("The user sort the cruises by price");
-            waitElementVisibility(sortPriceButton);
-            clickElement(sortPriceButton);
-            waitAttributeToBe(pageUpdatedMarker, "aria-live", "polite");
-        }
+    /**
+     * Sort by Price
+     */
+    public void sortCruisesByPrice() {
+        log.info("The user sort the cruises by price");
+        waitElementVisibility(sortPriceButton);
+        clickElement(sortPriceButton);
+        waitAttributeToBe(pageUpdatedMarker, "aria-live", "polite");
+    }
 
     /**
      * Select the chepest option in the list and continue to CabinDetailsPage
+     *
      * @return CabinDetailsPage
      */
 
-        public CabinDetailsPage clickContinueButton (){
-            WebElement shipChosen = cruisesResultsItem.get(0);
-            moveToElement(shipChosen);
-            log.info("The user selects the first option in the list.");
-            String shipName = shipChosen.findElement(By.className("ship-name")).getText();
-            moveToElement(shipChosen);
-            WebElement chooseShipButton = shipChosen.findElement(By.cssSelector(".btn-container .btn.btn-secondary"));
-            waitElementVisibility(chooseShipButton);
-            clickElement(chooseShipButton);
-            log.info("The user clicks the \"Continue\" Button.");
-            switchToLastOpenTab(getDriver());
-            return new CabinDetailsPage(getDriver());
+    public CabinDetailsPage clickContinueButton() {
+        WebElement shipChosen = cruisesResultsItem.get(0);
+        moveToElement(shipChosen);
+        log.info("The user selects the first option in the list.");
+        String shipName = shipChosen.findElement(By.className("ship-name")).getText();
+        moveToElement(shipChosen);
+        WebElement chooseShipButton = shipChosen.findElement(By.cssSelector(".btn-container .btn.btn-secondary"));
+        waitElementVisibility(chooseShipButton);
+        clickElement(chooseShipButton);
+        log.info("The user clicks the \"Continue\" Button.");
+        switchToLastOpenTab(getDriver());
+        return new CabinDetailsPage(getDriver());
 
-        }
+    }
 
 }

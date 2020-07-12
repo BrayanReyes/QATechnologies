@@ -17,8 +17,14 @@ public class CruisesSearchPage extends BasePage {
     @FindBy(id = "cruise-destination-hp-cruise")
     private WebElement cruiseDestinationSelector;
 
+    @FindBy (className = "datepicker-close")
+    private WebElement calendarLabel;
+
     @FindBy(className = "datepicker-cal")
     private WebElement calendarDiv;
+
+    @FindBy(css = "button[class*=\"btn-paging btn-secondary next\"]")
+    private WebElement nextMonthButton;
 
     @FindBy(className = "datepicker-cal-month-header")
     private WebElement calendarHeader;
@@ -64,23 +70,81 @@ public class CruisesSearchPage extends BasePage {
      * @param destination: String
      */
     public void selectCruiseDestination(String destination) {
-        waitElementVisibility(cruiseDestinationSelector);
+        clickElement(cruiseDestinationSelector);
         selectElementFromDropDownList(cruiseDestinationSelector, destination);
+        log.info("The user selects the Cruise Destination");
     }
 
     /**
-     * Set the Departing Date. The date should be 30 days after today
+     * Open the calendar
+     *
      */
-    public void setDepartingDate(int daysFrom) {
-        setDepartingDate(departAsEarlyDateDataPicker,daysFrom);
-        log.info("The user selects the Departing Date through the Calendar");
+
+    private void openDepartCalendar() {
+        // If in case the calendar does not open automatically
+        clickElement(departAsEarlyDateDataPicker);
+        if (!calendarLabel.isDisplayed()) {
+            waitElementVisibility(calendarDiv);
+            clickElement(calendarDiv);
+        }
+        moveToElement(calendarLabel);
     }
 
+    /**
+     * Open the calendar
+     *
+     */
+
+    private void openReturnCalendar() {
+        // If in case the calendar does not open automatically
+        clickElement(departAsLateDateDataPicker);
+        if (!calendarLabel.isDisplayed()) {
+            waitElementVisibility(calendarDiv);
+            clickElement(calendarDiv);
+        }
+        moveToElement(calendarLabel);
+    }
+
+
+    /**
+     * Select a Date according with a number of days given
+     *
+     * @param daysFromNow: int
+     */
+
+    private void selectDepartingDate(int daysFromNow) {
+        String tmpCSS = calculateDateCSS(daysFromNow);
+        WebElement dayToDepart = findDateElementByCSS(nextMonthButton,tmpCSS);
+        clickElement(dayToDepart);
+    }
+
+    /**
+     * Select a Date according with a number of days given
+     *
+     * @param daysFromNow: int
+     */
+
+    private void selectReturningDate(int daysFromNow) {
+        String tmpCSS = calculateDateCSS(daysFromNow);
+        WebElement dayToDepart = findDateElementByCSS(nextMonthButton,tmpCSS);
+        clickElement(dayToDepart);
+    }
+
+    /**
+     * Set the Departing Date.
+     */
+
+    public void setDepartingDate(int daysForward) {
+        openDepartCalendar();
+        selectDepartingDate(daysForward);
+        log.info("The user selects the Departing Date through the Calendar");
+    }
     /**
      * Set the Returning Date. The date should be 10 days after today
      */
     public void setReturningDate(int daysTo) {
-        setReturningDate(departAsLateDateDataPicker,daysTo);
+        openReturnCalendar();
+        selectReturningDate(daysTo);
         log.info("The user selects the Returning Date through the Calendar");
     }
 
@@ -135,6 +199,5 @@ public class CruisesSearchPage extends BasePage {
         switchToLastOpenTab(getDriver());
         return new CruisesResultPage(getDriver());
     }
-
 
 }
