@@ -22,6 +22,18 @@ public class HotelsSearchPage extends BasePage {
 	@FindBy(id = "hotel-checkout-hp-hotel")
 	private WebElement checkOutDataPicker;
 
+	@FindBy(css = "#hotel-checkin-wrapper-hp-hotel .datepicker-dropdown")
+	private WebElement checkInCalendarDiv;
+
+	@FindBy(css = "#hotel-checkout-wrapper-hp-hotel .datepicker-dropdown")
+	private WebElement checkOutCalendarDiv;
+
+	@FindBy(className = "datepicker-close")
+	private WebElement closeDataPickerDiv;
+
+	@FindBy(css = "button[class*=\"btn-paging btn-secondary next\"]")
+	private WebElement nextMonthButton;
+
 	@FindBy(id = "hotel-rooms-hp-hotel")
 	private WebElement hotelsRoomsNumber;
 
@@ -86,7 +98,8 @@ public class HotelsSearchPage extends BasePage {
 	 */
 	public void setCheckInDate(int daysForward) {
 		clickElement(checkInDataPicker);
-		setDepartingDate(checkInDataPicker, daysForward);
+		openCalendar(checkInDataPicker,closeDataPickerDiv, checkInCalendarDiv);
+		selectDateInCalendar(daysForward,nextMonthButton);
 		log.info("The user selects the Check In Date through the Calendar");
 	}
 
@@ -96,7 +109,9 @@ public class HotelsSearchPage extends BasePage {
 	 * @param daysToReturn: int
 	 */
 	public void setCheckOutDate(int daysToReturn) {
-		setReturningDate(checkOutDataPicker, daysToReturn);
+		clickElement(checkInDataPicker);
+		openCalendar(checkOutDataPicker,closeDataPickerDiv, checkOutCalendarDiv);
+		selectDateInCalendar(daysToReturn,nextMonthButton);
 		log.info("The user selects the Check Out Date through the Calendar");
 	}
 
@@ -177,7 +192,7 @@ public class HotelsSearchPage extends BasePage {
 	/**
 	 * Set the Email for members discount
 	 *
-	 * @param email
+	 * @param email: String
 	 */
 	public void setMemberDiscountEmail(String email) {
 		log.info("The user types the email to subscribe for discounts");

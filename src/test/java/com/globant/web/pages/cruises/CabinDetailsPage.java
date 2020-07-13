@@ -31,7 +31,7 @@ public class CabinDetailsPage extends BasePage {
 	/**
 	 * Constructor
 	 * 
-	 * @param driver
+	 * @param driver: WebDriver
 	 */
 	public CabinDetailsPage(WebDriver driver) {
 		super(driver);

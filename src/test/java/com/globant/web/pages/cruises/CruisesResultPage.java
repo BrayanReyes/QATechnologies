@@ -88,7 +88,7 @@ public class CruisesResultPage extends BasePage {
     /**
      * Constructor
      *
-     * @param driver
+     * @param driver: WebDriver
      */
     public CruisesResultPage(WebDriver driver) {
         super(driver);

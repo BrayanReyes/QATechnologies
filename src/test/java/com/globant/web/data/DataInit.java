@@ -17,20 +17,20 @@ public class DataInit {
 
 	// Parameters to book a flight:
 	// Age for one child.  Add more ages in case the number of children increase.
-	private String[] childrenAge = { "3" };
+	private final String[] childrenAge = { "3" };
 
-	private FlightsParameters flightsParameters = new FlightsParameters("LAS", "LAX", "1", "1", childrenAge, 60, 73,
+	private final FlightsParameters flightsParameters = new FlightsParameters("LAS", "LAX", "1", "1", childrenAge, 60, 73,
 			"Duration (Shortest)", 1, 3, "July", "Moreno");
 
 	// Parameters to book a Package:
-	private PackagesParameters packageParameters = new PackagesParameters("LAS", "LAX", 5, 10, 11, 20);
+	private final PackagesParameters packageParameters = new PackagesParameters("LAS", "LAX", 5, 10, 11, 20);
 
 	// Parameters to book a Hotel:
-	private HotelsParameters hotelsParameters = new HotelsParameters("Montevideo, Uruguay", 5, 10, "Radisson",
+	private final HotelsParameters hotelsParameters = new HotelsParameters("Montevideo, Uruguay", 5, 10, "Radisson",
 			"email4@email.com");
 
 	// Parameters to book a Cruise:
-	private CruisesParameters cruisesParameters = new CruisesParameters("europe", 20, 50);
+	private final CruisesParameters cruisesParameters = new CruisesParameters("europe", 30, 50);
 
 	/**
 	 * Data Provider for Flights Test

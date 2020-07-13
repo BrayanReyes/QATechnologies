@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!--suppress XmlHighlighting -->
 <suite guice-stage="DEVELOPMENT" name="Failed suite [TraveloCity suite]">
   <parameter name="lastName" value="Perez"/>
   <parameter name="dropOptions" value="Price,Departure,Arrival,Duration"/>

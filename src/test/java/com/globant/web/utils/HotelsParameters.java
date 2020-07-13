@@ -8,20 +8,20 @@ package com.globant.web.utils;
  */
 public class HotelsParameters {
 
-	private String destination;
-	private int checkInForward;
-	private int checkOutForward;
-	private String hotelName;
-	private String email;
+	private final String destination;
+	private final int checkInForward;
+	private final int checkOutForward;
+	private final String hotelName;
+	private final String email;
 
 	/**
 	 * Constructor to perform a Hotel search
 	 * 
-	 * @param destination
-	 * @param checkInForward
-	 * @param checkOutForward
-	 * @param hotelName
-	 * @param email
+	 * @param destination: String
+	 * @param checkInForward: int
+	 * @param checkOutForward: int
+	 * @param hotelName: String
+	 * @param email: String
 	 */
 
 	public HotelsParameters(String destination, int checkInForward, int checkOutForward, String hotelName,

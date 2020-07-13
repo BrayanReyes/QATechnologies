@@ -9,20 +9,20 @@ package com.globant.web.utils;
 
 public class FlightsParameters {
 
-	private String flyingFrom;
-	private String flyingTo;
+	private final String flyingFrom;
+	private final String flyingTo;
 	private String numberOfAdults = "2";
 	private String numberOfChildren = "0";
-	private String[] childrenAge;
-	private int flightDaysForward;
-	private int flightDaysToReturn;
+	private final String[] childrenAge;
+	private final int flightDaysForward;
+	private final int flightDaysToReturn;
 	private int checkInDaysForward;
 	private int checkOutDaysToReturn;
-	private String flightsSortCriteria;
-	private int departureFlightOption;
-	private int returnFlightOption;
-	private String bookerFirstName;
-	private String bookerLastName;
+	private final String flightsSortCriteria;
+	private final int departureFlightOption;
+	private final int returnFlightOption;
+	private final String bookerFirstName;
+	private final String bookerLastName;
 
 	/**
 	 * Constructor for perform a Flight Search

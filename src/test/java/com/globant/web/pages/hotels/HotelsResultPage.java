@@ -75,7 +75,7 @@ public class HotelsResultPage extends BasePage {
 	 * @return true: Boolean
 	 */
 	public boolean isPropertyNameFilterPresent() {
-		waitAttributeToBe(pageUpdatedMarker, "aria-live", "polite");
+		waitElementVisibility(pageUpdatedMarker);
 		waitElementVisibility(searchByPropertyNameButton);
 		return searchByPropertyNameButton.isDisplayed();
 	}
@@ -92,7 +92,7 @@ public class HotelsResultPage extends BasePage {
 	/**
 	 * Set the Property Name
 	 *
-	 * @param propertyName
+	 * @param propertyName: String
 	 */
 	public void setPropertyName(String propertyName) {
 		waitElementVisibility(propertyNameInput);

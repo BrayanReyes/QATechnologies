@@ -25,7 +25,7 @@ public class CruisesSearchPage extends BasePage {
 	private WebElement cruiseDestinationSelector;
 
 	@FindBy(className = "datepicker-close")
-	private WebElement calendarLabel;
+	private WebElement closeDataPickerDiv;
 
 	@FindBy(className = "datepicker-cal")
 	private WebElement calendarDiv;
@@ -81,64 +81,12 @@ public class CruisesSearchPage extends BasePage {
 	}
 
 	/**
-	 * Open the calendar
-	 *
-	 */
-
-	private void openDepartCalendar() {
-		clickElement(departAsEarlyDateDataPicker);
-		if (!calendarLabel.isDisplayed()) {
-			waitElementVisibility(calendarDiv);
-			clickElement(calendarDiv);
-		}
-		moveToElement(calendarLabel);
-	}
-
-	/**
-	 * Open the calendar
-	 *
-	 */
-
-	private void openReturnCalendar() {
-		clickElement(departAsLateDateDataPicker);
-		if (!calendarLabel.isDisplayed()) {
-			waitElementVisibility(calendarDiv);
-			clickElement(calendarDiv);
-		}
-		moveToElement(calendarLabel);
-	}
-
-	/**
-	 * Select a Date according with a number of days given
-	 *
-	 * @param daysFromNow: int
-	 */
-
-	private void selectDepartingDate(int daysFromNow) {
-		String tmpCSS = calculateDateCSS(daysFromNow);
-		WebElement dayToDepart = findDateElementByCSS(nextMonthButton, tmpCSS);
-		clickElement(dayToDepart);
-	}
-
-	/**
-	 * Select a Date according with a number of days given
-	 *
-	 * @param daysFromNow: int
-	 */
-
-	private void selectReturningDate(int daysFromNow) {
-		String tmpCSS = calculateDateCSS(daysFromNow);
-		WebElement dayToDepart = findDateElementByCSS(nextMonthButton, tmpCSS);
-		clickElement(dayToDepart);
-	}
-
-	/**
 	 * Set the Departing Date.
 	 */
 
 	public void setDepartingDate(int daysForward) {
-		openDepartCalendar();
-		selectDepartingDate(daysForward);
+		openCalendar(departAsEarlyDateDataPicker,closeDataPickerDiv,calendarDiv);
+		selectDateInCalendar(daysForward,nextMonthButton);
 		log.info("The user selects the Departing Date through the Calendar");
 	}
 
@@ -146,15 +94,15 @@ public class CruisesSearchPage extends BasePage {
 	 * Set the Returning Date. The date should be 10 days after today
 	 */
 	public void setReturningDate(int daysTo) {
-		openReturnCalendar();
-		selectReturningDate(daysTo);
+		openCalendar(departAsLateDateDataPicker,closeDataPickerDiv,calendarDiv);
+		selectDateInCalendar(daysTo,nextMonthButton);
 		log.info("The user selects the Returning Date through the Calendar");
 	}
 
 	/**
 	 * Set the adults quantity for the flight
 	 *
-	 * @param numberOfAdults
+	 * @param numberOfAdults: String
 	 */
 	public void setAdultsQuantity(String numberOfAdults) {
 		log.info("The user selects the Adults quantity in the dropdown list");
@@ -164,7 +112,7 @@ public class CruisesSearchPage extends BasePage {
 	/**
 	 * Set the children quantity for the flight
 	 *
-	 * @param numberOfChildren
+	 * @param numberOfChildren: String
 	 */
 	public void setChildrenQuantity(String numberOfChildren) {
 		log.info("The user selects the Children quantity in the dropdown list");
@@ -174,7 +122,7 @@ public class CruisesSearchPage extends BasePage {
 	/**
 	 * Set the age of every children
 	 *
-	 * @param childrenAge
+	 * @param childrenAge: String
 	 */
 	public void setChildrenAge(String... childrenAge) {
 		log.info("Setting Children Ages in the dropdown list");

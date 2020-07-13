@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -48,10 +47,10 @@ public class RoomDetailsPage extends BasePage {
 	/**
 	 * Constructor
 	 *
-	 * @param driver
-	 * @param previousHotelName
-	 * @param previousHotelPrice
-	 * @param previousStarsNumber
+	 * @param driver: WebDriver
+	 * @param previousHotelName: String
+	 * @param previousHotelPrice: String
+	 * @param previousStarsNumber: String
 	 */
 	public RoomDetailsPage(WebDriver driver, String previousHotelName, String previousHotelPrice,
 			String previousStarsNumber) {

@@ -9,13 +9,13 @@ package com.globant.web.utils;
 
 public class PackagesParameters {
 
-	private String flyingFrom;
-	private String flyingTo;
-	private int flightDaysForward;
-	private int flightDaysToReturn;
-	private int checkInDaysForward;
-	private int checkOutDaysToReturn;
-	private String adultsNumber = "2";
+	private final String flyingFrom;
+	private final String flyingTo;
+	private final int flightDaysForward;
+	private final int flightDaysToReturn;
+	private final int checkInDaysForward;
+	private final int checkOutDaysToReturn;
+	private final String adultsNumber = "2";
 
 	/**
 	 * Constructor for search a package

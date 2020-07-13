@@ -1,8 +1,6 @@
 package com.globant.web.tests;
 
 import com.globant.web.pages.HomePage;
-import com.globant.web.pages.hotels.HotelDetailsPage;
-import com.globant.web.pages.hotels.HotelsResultPage;
 import com.globant.web.pages.hotels.HotelsSearchPage;
 import com.globant.web.utils.TextValidations;
 import com.globant.web.utils.HotelsParameters;

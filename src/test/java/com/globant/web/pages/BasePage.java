@@ -3,7 +3,6 @@ package com.globant.web.pages;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-//import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +10,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+//import org.openqa.selenium.support.FindBy;
 
 /**
  * This class defines common methods to interact with the web page under test.
@@ -74,8 +77,8 @@ public class BasePage {
 	/**
 	 * Select from element by {value}
 	 *
-	 * @param element
-	 * @param value
+	 * @param element: WebElement
+	 * @param value: String
 	 */
 	public void selectElementFromDropDownList(WebElement element, String value) {
 		try {
@@ -303,19 +306,6 @@ public class BasePage {
 		}
 	}
 
-	/**
-	 * Return a Locator with a specific format increasing the current date by the
-	 * days CSS -Format -> button[data-year='2020'][data-month='5'][data-day='3']
-	 * Note: Minus one month because in web page months start at 0 and end at 11
-	 *
-	 * @param days
-	 * @return {@link String}
-	 */
-	protected String calculateDateCSS(int days) {
-		LocalDate increasedDate = LocalDate.now().plusDays(days).minusMonths(1);
-		return "button[data-year='" + increasedDate.getYear() + "']" + "[data-month='" + increasedDate.getMonthValue()
-				+ "']" + "[data-day='" + increasedDate.getDayOfMonth() + "']";
-	}
 
 	/**
 	 * Set the adults quantity for a search
@@ -325,42 +315,6 @@ public class BasePage {
 	public void selectPassengersQuantity(WebElement webElement, String numberOfPassengers) {
 		waitElementVisibility(webElement);
 		selectElementFromDropDownList(webElement, numberOfPassengers);
-	}
-
-	/**
-	 * Find the element for the date component in the calendar
-	 *
-	 * @param cssSelector: String
-	 */
-	public WebElement findDateElementByCSS(WebElement webElement, String cssSelector) {
-		try {
-			return getDriver().findElement(By.cssSelector(cssSelector));
-		} catch (Exception e) {
-			// log.info(e);
-			waitElementToBeClickable(webElement);
-			clickElement(webElement);
-			return findDateElementByCSS(webElement, cssSelector);
-		}
-	}
-
-	/**
-	 * Set the Departing Date.
-	 */
-	public void setDepartingDate(WebElement webElement, int days) {
-		clickElement(webElement);
-		String tmpLocator = calculateDateCSS(days);
-		WebElement startDate = getDriver().findElement(By.cssSelector(tmpLocator));
-		clickElement(startDate);
-	}
-
-	/**
-	 * Set the Returning Date.
-	 */
-	public void setReturningDate(WebElement webElement, int days) {
-		clickElement(webElement);
-		String tmpLocator = calculateDateCSS(days);
-		WebElement endDate = getDriver().findElement(By.cssSelector(tmpLocator));
-		clickElement(endDate);
 	}
 
 	/**
@@ -399,8 +353,8 @@ public class BasePage {
 	/**
 	 * Scroll to the element
 	 * 
-	 * @param webDriver
-	 * @param element
+	 * @param webDriver: WebDriver
+	 * @param element: WebElement
 	 */
 	public static void jsScroll(WebDriver webDriver, WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
@@ -429,4 +383,61 @@ public class BasePage {
 	public void waitListToBeRefreshed(String cssUpdateMarker) {
 		getWait().until(ExpectedConditions.visibilityOfElementLocated(By.className(cssUpdateMarker)));
 	}
+
+	/**
+	 * Return a Locator with a specific format increasing the current date by the
+	 * days CSS -Format -> button[data-year='2020'][data-month='5'][data-day='3']
+	 * Note: Minus one month because in web page months start at 0 and end at 11
+	 *
+	 * @param days: int
+	 * @return {@link String}
+	 */
+	protected String calculateDateCSS(int days) {
+		LocalDate increasedDate = LocalDate.now().plusDays(days).minusMonths(1);
+		return "button[data-year='" + increasedDate.getYear() + "']" + "[data-month='" + increasedDate.getMonthValue()
+				+ "']" + "[data-day='" + increasedDate.getDayOfMonth() + "']";
+	}
+
+	/**
+	 * Find the element for the date component in the calendar
+	 *
+	 * @param cssSelector: String
+	 */
+	public WebElement findDateElementByCSS(WebElement webElement, String cssSelector) {
+		try {
+			return getDriver().findElement(By.cssSelector(cssSelector));
+		} catch (Exception e) {
+			// log.info(e);
+			waitElementToBeClickable(webElement);
+			clickElement(webElement);
+			return findDateElementByCSS(webElement, cssSelector);
+		}
+	}
+
+	/**
+	 * Select a Date in the Calendar according with a number of days given
+	 *
+	 * @param daysFromNow: int
+	 */
+
+	public void selectDateInCalendar(int daysFromNow, WebElement nextMonthButton) {
+		String tmpCSS = calculateDateCSS(daysFromNow);
+		WebElement dayToTravel = findDateElementByCSS(nextMonthButton, tmpCSS);
+		clickElement(dayToTravel);
+	}
+
+	/**
+	 * Open the Calendar
+	 *
+	 */
+
+	public void openCalendar(WebElement dataPicker, WebElement elementInsideDataPicker, WebElement calendarDiv) {
+		clickElement(dataPicker);
+		if (!elementInsideDataPicker.isDisplayed()) {
+			waitElementVisibility(calendarDiv);
+			clickElement(calendarDiv);
+		}
+		moveToElement(elementInsideDataPicker);
+	}
+
 }

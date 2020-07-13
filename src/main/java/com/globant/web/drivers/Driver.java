@@ -18,7 +18,7 @@ public class Driver {
 
     /**
      * Constructor
-     * @param browser
+     * @param browser: String
      */
     public Driver(String browser) {
         switch (browser){

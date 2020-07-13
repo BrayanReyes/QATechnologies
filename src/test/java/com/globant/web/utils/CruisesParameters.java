@@ -8,16 +8,16 @@ package com.globant.web.utils;
  */
 public class CruisesParameters {
 
-	private String cruiseDestination;
-	private int departAsEarly;
-	private int departAsLate;
+	private final String cruiseDestination;
+	private final int departAsEarly;
+	private final int departAsLate;
 
 	/**
 	 * Constructor to perform a cruise search
 	 * 
-	 * @param destination
-	 * @param departAsEarly
-	 * @param departAsLate
+	 * @param destination: String
+	 * @param departAsEarly: int
+	 * @param departAsLate: int
 	 */
 	public CruisesParameters(String destination, int departAsEarly, int departAsLate) {
 		this.cruiseDestination = destination;

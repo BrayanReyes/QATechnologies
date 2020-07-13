@@ -45,13 +45,17 @@ public class FlightsSearchPage extends BasePage {
 	private WebElement searchFlightsButton;
 
 	@FindBy(className = "datepicker-close")
-	private WebElement calendarLabel;
+	private WebElement closeDataPickerDiv;
 
 	@FindBy(css = "#package-departing-wrapper-hp-package .datepicker-dropdown")
-	private WebElement calendarDiv;
+	private WebElement departCalendarDiv;
+
+	@FindBy(css = "#package-returning-wrapper-hp-package .datepicker-dropdown")
+	private WebElement returnCalendarDiv;
 
 	@FindBy(css = "button[class*=\"btn-paging btn-secondary next\"]")
 	private WebElement nextMonthButton;
+
 
 	/**
 	 * Constructor
@@ -83,7 +87,7 @@ public class FlightsSearchPage extends BasePage {
 	/**
 	 * Set the City where you are going to depart
 	 *
-	 * @param flyingFrom
+	 * @param flyingFrom: String
 	 */
 	public void setFlyingFrom(String flyingFrom) {
 		waitElementVisibility(flightsFlyingFromInput);
@@ -94,7 +98,7 @@ public class FlightsSearchPage extends BasePage {
 	/**
 	 * Set the City where do will return
 	 *
-	 * @param flyingTo
+	 * @param flyingTo: String
 	 */
 	public void setFlyingTo(String flyingTo) {
 		waitElementVisibility(flightsFlyingToInput);
@@ -104,38 +108,12 @@ public class FlightsSearchPage extends BasePage {
 	}
 
 	/**
-	 * Open the calendar
-	 *
-	 */
-
-	private void openCalendar() {
-		clickElement(departingFlightsDataPicker);
-		if (!calendarLabel.isDisplayed()) {
-			waitElementVisibility(calendarDiv);
-			clickElement(calendarDiv);
-		}
-		moveToElement(calendarLabel);
-	}
-
-	/**
-	 * Select a Date according with a number of days given
-	 *
-	 * @param daysFromNow: int
-	 */
-
-	private void selectDepartingDate(int daysFromNow) {
-		String tmpCSS = calculateDateCSS(daysFromNow);
-		WebElement dayToDepart = findDateElementByCSS(nextMonthButton, tmpCSS);
-		clickElement(dayToDepart);
-	}
-
-	/**
 	 * Set the Departing Date.
 	 */
 
 	public void setDepartingDate(int daysForward) {
-		openCalendar();
-		selectDepartingDate(daysForward);
+		openCalendar(departingFlightsDataPicker, closeDataPickerDiv, departCalendarDiv);
+		selectDateInCalendar(daysForward, nextMonthButton);
 		log.info("The user selects the Departing Date through the Calendar");
 	}
 
@@ -143,14 +121,15 @@ public class FlightsSearchPage extends BasePage {
 	 * Set the Returning Date.
 	 */
 	public void setReturningDate(int daysToReturn) {
-		setReturningDate(returningFlightsDataPicker, daysToReturn);
+		openCalendar(returningFlightsDataPicker, closeDataPickerDiv, returnCalendarDiv);
+		selectDateInCalendar(daysToReturn, nextMonthButton);
 		log.info("The user selects the Returning Date through the Calendar");
 	}
 
 	/**
 	 * Set the adults quantity for the flight
 	 *
-	 * @param numberOfAdults
+	 * @param numberOfAdults: String
 	 */
 	public void setAdultsQuantity(String numberOfAdults) {
 		log.info("The user selects the Adults quantity in the dropdown list");
@@ -160,7 +139,7 @@ public class FlightsSearchPage extends BasePage {
 	/**
 	 * Set the children quantity for the flight
 	 *
-	 * @param numberOfChildren
+	 * @param numberOfChildren: String
 	 */
 	public void setChildrenQuantity(String numberOfChildren) {
 		log.info("The user selects the Children quantity in the dropdown list");
@@ -170,7 +149,7 @@ public class FlightsSearchPage extends BasePage {
 	/**
 	 * Set the age of every children
 	 *
-	 * @param childrenAge
+	 * @param childrenAge: String
 	 */
 	public void setChildrenAge(String... childrenAge) {
 		log.info("Setting Children Ages in the dropdown list");
